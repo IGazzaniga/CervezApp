@@ -3,16 +3,22 @@ import { Injectable } from '@angular/core';
 import { Item } from '../../models/item';
 import { Api } from '../api/api';
 
-@Injectable()
-export class Items {
+import firebase from 'firebase';
 
-  constructor(public api: Api) { }
+@Injectable()
+export class ItemsService {
+  private itemsRef: firebase.database.Reference;
+
+  constructor(public api: Api) {
+    this.itemsRef = firebase.database().ref('items');
+  }
 
   query(params?: any) {
     return this.api.get('/items', params);
   }
 
-  add(item: Item) {
+  add(item: Item): firebase.database.ThenableReference {
+    return this.itemsRef.push(item);
   }
 
   delete(item: Item) {

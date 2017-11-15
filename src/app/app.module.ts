@@ -9,11 +9,14 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { Items } from '../mocks/providers/items';
+import { ItemsService } from '../providers/items/items';
 import { Settings } from '../providers/providers';
 import { User } from '../providers/providers';
-import { Api } from '../providers/providers';
+import { Api, Items } from '../providers/providers';
 import { MyApp } from './app.component';
+
+import firebase from 'firebase';
+import { envprod } from "../config/env.prod";
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -35,6 +38,8 @@ export function provideSettings(storage: Storage) {
     option4: 'Hello'
   });
 }
+
+firebase.initializeApp(envprod.firebase);
 
 @NgModule({
   declarations: [
@@ -59,6 +64,7 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
+    ItemsService,
     Items,
     User,
     Camera,
