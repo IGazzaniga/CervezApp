@@ -9,10 +9,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { ItemsService } from '../providers/items/items';
-import { Settings } from '../providers/providers';
-import { User } from '../providers/providers';
-import { Api, Items } from '../providers/providers';
+import { Api, UserService, Settings, ItemsService } from '../providers/providers';
 import { MyApp } from './app.component';
 
 import firebase from 'firebase';
@@ -65,8 +62,7 @@ firebase.initializeApp(envprod.firebase);
   providers: [
     Api,
     ItemsService,
-    Items,
-    User,
+    UserService,
     Camera,
     SplashScreen,
     StatusBar,

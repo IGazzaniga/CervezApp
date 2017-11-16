@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 
 import { Item } from '../../models/item';
-import { Items } from '../../providers/providers';
-import { ItemsService } from "../../providers/items/items";
+import { ItemsService } from "../../providers/items/items-service";
 
 @IonicPage()
 @Component({
@@ -13,8 +12,7 @@ import { ItemsService } from "../../providers/items/items";
 export class ListMasterPage {
   currentItems: Item[];
 
-  constructor(public navCtrl: NavController, public items: Items, public itemsService:ItemsService, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+  constructor(public navCtrl: NavController, public itemsService:ItemsService, public modalCtrl: ModalController) {
   }
 
   /**
@@ -44,7 +42,7 @@ export class ListMasterPage {
    * Delete an item from the list of items.
    */
   deleteItem(item) {
-    this.items.delete(item);
+    //this.items.delete(item);
   }
 
   /**
