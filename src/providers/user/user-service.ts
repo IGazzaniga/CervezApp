@@ -9,7 +9,7 @@ import { User } from "../../models/User";
 
 @Injectable()
 export class UserService {
-  private auth: firebase.auth.Auth;
+  public auth: firebase.auth.Auth;
   private usersDB: firebase.database.Reference;
   _user: User;
 
@@ -19,24 +19,21 @@ export class UserService {
   }
 
   /**
-   * Send a POST request to our login endpoint with the data
-   * the user entered on the form.
+   *  Metodo de login con Email y Password
    */
   login(accountInfo: any): Promise<any> {
     return this.auth.signInWithEmailAndPassword(accountInfo.email, accountInfo.password);
   }
 
   /**
-   * Log the user out, which forgets the session
+   * Logout de un usuario
    */
   logout() {
-    this.auth.signOut().then(() => {
-      this._user = null;
-    }).catch((err) => console.log(err));
+    this.auth.signOut().catch((err) => console.log("error en logout", err));
   }
 
   /**
-   * Process a login/signup response to store user data
+   * Comprueba si el usuario existe en la DB, si no es asi, lo agrega.
    */
   _loggedIn(resp) {
     this.isNewUser(resp).then((user) => {
@@ -49,11 +46,17 @@ export class UserService {
     })
   }
 
+  /**
+   * Devuleve al usuario si existe, o null en caso contrario. el resultado se muestra con el metodo .val()
+   */
   private isNewUser(respUser: any): Promise<any> {
     let uid = respUser.uid;
     return this.usersDB.child(uid).once("value");
   }
 
+  /**
+   * Agrega un usuario a la base de datos
+   */
   private addUser(user: User) {
     this.usersDB.child(user.$uid).set(user);
   }

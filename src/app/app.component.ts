@@ -5,7 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 
 import { FirstRunPage } from '../pages/pages';
-import { Settings } from '../providers/providers';
+import { Settings, UserService } from '../providers/providers';
+import { User } from "../models/User";
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -27,7 +28,7 @@ import { Settings } from '../providers/providers';
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = FirstRunPage;
+  rootPage;
 
   @ViewChild(Nav) nav: Nav;
 
@@ -45,14 +46,33 @@ export class MyApp {
     { title: 'Search', component: 'SearchPage' }
   ]
 
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService, platform: Platform, settings: Settings,
+              private config: Config, private statusBar: StatusBar, 
+              private splashScreen: SplashScreen, private userService: UserService) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    this.checkAuthUser();
     this.initTranslate();
+  }
+
+  /**
+   * Evento que se dispara cuando el estado de Autenticacion de un usuario cambia.
+   * user es null cuando el usuario no esta logueado
+   */
+  checkAuthUser() {
+    this.userService.auth.onAuthStateChanged((user) => {
+      if(user) {
+        this.userService._loggedIn(user);
+        this.rootPage = 'ListMasterPage';
+      } else {
+        this.userService._user = null;
+        this.rootPage = 'LoginPage';
+      }
+    })
   }
 
   initTranslate() {
