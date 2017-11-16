@@ -1,11 +1,11 @@
 export const envdev = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyABxQuSHYH_-rXRI6NJw7QM2EULgPOf9sY",
-    authDomain: "decomprasdev.firebaseapp.com",
-    databaseURL: "https://decomprasdev.firebaseio.com",
-    projectId: "decomprasdev",
-    storageBucket: "decomprasdev.appspot.com",
-    messagingSenderId: "610842487922"
+    apiKey: "AIzaSyApFAfPigumigoyuJ_UI13GH0SL2kU_7XM",
+    authDomain: "cervezapp-dev.firebaseapp.com",
+    databaseURL: "https://cervezapp-dev.firebaseio.com",
+    projectId: "cervezapp-dev",
+    storageBucket: "cervezapp-dev.appspot.com",
+    messagingSenderId: "303755434062"
   }
 };
