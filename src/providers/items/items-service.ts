@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Item } from '../../models/item';
+import { Item } from '../../models/Item';
 import { Api } from '../api/api';
 
 import firebase from 'firebase';

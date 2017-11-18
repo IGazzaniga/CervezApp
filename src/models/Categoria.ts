@@ -1,6 +1,6 @@
 import { Item } from "./Item";
 
-export class Categoría {
+export class Categoria {
     private id: string;
     private nombre: string;
     private idNegocio: string;
@@ -9,10 +9,16 @@ export class Categoría {
 	constructor($id: string, $nombre: string, $idNegocio: string, $items: Item[]) {
 		this.id = $id;
 		this.nombre = $nombre;
-		this.idNegocio = $idNegocio;
-		this.items = $items;
+    this.idNegocio = $idNegocio;
+    if ($items) {
+      this.items = $items;
+    }
+      else {
+      this.items = [];
+      }
   }
   
+
   public get $id(): string {
 		return this.id;
 	}

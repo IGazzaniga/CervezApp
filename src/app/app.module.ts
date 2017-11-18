@@ -14,6 +14,7 @@ import { MyApp } from './app.component';
 
 import firebase from 'firebase';
 import { envprod } from "../config/env.prod";
+import { CategoriasService } from '../providers/categorias/categorias-service';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -63,6 +64,7 @@ firebase.initializeApp(envprod.firebase);
     Api,
     ItemsService,
     UserService,
+    CategoriasService,
     Camera,
     SplashScreen,
     StatusBar,
