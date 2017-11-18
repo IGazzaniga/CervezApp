@@ -47,7 +47,7 @@ export class UserService {
   }
 
   /**
-   * Devuleve al usuario si existe, o null en caso contrario. el resultado se muestra con el metodo .val()
+   * Devuelve al usuario si existe, o null en caso contrario. el resultado se muestra con el metodo .val()
    */
   private isNewUser(respUser: any): Promise<any> {
     let uid = respUser.uid;
@@ -61,14 +61,27 @@ export class UserService {
     this.usersDB.child(user.$uid).set(user);
   }
 
-  updateProfile (nombre: string, foto: string) {
+  updateProfile (nombre: string, foto: string, direccion: string, horaApertura: Date, horaCierre: Date, localidad: string) {
     this.auth.currentUser.updateProfile({
       displayName: nombre,
       photoURL: foto
-    }).then(function() {
-      console.log("se setea nombre y foto del negocio");
+    }).then(() => {
+      this.usersDB.child(this._user.$uid).update({
+        displayName: nombre,
+        photoURL: foto,
+        direccion: direccion,
+        horaApertura: horaApertura,
+        horaCierre: horaCierre,
+        localidad: localidad
+      }).then(() => {
+        console.log("se actualiza la info del negocio");
+      }).catch((error) => {
+        console.log("error en la actualizacion del perfil: ", error);  
+      })
     }).catch(function(error) {
       console.log("error en la actualizacion del perfil: ", error);
     });
   }
 }
+
+
