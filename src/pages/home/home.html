@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button menuToggle ion-button>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
 
@@ -20,6 +23,7 @@
       Categorias
     </ion-list-header>
     <ion-item *ngFor="let cat of categorias">{{cat.name}}</ion-item>
+    <p *ngIf="categorias.length == 0">No tiene categorias creadas aun</p>
   </ion-list>
   
   <ion-fab right bottom>

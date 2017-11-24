@@ -1,3 +1,6 @@
+import {UserService} from '../providers/user/user-service';
+import {ItemsService} from '../providers/items/items-service';
+import {Api} from '../providers/api/api';
 import {AngularFireModule} from 'angularfire2';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -10,13 +13,14 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
-import { Api, UserService, Settings, ItemsService } from '../providers/providers';
 import { MyApp } from './app.component';
 
-import firebase from 'firebase';
+
 import { envprod } from "../config/env.prod";
 import { CategoriasService } from '../providers/categorias/categorias-service';
+import { Settings } from "../providers/settings/settings";
+
+import firebase from 'firebase';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.

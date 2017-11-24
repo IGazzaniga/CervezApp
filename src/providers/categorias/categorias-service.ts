@@ -1,3 +1,4 @@
+import {UserService} from '../user/user-service';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 
@@ -6,7 +7,6 @@ import { Api } from '../api/api';
 
 import firebase from 'firebase';
 import { Categoria } from '../../models/Categoria';
-import { UserService } from '../providers';
 import { Observable } from "rxjs/Observable";
 
 @Injectable()
