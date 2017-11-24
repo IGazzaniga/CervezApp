@@ -1,3 +1,4 @@
+import {Storage} from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
 
 import { Injectable } from '@angular/core';
@@ -11,9 +12,9 @@ import { User } from "../../models/User";
 export class UserService {
   public auth: firebase.auth.Auth;
   private usersDB: firebase.database.Reference;
-  _user: User;
+  private _user: User;
 
-  constructor(public api: Api) {
+  constructor(public api: Api, public storage: Storage) {
     this.auth = firebase.auth();
     this.usersDB = firebase.database().ref('users');
   }
@@ -32,16 +33,28 @@ export class UserService {
     this.auth.signOut().catch((err) => console.log("error en logout", err));
   }
 
+  public isUserAuth (): Boolean {
+    let user = firebase.auth().currentUser;
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * Comprueba si el usuario existe en la DB, si no es asi, lo agrega.
    */
-  _loggedIn(resp) {
-    this.isNewUser(resp).then((user) => {
+  _loggedIn(resp): Promise<any> {
+    return this.isNewUser(resp).then((user) => {
       if (!user.val()) {
         this._user = new User(resp);
-        this.addUser(this._user);
+        this.setCurrentUser(this._user).then(()=> {
+          this.addUser(this._user);
+        });
       } else {
         this._user = new User(user.val());
+        this.setCurrentUser(this._user);
       }
     })
   }
@@ -57,8 +70,20 @@ export class UserService {
   /**
    * Agrega un usuario a la base de datos
    */
-  private addUser(user: User) {
+  public addUser(user: User) {
     this.usersDB.child(user.$uid).set(user);
+  }
+
+  public setCurrentUser (user: User): Promise<any> {
+    if (!user) {
+      return this.storage.remove("currentUser");
+    } else {
+      return this.storage.set("currentUser", user);
+    }
+  }
+
+  public getCurrentUser (): Promise<any> {
+    return this.storage.get("currentUser");
   }
 
   updateProfile (nombre: string, foto: string, direccion: string, horaApertura: Date, horaCierre: Date, localidad: string) {

@@ -21,6 +21,9 @@ import { User } from "../models/User";
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           {{p.title}}
         </button>
+        <button menuClose ion-item (click)="logout()">
+          Cerrar Sesion
+        </button>
       </ion-list>
     </ion-content>
 
@@ -33,17 +36,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
-    { title: 'Tutorial', component: 'TutorialPage' },
-    { title: 'Welcome', component: 'WelcomePage' },
-    { title: 'Tabs', component: 'TabsPage' },
-    { title: 'Cards', component: 'CardsPage' },
-    { title: 'Content', component: 'ContentPage' },
-    { title: 'Login', component: 'LoginPage' },
-    { title: 'Signup', component: 'SignupPage' },
-    { title: 'Master Detail', component: 'ListMasterPage' },
-    { title: 'Menu', component: 'MenuPage' },
-    { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Search', component: 'SearchPage' }
+    { title: 'Home', component: 'HomePage' }
   ]
 
   constructor(private translate: TranslateService, platform: Platform, settings: Settings,
@@ -64,13 +57,14 @@ export class MyApp {
    * user es null cuando el usuario no esta logueado
    */
   checkAuthUser() {
-    this.userService.auth.onAuthStateChanged((user) => {
-      if(user) {
-        this.userService._loggedIn(user);
-        this.rootPage = 'ListMasterPage';
+    this.userService.auth.onAuthStateChanged((userResp) => {
+      if (userResp) {
+        this.userService._loggedIn(userResp).then(()=> {
+          this.rootPage = 'HomePage';
+        });
       } else {
-        this.userService._user = null;
         this.rootPage = 'LoginPage';
+        this.userService.setCurrentUser(null);
       }
     })
   }
@@ -91,8 +85,10 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  logout () {
+    this.userService.logout();
   }
 }

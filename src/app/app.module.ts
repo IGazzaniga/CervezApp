@@ -1,3 +1,5 @@
+import {AngularFireModule} from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -45,6 +47,7 @@ firebase.initializeApp(envprod.firebase);
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(envprod.firebase),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -68,6 +71,7 @@ firebase.initializeApp(envprod.firebase);
     Camera,
     SplashScreen,
     StatusBar,
+    AngularFireDatabase,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }

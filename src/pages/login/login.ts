@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import {MenuController, IonicPage,  NavController,  ToastController} from 'ionic-angular';
 
 import { UserService } from '../../providers/providers';
 import { MainPage } from '../pages';
@@ -22,18 +22,37 @@ export class LoginPage {
   private loginErrorString: string;
 
   constructor(public navCtrl: NavController,
-    public user: UserService,
+    public userService: UserService,
     public toastCtrl: ToastController,
+    public menuCtrl: MenuController,
     public translateService: TranslateService) {
+      this.menuCtrl.enable(false);
+      this.translateService.get('LOGIN_ERROR').subscribe((value) => {
+        this.loginErrorString = value;
+      })
+  }
 
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {
-      this.loginErrorString = value;
-    })
+  ionViewCanLeave(): boolean{
+    //Si el usuario no se logueo, no se le permite salir de la pantalla de login
+    if(this.userService.isUserAuth()){
+        return true;
+      } else {
+        return false;
+      }
+  }
+
+  ionViewCanEnter(): boolean{
+    //solo se puede entrar al login cuando no hay un usuario logueado
+    if(!this.userService.isUserAuth()){
+        return true;
+      } else {
+        return false;
+      }
   }
 
   // Attempt to login in through our User service
   doLogin() {
-    this.user.login(this.account).catch((err) => {
+    this.userService.login(this.account).catch((err) => {
       // Unable to log in
       let toast = this.toastCtrl.create({
         message: this.loginErrorString,
