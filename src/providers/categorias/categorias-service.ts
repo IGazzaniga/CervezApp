@@ -29,7 +29,8 @@ export class CategoriasService{
     })
   }
 
-  delete(item: Item) {
+  public delete (catId: string): Promise<any> {
+    return this.categoriasRef.child(catId).remove();
   }
 
 }

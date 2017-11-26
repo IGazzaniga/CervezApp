@@ -72,7 +72,7 @@ export class UserService {
    * Agrega un usuario a la base de datos
    */
   public addUser(user: User) {
-    this.usersDB.child(user.$uid).set(user);
+    this.usersDB.child(user.uid).set(user);
   }
 
   public setCurrentUser (user: User): Promise<any> {
@@ -92,7 +92,7 @@ export class UserService {
       displayName: nombre,
       photoURL: foto
     }).then(() => {
-      this.usersDB.child(this._user.$uid).update({
+      this.usersDB.child(this._user.uid).update({
         displayName: nombre,
         photoURL: foto,
         direccion: direccion,

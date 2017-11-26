@@ -27,4 +27,8 @@ export class MainPage {
     })
   }
 
+  public goToNegocio (neg: User) {
+    this.navCtrl.push('NegocioMainPage', {negocio: neg});
+  }
+
 }
