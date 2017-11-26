@@ -55,7 +55,7 @@ export class MyApp {
           this.rootPage = 'HomePage';
         });
       } else {
-        this.rootPage = 'LoginPage';
+        this.rootPage = 'MainPage';
         this.userService.setCurrentUser(null);
       }
     })

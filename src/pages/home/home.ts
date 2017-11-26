@@ -20,15 +20,26 @@ export class HomePage {
   public categorias: Categoria[] = [];
 
   constructor(public navCtrl: NavController, public userService: UserService, public categoriasService: CategoriasService, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public menuCtrl: MenuController) {
-    this.menuCtrl.enable(true);  
+      
   }
 
   ionViewDidLoad() {
+    this.menuCtrl.enable(true);
     this.userService.getCurrentUser().then((user) => {
       this.categoriasService.getAll(user.uid).subscribe((categorias) => {
         this.categorias = categorias;
       })
     })
+  }
+
+  ionViewCanEnter(): boolean{
+    //solo se puede entrar al login cuando no hay un usuario logueado
+    if(this.userService.isUserAuth()){
+        return true;
+      } else {
+        this.navCtrl.setRoot('MainPage');
+        return false;
+      }
   }
 
   public add () {

@@ -7,6 +7,8 @@ import { Api } from '../api/api';
 
 import firebase from 'firebase';
 import { User } from "../../models/User";
+import { AngularFireDatabase } from "angularfire2/database";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class UserService {
@@ -14,7 +16,7 @@ export class UserService {
   private usersDB: firebase.database.Reference;
   private _user: User;
 
-  constructor(public api: Api, public storage: Storage) {
+  constructor(public api: Api, public storage: Storage, public db: AngularFireDatabase) {
     this.auth = firebase.auth();
     this.usersDB = firebase.database().ref('users');
   }
@@ -34,8 +36,7 @@ export class UserService {
   }
 
   public isUserAuth (): Boolean {
-    let user = firebase.auth().currentUser;
-    if (user) {
+    if (localStorage.key(0).includes("firebase:authUser")) {
       return true;
     } else {
       return false;
@@ -86,7 +87,7 @@ export class UserService {
     return this.storage.get("currentUser");
   }
 
-  updateProfile (nombre: string, foto: string, direccion: string, horaApertura: Date, horaCierre: Date, localidad: string) {
+  public updateProfile (nombre: string, foto: string, direccion: string, horaApertura: Date, horaCierre: Date, localidad: string) {
     this.auth.currentUser.updateProfile({
       displayName: nombre,
       photoURL: foto
@@ -106,6 +107,10 @@ export class UserService {
     }).catch(function(error) {
       console.log("error en la actualizacion del perfil: ", error);
     });
+  }
+
+  public getAll (): Observable<User[]> {
+    return this.db.list<User>(this.usersDB).valueChanges()
   }
 }
 

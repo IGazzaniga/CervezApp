@@ -24,28 +24,23 @@ export class LoginPage {
     public toastCtrl: ToastController,
     public menuCtrl: MenuController,
     public translateService: TranslateService) {
-      this.menuCtrl.enable(false);
       this.translateService.get('LOGIN_ERROR').subscribe((value) => {
         this.loginErrorString = value;
       })
   }
 
-  ionViewCanLeave(): boolean{
-    //Si el usuario no se logueo, no se le permite salir de la pantalla de login
-    if(this.userService.isUserAuth()){
-        return true;
-      } else {
-        return false;
-      }
+  ionViewDidLoad () {
+    this.menuCtrl.enable(false);
   }
 
   ionViewCanEnter(): boolean{
     //solo se puede entrar al login cuando no hay un usuario logueado
     if(!this.userService.isUserAuth()){
-        return true;
-      } else {
-        return false;
-      }
+      return true;
+    } else {
+      this.navCtrl.setRoot('HomePage');
+      return false;
+    }
   }
 
   // Attempt to login in through our User service
