@@ -2,9 +2,9 @@ export class Racion {
     private $nombre: string;
     private $precio: number;
     
-    constructor($nombre: string, $precio: number) {
-        this.$nombre = $nombre;
-        this.$precio = $precio;
+    constructor(racion: any) {
+        this.$nombre = racion.nombre;
+        this.$precio = racion.precio;
     }
 
     public get nombre(): string {

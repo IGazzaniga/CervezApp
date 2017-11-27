@@ -6,17 +6,12 @@ export class Categoria {
     private $idNegocio: string;
     private $items: Item[];
 
-	constructor($id: string, $nombre: string, $idNegocio: string, $items: Item[]) {
-		this.$id = $id;
-		this.$nombre = $nombre;
-		this.$idNegocio = $idNegocio;
-		if ($items) {
-			this.$items = $items;
-		}
-		else {
-			this.$items = [];
-		}
-  }
+	constructor(categoria: any) {
+		this.$id = categoria.id;
+		this.$nombre = categoria.nombre;
+		this.$idNegocio = categoria.idNegocio;
+		this.$items = categoria.items || [];
+  	}
   
 
   	public get id(): string {

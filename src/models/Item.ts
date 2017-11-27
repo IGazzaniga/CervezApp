@@ -10,6 +10,8 @@ import { Racion } from "./Racion";
  * that something that fits your app as well.
  */
 export class Item {
+    private $id: string;
+    private $idCategoria: string;
     private $descripcion: string;
     private $nombre: string;
     private $precio: number;
@@ -19,15 +21,33 @@ export class Item {
     private $ibu: number;
     private $proveedor: string;
 
-    constructor($descripcion: string, $nombre: string, $precio: number, $racion: Racion, $foto: string, $graduacion: number, $ibu: number, $proveedor: string) {
-      this.$descripcion = $descripcion;
-      this.$nombre = $nombre;
-      this.$precio = $precio;
-      this.$racion = $racion;
-      this.$foto = $foto;
-      this.$graduacion = $graduacion;
-      this.$ibu = $ibu;
-      this.$proveedor = $proveedor;
+    constructor(item: any) {
+      this.$id = item.id
+      this.$idCategoria = item.idCategoria;
+      this.$descripcion = item.descripcion;
+      this.$nombre = item.nombre;
+      this.$precio = item.precio;
+      this.$racion = new Racion(item.racion);
+      this.$foto = item.foto;
+      this.$graduacion = item.graduacion;
+      this.$ibu = item.ibu;
+      this.$proveedor = item.proveedor;
+    }
+
+    public get id(): string {
+      return this.id;
+    }
+
+    public set id(value: string) {
+      this.id = value;
+    }
+
+    public get idCategoria(): string {
+      return this.id;
+    }
+
+    public set idCategoria(value: string) {
+      this.idCategoria = value;
     }
     
     public get descripcion(): string {

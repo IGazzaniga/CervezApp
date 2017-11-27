@@ -17,8 +17,10 @@ export class ItemsService {
     return this.api.get('/items', params);
   }
 
-  add(item: Item): firebase.database.ThenableReference {
-    return this.itemsRef.push(item);
+  public add(item: Item): Promise<any> {
+    let itemId = this.itemsRef.push().key;
+    item.id = itemId;
+    return this.itemsRef.child(itemId).set(item);
   }
 
   delete(item: Item) {
