@@ -8,6 +8,7 @@ import { Api } from '../api/api';
 import firebase from 'firebase';
 import { Categoria } from '../../models/Categoria';
 import { Observable } from "rxjs/Observable";
+import { NewCategoria } from "../../models/New-Categoria";
 
 @Injectable()
 export class CategoriasService{
@@ -21,7 +22,8 @@ export class CategoriasService{
     return this.db.list<Categoria>(this.categoriasRef, ref => ref.orderByChild('idNegocio').equalTo(userId)).valueChanges();
   }
 
-  public add(categoria: Categoria): Promise<any> {
+  public add(newcategoria: NewCategoria): Promise<any> {
+    let categoria = new Categoria(newcategoria);
     return this.userService.getCurrentUser().then((user) => {
       categoria.idNegocio = user.uid;
       categoria.id = this.categoriasRef.push().key;

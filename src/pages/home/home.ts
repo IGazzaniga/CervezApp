@@ -3,6 +3,7 @@ import {Categoria} from '../../models/Categoria';
 import { Component } from '@angular/core';
 import { ModalController, ActionSheetController, MenuController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoriasService } from "../../providers/categorias/categorias-service";
+import { User } from "../../models/User";
 
 /**
  * Generated class for the HomePage page.

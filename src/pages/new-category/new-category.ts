@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoriasService } from "../../providers/categorias/categorias-service";
 import { UserService } from "../../providers/user/user-service";
+import { NewCategoria } from "../../models/New-Categoria";
 
 /**
  * Generated class for the NewCategoryPage page.
@@ -17,7 +18,7 @@ import { UserService } from "../../providers/user/user-service";
   templateUrl: 'new-category.html',
 })
 export class NewCategoryPage {
-  public newCategory: any = {};
+  public newCategoryForm: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
               public categoriasService: CategoriasService, public userService: UserService) {
@@ -38,7 +39,8 @@ export class NewCategoryPage {
   }
 
   public guardar() {
-    this.categoriasService.add(this.newCategory).then((resp) => {
+    let newCategoria = new NewCategoria(this.newCategoryForm);
+    this.categoriasService.add(newCategoria).then((resp) => {
       this.navCtrl.pop();
     });
   }

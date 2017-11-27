@@ -83,7 +83,7 @@ export class UserService {
     }
   }
 
-  public getCurrentUser (): Promise<any> {
+  public getCurrentUser (): Promise<User> {
     return this.storage.get("currentUser");
   }
 
