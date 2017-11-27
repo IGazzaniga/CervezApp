@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ItemsService } from "../../providers/items/items-service";
 import { UserService } from "../../providers/user/user-service";
 import { CategoriasService } from '../../providers/categorias/categorias-service';
+import { NewItem } from '../../models/New-Item';
 
 /**
  * Generated class for the NewItemPage page.
@@ -18,7 +19,7 @@ import { CategoriasService } from '../../providers/categorias/categorias-service
   templateUrl: 'new-item.html',
 })
 export class NewItemPage {
-  public newItem: any = {};
+  public newItemForm: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemsService: ItemsService,
     public categoriasService: CategoriasService, public userService: UserService) {
@@ -39,7 +40,8 @@ export class NewItemPage {
   }
 
   public guardar() {
-    this.itemsService.add(this.newItem).then((resp) => {
+    let newItem = new NewItem(this.newItemForm);
+    this.itemsService.add(newItem).then((resp) => {
       this.navCtrl.pop();
     });
   }

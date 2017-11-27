@@ -18,8 +18,14 @@
     <ion-list>
 
       <ion-item>
-        <ion-label fixed>Titulo</ion-label>
+        <ion-label fixed>Nombre</ion-label>
         <ion-input type="text" [(ngModel)]="newItemForm.nombre" name="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Categoria</ion-label>
+        <ion-select [(ngModel)]="newItemForm.categoria">
+          <ion-option *ngFor="let categoria of categorias" [value]="categoria.id"></ion-option>
+        </ion-select>
       </ion-item>
 
       <div padding>
