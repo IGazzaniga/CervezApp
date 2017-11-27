@@ -24,13 +24,17 @@ export class Item {
     constructor(item: any) {
       this.id = item.id
       this.idCategoria = item.idCategoria;
-      this.descripcion = item.descripcion;
-      this.nombre = item.nombre;
-      this.precio = item.precio;
-      this.racion = new Racion(item.racion);
-      this.foto = item.foto;
-      this.graduacion = item.graduacion;
-      this.ibu = item.ibu;
-      this.proveedor = item.proveedor;
+      this.descripcion = item.descripcion || null;
+      this.nombre = item.nombre || null;
+      this.precio = item.precio || null;
+      if (item.racion) {
+        this.racion = new Racion(item.racion);
+      } else {
+        this.racion = null;
+      }
+      this.foto = item.foto || null;
+      this.graduacion = item.graduacion || null;
+      this.ibu = item.ibu || null;
+      this.proveedor = item.proveedor || null;
     }
 }

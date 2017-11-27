@@ -5,6 +5,7 @@ import { ItemsService } from "../../providers/items/items-service";
 import { UserService } from "../../providers/user/user-service";
 import { CategoriasService } from '../../providers/categorias/categorias-service';
 import { NewItem } from '../../models/New-Item';
+import { Categoria } from "../../models/Categoria";
 
 /**
  * Generated class for the NewItemPage page.
@@ -20,13 +21,14 @@ import { NewItem } from '../../models/New-Item';
 })
 export class NewItemPage {
   public newItemForm: any = {};
+  public categorias: Categoria[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemsService: ItemsService,
     public categoriasService: CategoriasService, public userService: UserService) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NewItemPage');
+    this.categorias = this.navParams.get('categorias');
   }
 
   ionViewCanEnter(): boolean{

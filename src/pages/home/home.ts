@@ -55,7 +55,7 @@ export class HomePage {
         },{
           text: 'Items',
           handler: () => {
-            console.log('Archive clicked');
+            this.addItem();
           }
         },{
           text: 'Cancel',
@@ -71,6 +71,10 @@ export class HomePage {
 
   public addCategory () {
     this.navCtrl.push('NewCategoryPage');
+  }
+
+  public addItem () {
+    this.navCtrl.push('NewItemPage', {categorias: this.categorias});
   }
 
 }

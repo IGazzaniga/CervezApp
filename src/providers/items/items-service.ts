@@ -22,10 +22,6 @@ export class ItemsService {
     return this.db.list<Item>(this.itemsRef, ref => ref.orderByChild('idCategoria').equalTo(categoriaId)).valueChanges();
   }
 
-  query(params?: any) {
-    return this.api.get('/items', params);
-  }
-
   public add(newitem: NewItem): Promise<any> {
       let item = new Item(newitem);
       item.id = this.itemsRef.push().key;

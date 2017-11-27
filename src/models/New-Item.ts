@@ -10,15 +10,15 @@ export class NewItem {
     proveedor: string;
     idCategoria: string;
 
-	constructor(item: any) {
-       this.descripcion = item.descripcion ;
-       this.nombre = item.nombre ;
-       this.idCategoria = item.idCategoria;
-       this.precio = item.precio ;
-       this.foto = item.foto;
-       this.graduacion = item.graduacion ;
-       this.ibu = item.ibu ;
-       this.proveedor = item.proveedor;
-       this.foto = item.foto || null;
+	constructor(newitem: any) {
+       this.descripcion = newitem.descripcion ;
+       this.nombre = newitem.nombre ;
+       this.idCategoria = newitem.idCategoria;
+       this.precio = newitem.precio ;
+       this.foto = newitem.foto;
+       this.graduacion = newitem.graduacion ;
+       this.ibu = newitem.ibu ;
+       this.proveedor = newitem.proveedor;
+       this.foto = newitem.foto || null;
   	}
 }
