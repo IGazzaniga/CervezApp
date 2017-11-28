@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {MenuController, IonicPage,  NavController,  NavParams} from 'ionic-angular';
 import { UserService } from "../../providers/user/user-service";
 import { User } from "../../models/User";
 
@@ -18,7 +18,8 @@ import { User } from "../../models/User";
 export class MainPage {
   public negocios: User[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl:MenuController, public userService: UserService) {
+    this.menuCtrl.enable(false);  
   }
 
   ionViewDidLoad() {

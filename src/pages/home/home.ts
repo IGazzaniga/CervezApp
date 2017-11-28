@@ -79,6 +79,7 @@ export class HomePage {
   public addItem () {
     this.navCtrl.push('NewItemPage', {categorias: this.categorias});
   }
+  
   public goToCategoria (cat: Categoria) {
     this.navCtrl.push('CategoriaDetailPage', {categoria: cat});
   }
