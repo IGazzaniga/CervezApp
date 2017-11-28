@@ -14,11 +14,13 @@ import { Observable } from "rxjs/Observable";
 export class UserService {
   public auth: firebase.auth.Auth;
   private usersDB: firebase.database.Reference;
+  private storageRef: firebase.storage.Reference;
   private _user: User;
 
   constructor(public api: Api, public storage: Storage, public db: AngularFireDatabase) {
     this.auth = firebase.auth();
     this.usersDB = firebase.database().ref('users');
+    this.storageRef = firebase.storage().ref();
   }
 
   /**
@@ -87,23 +89,19 @@ export class UserService {
     return this.storage.get("currentUser");
   }
 
-  public updateProfile (nombre: string, foto: string, direccion: string, horaApertura: Date, horaCierre: Date, localidad: string) {
-    this.auth.currentUser.updateProfile({
-      displayName: nombre,
-      photoURL: foto
+  public updateProfile (user: User) {
+    return this.auth.currentUser.updateProfile({
+      displayName: user.nombre,
+      photoURL: user.foto
     }).then(() => {
-      this.usersDB.child(this._user.uid).update({
-        displayName: nombre,
-        photoURL: foto,
-        direccion: direccion,
-        horaApertura: horaApertura,
-        horaCierre: horaCierre,
-        localidad: localidad
-      }).then(() => {
-        console.log("se actualiza la info del negocio");
-      }).catch((error) => {
-        console.log("error en la actualizacion del perfil: ", error);  
-      })
+      return this.usersDB.child(user.uid).update({
+        displayName: user.nombre || null,
+        photoURL: user.foto || null,
+        direccion: user.direccion || null,
+        horaApertura: user.horaApertura || null,
+        horaCierre: user.horaCierre || null,
+        localidad: user.localidad || null
+      });
     }).catch(function(error) {
       console.log("error en la actualizacion del perfil: ", error);
     });
@@ -111,6 +109,12 @@ export class UserService {
 
   public getAll (): Observable<User[]> {
     return this.db.list<User>(this.usersDB).valueChanges()
+  }
+
+  public saveImageProfile (foto: File) {
+    return this.getCurrentUser().then((user) => {
+      return this.storageRef.child(`profile-images/${user.uid}.jpg`).put(foto);
+    })
   }
 }
 

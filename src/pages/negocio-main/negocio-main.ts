@@ -11,7 +11,9 @@ import { CategoriasService } from "../../providers/categorias/categorias-service
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: ':nombre'
+})
 @Component({
   selector: 'page-negocio-main',
   templateUrl: 'negocio-main.html',
@@ -30,7 +32,7 @@ export class NegocioMainPage {
     });
   }
   public goToCategoria (cat: Categoria) {
-    this.navCtrl.push('CategoriaDetailPage', {categoria: cat});
+    this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.nombre, 'nombre-cat': cat.nombre, 'categoria': cat});
   }
 
 

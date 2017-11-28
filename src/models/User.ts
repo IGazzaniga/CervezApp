@@ -10,9 +10,13 @@ export class User {
 
     constructor(userLogin: any) {
         this.email = userLogin.email;
-        this.nombre = userLogin.displayName;
-        this.foto = userLogin.photoURL;
+        this.nombre = userLogin.displayName || userLogin.nombre || null;
+        this.foto = userLogin.photoURL || userLogin.foto || null;
         this.uid = userLogin.uid;
+        this.direccion = userLogin.direccion || null;
+        this.horaApertura = userLogin.horaApertura || null;
+        this.horaCierre = userLogin.horaCierre || null;
+        this.localidad = userLogin.localidad || null;
     }
 
 }

@@ -29,7 +29,7 @@ export class MainPage {
   }
 
   public goToNegocio (neg: User) {
-    this.navCtrl.push('NegocioMainPage', {negocio: neg});
+    this.navCtrl.push('NegocioMainPage', {'nombre': neg.nombre, 'negocio': neg});
   }
 
 }

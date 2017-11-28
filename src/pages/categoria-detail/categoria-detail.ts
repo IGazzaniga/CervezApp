@@ -11,7 +11,9 @@ import { ItemsService } from '../../providers/items/items-service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: ':nombre-neg/:nombre-cat'
+})
 @Component({
   selector: 'page-categoria-detail',
   templateUrl: 'categoria-detail.html',
