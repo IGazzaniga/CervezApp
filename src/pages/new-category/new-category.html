@@ -19,7 +19,7 @@
 
       <ion-item>
         <ion-label fixed>Titulo</ion-label>
-        <ion-input type="text" [(ngModel)]="newCategoryForm.nombre"></ion-input>
+        <ion-input type="text" [(ngModel)]="newCategoryForm.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
 
       <div padding>

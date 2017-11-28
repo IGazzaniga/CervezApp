@@ -29,5 +29,9 @@ export class NegocioMainPage {
       this.categorias = categorias;
     });
   }
+  public goToCategoria (cat: Categoria) {
+    this.navCtrl.push('CategoriaDetailPage', {categoria: cat});
+  }
+
 
 }

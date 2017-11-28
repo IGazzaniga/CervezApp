@@ -18,6 +18,6 @@
     <ion-list-header>
       Menu
     </ion-list-header>
-    <ion-item *ngFor="let cat of categorias">{{cat.nombre}}</ion-item>
+    <ion-item (click)="goToCategoria(cat)" *ngFor="let cat of categorias">{{cat.nombre}}</ion-item>
   </ion-list> 
 </ion-content>

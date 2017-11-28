@@ -3,7 +3,9 @@ import {Categoria} from '../../models/Categoria';
 import { Component } from '@angular/core';
 import { ModalController, ActionSheetController, MenuController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoriasService } from "../../providers/categorias/categorias-service";
-import { User } from "../../models/User";
+import { User } from '../../models/User';
+import { Item } from '../../models/Item';
+import { ItemsService } from '../../providers/items/items-service';
 
 /**
  * Generated class for the HomePage page.
@@ -19,8 +21,9 @@ import { User } from "../../models/User";
 })
 export class HomePage {
   public categorias: Categoria[] = [];
+  public items: Item[] = [];
 
-  constructor(public navCtrl: NavController, public userService: UserService, public categoriasService: CategoriasService, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public userService: UserService, public categoriasService: CategoriasService, public itemsService: ItemsService, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public menuCtrl: MenuController) {
       
   }
 
@@ -75,6 +78,9 @@ export class HomePage {
 
   public addItem () {
     this.navCtrl.push('NewItemPage', {categorias: this.categorias});
+  }
+  public goToCategoria (cat: Categoria) {
+    this.navCtrl.push('CategoriaDetailPage', {categoria: cat});
   }
 
 }
