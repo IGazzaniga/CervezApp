@@ -1,5 +1,5 @@
 import {Categoria} from '../../models/Categoria';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoriasService } from "../../providers/categorias/categorias-service";
 import { UserService } from "../../providers/user/user-service";
@@ -18,7 +18,9 @@ import { NewCategoria } from "../../models/New-Categoria";
   templateUrl: 'new-category.html',
 })
 export class NewCategoryPage {
+  @ViewChild('fileInput') fileInput;
   public newCategoryForm: any = {};
+  private fileFoto: File;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
               public categoriasService: CategoriasService, public userService: UserService) {
@@ -38,9 +40,24 @@ export class NewCategoryPage {
       }
   }
 
+  getPicture(event: Event) {
+    event.preventDefault();
+    this.fileInput.nativeElement.click();
+  }
+
+  processWebImage(event) {
+    let reader = new FileReader();
+    reader.onload = (readerEvent) => {
+      let imageData = (readerEvent.target as any).result;
+      this.newCategoryForm.imagen = imageData;
+    };
+    this.fileFoto = event.target.files[0];
+    reader.readAsDataURL(this.fileFoto);
+  }
+
   public guardar() {
     let newCategoria = new NewCategoria(this.newCategoryForm);
-    this.categoriasService.add(newCategoria).then((resp) => {
+    this.categoriasService.add(newCategoria, this.fileFoto).then((resp) => {
       this.navCtrl.pop();
     });
   }

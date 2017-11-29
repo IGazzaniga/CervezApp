@@ -22,6 +22,12 @@
         <ion-input type="text" [(ngModel)]="newCategoryForm.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
 
+      <ion-item>
+        <button ion-button color="primary" (click)="getPicture($event)">Subir imagen</button>
+        <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+      </ion-item>
+      <img style="width: 100%" *ngIf="newCategoryForm.imagen" [src]="newCategoryForm.imagen" alt="">
+
       <div padding>
         <button ion-button color="primary" block>Guardar</button>
       </div>
