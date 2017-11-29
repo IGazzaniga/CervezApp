@@ -5,11 +5,12 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
+    <button menuToggle ion-button>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Perfil {{currentUser?.nombre}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
@@ -40,7 +41,17 @@
 
       <ion-item>
         <ion-label fixed>Direccion</ion-label>
-        <ion-input type="text"  [ngModelOptions]="{standalone: true}" [(ngModel)]="currentUser.direccion"></ion-input>
+        <ion-input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="currentUser.direccion"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Hora de Apertura</ion-label>
+        <ion-datetime [ngModelOptions]="{standalone: true}" displayFormat="HH:mm" [(ngModel)]="currentUser.horaApertura"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Hora de Cierre</ion-label>
+        <ion-datetime [ngModelOptions]="{standalone: true}" displayFormat="HH:mm" [(ngModel)]="currentUser.horaCierre"></ion-datetime>
       </ion-item>
 
       <ion-item>
