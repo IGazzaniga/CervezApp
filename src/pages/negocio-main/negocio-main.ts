@@ -12,7 +12,7 @@ import { CategoriasService } from "../../providers/categorias/categorias-service
  */
 
 @IonicPage({
-  segment: ':nombre'
+  segment: 'negocio/:nombre'
 })
 @Component({
   selector: 'page-negocio-main',
@@ -26,11 +26,13 @@ export class NegocioMainPage {
     this.negocio = this.navParams.get('negocio');
   }
 
+
   ionViewDidLoad() {
     this.categoriaService.getAll(this.negocio.uid).subscribe((categorias) => {
       this.categorias = categorias;
     });
   }
+
   public goToCategoria (cat: Categoria) {
     this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.nombre, 'nombre-cat': cat.nombre, 'categoria': cat});
   }
