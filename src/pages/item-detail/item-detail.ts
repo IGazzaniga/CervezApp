@@ -12,7 +12,9 @@ import { ItemsService } from '../../providers/items/items-service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: 'negocio/:nombre-neg/:nombre-cat/:nombre-item'
+})
 @Component({
   selector: 'page-item-detail',
   templateUrl: 'item-detail.html',

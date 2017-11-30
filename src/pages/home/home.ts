@@ -22,6 +22,7 @@ import { ItemsService } from '../../providers/items/items-service';
 export class HomePage {
   public categorias: Categoria[] = [];
   public items: Item[] = [];
+  negocio: User;
 
   constructor(public navCtrl: NavController, public userService: UserService, public categoriasService: CategoriasService, public itemsService: ItemsService, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public menuCtrl: MenuController) {
       
@@ -30,6 +31,7 @@ export class HomePage {
   ionViewDidLoad() {
     this.menuCtrl.enable(true);
     this.userService.getCurrentUser().then((user) => {
+      this.negocio = user;
       this.categoriasService.getAll(user.uid).subscribe((categorias) => {
         this.categorias = categorias;
       })
@@ -81,7 +83,7 @@ export class HomePage {
   }
   
   public goToCategoria (cat: Categoria) {
-    this.navCtrl.push('CategoriaDetailPage', {categoria: cat});
+    this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.nombre, 'nombre-cat': cat.nombre, 'categoria': cat});
   }
 
 }

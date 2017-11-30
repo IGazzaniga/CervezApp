@@ -10,7 +10,9 @@ import { User } from "../../models/User";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: 'negocios'
+})
 @Component({
   selector: 'page-main',
   templateUrl: 'main.html',

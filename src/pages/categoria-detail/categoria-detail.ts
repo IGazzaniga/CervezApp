@@ -21,9 +21,11 @@ import { ItemsService } from '../../providers/items/items-service';
 export class CategoriaDetailPage {
   categoria: Categoria;
   items: Item[];
+  nombreNegocio: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemService: ItemsService) {
     this.categoria = this.navParams.get('categoria');
+    this.nombreNegocio = this.navParams.get('nombre-neg');
   }
 
   ionViewDidLoad() {
@@ -32,7 +34,7 @@ export class CategoriaDetailPage {
     });
   }
   public goToItem(it: Item) {
-    this.navCtrl.push('ItemDetailPage',{'item': it});
+    this.navCtrl.push('ItemDetailPage', {'nombre-neg': this.nombreNegocio, 'nombre-cat': this.categoria.nombre, 'nombre-item': it.nombre, 'item': it});
   }
 
 }
