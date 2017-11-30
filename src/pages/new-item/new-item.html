@@ -29,6 +29,31 @@
         </ion-select>
       </ion-item>
 
+      <ion-item>
+        <ion-label fixed>Descripción</ion-label>
+        <ion-input type="text" [(ngModel)]="newItemForm.descripcion" name="description"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Precio</ion-label>
+        <ion-input type="number" [(ngModel)]="newItemForm.precio" name="precio"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Graduación alcohólica</ion-label>
+        <ion-input type="number" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>IBU</ion-label>
+        <ion-input type="number" [(ngModel)]="newItemForm.ibu" name="IBU"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Proveedor</ion-label>
+        <ion-input type="text" [(ngModel)]="newItemForm.proveedor" name="proveedor"></ion-input>
+      </ion-item>
+
       <div padding>
         <button ion-button color="primary" block>Guardar</button>
       </div>

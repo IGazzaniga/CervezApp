@@ -1,0 +1,25 @@
+<!--
+  Generated template for the ItemDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{item.nombre}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+      <ion-item text-wrap><h2>Descripción: </h2> {{item.descripcion}}</ion-item>
+      <ion-item><h2>Precio: </h2>$ {{item.precio}}</ion-item>
+      <ion-item><h2>Graduación alcohólica: </h2>{{item.graduacion}}</ion-item>
+      <ion-item><h2>IBU: </h2>{{item.ibu}}</ion-item>
+      <ion-item><h2>Proveedor: </h2>{{item.proveedor}}</ion-item>
+    </ion-list> 
+
+</ion-content>

@@ -18,6 +18,6 @@
     <ion-list-header>
       Items
     </ion-list-header>
-    <ion-item *ngFor="let it of items">{{it.nombre}}</ion-item>
-    </ion-list> 
+    <ion-item (click)="goToItem(it)" *ngFor="let it of items">{{it.nombre}}</ion-item>
+  </ion-list> 
 </ion-content>

@@ -31,5 +31,8 @@ export class CategoriaDetailPage {
       this.items = items;
     });
   }
+  public goToItem(it: Item) {
+    this.navCtrl.push('ItemDetailPage',{'item': it});
+  }
 
 }

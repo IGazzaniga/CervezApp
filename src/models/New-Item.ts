@@ -15,7 +15,6 @@ export class NewItem {
        this.nombre = newitem.nombre ;
        this.idCategoria = newitem.idCategoria;
        this.precio = newitem.precio ;
-       this.foto = newitem.foto;
        this.graduacion = newitem.graduacion ;
        this.ibu = newitem.ibu ;
        this.proveedor = newitem.proveedor;
