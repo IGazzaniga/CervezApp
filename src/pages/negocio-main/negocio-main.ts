@@ -12,7 +12,8 @@ import { CategoriasService } from "../../providers/categorias/categorias-service
  */
 
 @IonicPage({
-  segment: 'negocio/:nombre'
+  defaultHistory: ['MainPage'],
+  segment: 'lugar/:nombre'
 })
 @Component({
   selector: 'page-negocio-main',

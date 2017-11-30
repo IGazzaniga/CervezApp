@@ -11,7 +11,7 @@ import { User } from "../../models/User";
  */
 
 @IonicPage({
-  segment: 'negocios'
+  segment: 'lugares'
 })
 @Component({
   selector: 'page-main',

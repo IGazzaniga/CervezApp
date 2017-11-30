@@ -12,7 +12,7 @@ import { ItemsService } from '../../providers/items/items-service';
  */
 
 @IonicPage({
-  segment: 'negocio/:nombre-neg/:nombre-cat'
+  segment: 'lugar/:nombre-neg/:nombre-cat'
 })
 @Component({
   selector: 'page-categoria-detail',
