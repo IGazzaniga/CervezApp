@@ -23,21 +23,10 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>Categoria</ion-label>
-        <ion-select [(ngModel)]="newItemForm.idCategoria" [ngModelOptions]="{standalone: true}">
-          <ion-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nombre}}</ion-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
         <ion-label fixed>Descripción</ion-label>
         <ion-input type="text" [(ngModel)]="newItemForm.descripcion" name="description"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label fixed>Precio</ion-label>
-        <ion-input type="number" [(ngModel)]="newItemForm.precio" name="precio"></ion-input>
-      </ion-item>
 
       <ion-item>
         <ion-label fixed>Graduación alcohólica</ion-label>

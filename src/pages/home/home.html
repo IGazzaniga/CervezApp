@@ -27,12 +27,13 @@
         <img [src]="cat.imagen">
       </ion-thumbnail>
       <h2>{{cat.nombre}}</h2>
+      <button (click)="deleteCategory(cat)" ion-button clear item-end>Borrar</button>
       <button (click)="goToCategoria(cat)" ion-button clear item-end>Ver</button>
     </ion-item>
     <p *ngIf="categorias.length == 0">No tiene categorias creadas aun</p>
   </ion-list>
   
   <ion-fab right bottom>
-    <button ion-fab color="primary" (click)="add()"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab color="primary" (click)="addCategory()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 </ion-content>

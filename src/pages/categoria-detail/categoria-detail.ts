@@ -33,6 +33,10 @@ export class CategoriaDetailPage {
       this.items = items;
     });
   }
+
+  public addItem () {
+    this.navCtrl.push('NewItemPage', {categoriaId : this.categoria.id});
+  }
   public goToItem(it: Item) {
     this.navCtrl.push('ItemDetailPage', {'nombre-neg': this.nombreNegocio, 'nombre-cat': this.categoria.nombre, 'nombre-item': it.nombre, 'item': it});
   }

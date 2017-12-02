@@ -48,39 +48,15 @@ export class HomePage {
       }
   }
 
-  public add () {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Agregar a la Carta',
-      buttons: [
-        {
-          text: 'Categoria',
-          handler: () => {
-            this.addCategory();
-          }
-        },{
-          text: 'Items',
-          handler: () => {
-            this.addItem();
-          }
-        },{
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
-  }
 
   public addCategory () {
     this.navCtrl.push('NewCategoryPage');
   }
-
-  public addItem () {
-    this.navCtrl.push('NewItemPage', {categorias: this.categorias});
+  public deleteCategory (cat: Categoria) {
+    this.categoriasService.delete(cat.id);
   }
+
+  
   
   public goToCategoria (cat: Categoria) {
     this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.nombre, 'nombre-cat': cat.nombre, 'categoria': cat});

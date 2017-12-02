@@ -20,4 +20,7 @@
     </ion-list-header>
     <ion-item (click)="goToItem(it)" *ngFor="let it of items">{{it.nombre}}</ion-item>
   </ion-list> 
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="addItem()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

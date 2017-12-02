@@ -20,6 +20,7 @@ import { Categoria } from "../../models/Categoria";
   templateUrl: 'new-item.html',
 })
 export class NewItemPage {
+  private categoriaId: string;
   public newItemForm: any = {};
   public categorias: Categoria[];
 
@@ -28,7 +29,7 @@ export class NewItemPage {
   }
 
   ionViewDidLoad() {
-    this.categorias = this.navParams.get('categorias');
+    this.categoriaId = this.navParams.get('categoriaId');
   }
 
   ionViewCanEnter(): boolean{
@@ -43,7 +44,7 @@ export class NewItemPage {
 
   public guardar() {
     let newItem = new NewItem(this.newItemForm);
-    this.itemsService.add(newItem).then((resp) => {
+    this.itemsService.add(newItem, this.categoriaId).then((resp) => {
       this.navCtrl.pop();
     });
   }

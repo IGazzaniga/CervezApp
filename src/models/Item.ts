@@ -14,27 +14,29 @@ export class Item {
     idCategoria: string;
     descripcion: string;
     nombre: string;
-    precio: number;
     racion: Racion;
-    foto: string;
+    fotos: string[];
     graduacion: number;
     ibu: number;
     proveedor: string;
+    stock: boolean;
+    tipo: string;
 
     constructor(item: any) {
       this.id = item.id
       this.idCategoria = item.idCategoria;
       this.descripcion = item.descripcion || null;
       this.nombre = item.nombre || null;
-      this.precio = item.precio || null;
       if (item.racion) {
         this.racion = new Racion(item.racion);
       } else {
         this.racion = null;
       }
-      this.foto = item.foto || null;
+      this.fotos = item.fotos || null;
       this.graduacion = item.graduacion || null;
       this.ibu = item.ibu || null;
       this.proveedor = item.proveedor || null;
+      this.stock = item.stock || null;
+      this.tipo = item.tipo || null;
     }
 }

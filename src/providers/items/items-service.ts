@@ -22,9 +22,10 @@ export class ItemsService {
     return this.db.list<Item>(this.itemsRef, ref => ref.orderByChild('idCategoria').equalTo(categoriaId)).valueChanges();
   }
 
-  public add(newitem: NewItem): Promise<any> {
+  public add(newitem: NewItem, categoriaId: string): Promise<any> {
       let item = new Item(newitem);
       item.id = this.itemsRef.push().key;
+      item.idCategoria = categoriaId;
       return this.itemsRef.child(item.id).set(item);
   }
   
