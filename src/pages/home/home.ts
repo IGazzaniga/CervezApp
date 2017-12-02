@@ -23,6 +23,7 @@ export class HomePage {
   public categorias: Categoria[] = [];
   public items: Item[] = [];
   negocio: User;
+  spinner: Boolean = false;
 
   constructor(public navCtrl: NavController, public userService: UserService, public categoriasService: CategoriasService, public itemsService: ItemsService, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public menuCtrl: MenuController, public alertCtrl: AlertController) {
       
@@ -30,10 +31,12 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.menuCtrl.enable(true);
+    this.spinner = true;
     this.userService.getCurrentUser().then((user) => {
       this.negocio = user;
       this.categoriasService.getAll(user.uid).subscribe((categorias) => {
         this.categorias = categorias;
+        this.spinner = false;
       })
     })
   }

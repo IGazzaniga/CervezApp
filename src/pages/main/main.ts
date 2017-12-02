@@ -19,14 +19,17 @@ import { User } from "../../models/User";
 })
 export class MainPage {
   public negocios: User[];
+  spinner: Boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl:MenuController, public userService: UserService) {
     this.menuCtrl.enable(false);  
   }
 
   ionViewDidLoad() {
+    this.spinner = true;
     this.userService.getAll().subscribe((negocios) => {
       this.negocios = negocios;
+      this.spinner = false;
     })
   }
 

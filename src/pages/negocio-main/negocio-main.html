@@ -18,6 +18,7 @@
     <ion-list-header>
       Menu
     </ion-list-header>
+    <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
     <ion-item (click)="goToCategoria(cat)" *ngFor="let cat of categorias">
       <ion-thumbnail item-start>
         <img [src]="cat.imagen">
