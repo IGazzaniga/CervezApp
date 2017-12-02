@@ -22,6 +22,7 @@ export class CategoriaDetailPage {
   categoria: Categoria;
   items: Item[];
   nombreNegocio: string;
+  spinner: Boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemService: ItemsService) {
     this.categoria = this.navParams.get('categoria');
@@ -29,8 +30,10 @@ export class CategoriaDetailPage {
   }
 
   ionViewDidLoad() {
+    this.spinner = true;
     this.itemService.getAll(this.categoria.id).subscribe((items) => {
       this.items = items;
+      this.spinner = false;
     });
   }
 
