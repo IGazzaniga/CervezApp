@@ -18,7 +18,11 @@
     <ion-list-header>
       Items
     </ion-list-header>
-    <ion-item (click)="goToItem(it)" *ngFor="let it of items">{{it.nombre}}</ion-item>
+    <ion-item *ngFor="let it of items">{{it.nombre}}
+    <button (click)="goToItem(it)" ion-button clear item-end>Ver</button>     
+    <button (click)="deleteItem(it)" ion-button clear item-end>Borrar</button>
+    </ion-item>
+    
   </ion-list> 
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="addItem()"><ion-icon name="add"></ion-icon></button>

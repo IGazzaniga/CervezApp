@@ -1,7 +1,7 @@
 import {UserService} from '../../providers/user/user-service';
 import {Categoria} from '../../models/Categoria';
 import { Component } from '@angular/core';
-import { ModalController, ActionSheetController, MenuController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModalController, ActionSheetController, MenuController, IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { CategoriasService } from "../../providers/categorias/categorias-service";
 import { User } from '../../models/User';
 import { Item } from '../../models/Item';
@@ -24,7 +24,7 @@ export class HomePage {
   public items: Item[] = [];
   negocio: User;
 
-  constructor(public navCtrl: NavController, public userService: UserService, public categoriasService: CategoriasService, public itemsService: ItemsService, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public userService: UserService, public categoriasService: CategoriasService, public itemsService: ItemsService, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public menuCtrl: MenuController, public alertCtrl: AlertController) {
       
   }
 
@@ -52,14 +52,29 @@ export class HomePage {
   public addCategory () {
     this.navCtrl.push('NewCategoryPage');
   }
-  public deleteCategory (cat: Categoria) {
-    this.categoriasService.delete(cat.id).then(()=> {
-    }
-  )}
-  
 
-  
-  
+  public deleteCategory (cat: Categoria) {
+    let prompt = this.alertCtrl.create({
+      title: '',
+      message: '¿Desea eliminar la categoría?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.categoriasService.delete(cat.id).then(()=> {
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+    
   public goToCategoria (cat: Categoria) {
     this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.nombre, 'nombre-cat': cat.nombre, 'categoria': cat});
   }

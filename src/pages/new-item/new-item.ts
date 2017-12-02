@@ -23,6 +23,7 @@ export class NewItemPage {
   private categoriaId: string;
   public newItemForm: any = {};
   public categorias: Categoria[];
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemsService: ItemsService,
     public categoriasService: CategoriasService, public userService: UserService) {

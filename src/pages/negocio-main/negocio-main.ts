@@ -35,7 +35,7 @@ export class NegocioMainPage {
   }
 
   public goToCategoria (cat: Categoria) {
-    this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.nombre, 'nombre-cat': cat.nombre, 'categoria': cat});
+    this.navCtrl.push('CategoriaDetailClientePage', {'nombre-neg': this.negocio.nombre, 'nombre-cat': cat.nombre, 'categoria': cat});
   }
 
 
