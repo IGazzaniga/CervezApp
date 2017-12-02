@@ -53,8 +53,10 @@ export class HomePage {
     this.navCtrl.push('NewCategoryPage');
   }
   public deleteCategory (cat: Categoria) {
-    this.categoriasService.delete(cat.id);
-  }
+    this.categoriasService.delete(cat.id).then(()=> {
+    }
+  )}
+  
 
   
   
