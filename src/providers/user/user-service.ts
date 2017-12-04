@@ -95,8 +95,8 @@ export class UserService {
       photoURL: user.foto
     }).then(() => {
       return this.usersDB.child(user.uid).update({
-        displayName: user.nombre || null,
-        photoURL: user.foto || null,
+        nombre: user.nombre || null,
+        foto: user.foto || null,
         direccion: user.direccion || null,
         horaApertura: user.horaApertura || null,
         horaCierre: user.horaCierre || null,

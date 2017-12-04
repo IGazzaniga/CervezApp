@@ -1,14 +1,14 @@
-categoria-card {
+negocio-card {
+
     ion-card {
         position: relative;
         text-align: center;
-        height: 210px;
         img {
             -webkit-filter: brightness(0.4);
             -moz-filter: brightness(0.4);
             -o-filter: brightness(0.4);
             -ms-filter: brightness(0.4);
-            filter: brightness(0.4);
+            filter: brightness(0.3);
         }
     }
 

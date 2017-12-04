@@ -14,11 +14,7 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-list-header>
-      Seleccione el lugar
-    </ion-list-header>
-    <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
-    <ion-item (click)="goToNegocio(neg)" *ngFor="let neg of negocios">{{neg.nombre}}</ion-item>
-  </ion-list>
+  <ion-title margin-top margin-bottom text-center>¿En que lugar estas?</ion-title>
+  <negocio-card *ngFor="let neg of negocios" (click)="goToNegocio(neg)" [negocio]="neg"></negocio-card>
+  <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
 </ion-content>
