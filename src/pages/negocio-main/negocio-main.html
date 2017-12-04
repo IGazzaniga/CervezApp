@@ -14,16 +14,7 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-list-header>
-      Menu
-    </ion-list-header>
-    <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
-    <ion-item (click)="goToCategoria(cat)" *ngFor="let cat of categorias">
-      <ion-thumbnail item-start>
-        <img [src]="cat.imagen">
-      </ion-thumbnail>
-      <h2>{{cat.nombre}}</h2>
-    </ion-item>
-  </ion-list> 
+  <ion-title margin-top margin-bottom text-center>Carta</ion-title>
+  <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
+  <categoria-card (click)="goToCategoria(cat)" *ngFor="let cat of categorias" [categoria]="cat"></categoria-card>
 </ion-content>

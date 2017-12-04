@@ -1,0 +1,32 @@
+categoria-card {
+    ion-card {
+        position: relative;
+        text-align: center;
+        height: 210px;
+        img {
+            -webkit-filter: blur(3px);
+            -moz-filter: blur(3px);
+            -o-filter: blur(3px);
+            -ms-filter: blur(3px);
+            filter: blur(3px);
+        }
+    }
+
+    .card-title {
+        position: absolute;
+        top: 36%;
+        font-size: 2.0em;
+        width: 100%;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .card-subtitle {
+        font-size: 1.5em;
+        position: absolute;
+        top: 55%;
+        font-weight: bold;
+        width: 100%;
+        color: #000;
+    }
+}
