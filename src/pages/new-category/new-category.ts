@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoriasService } from "../../providers/categorias/categorias-service";
 import { UserService } from "../../providers/user/user-service";
 import { NewCategoria } from "../../models/New-Categoria";
+import { LoadingProvider } from "../../providers/loading/loading";
 
 /**
  * Generated class for the NewCategoryPage page.
@@ -23,7 +24,7 @@ export class NewCategoryPage {
   private fileFoto: File;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-              public categoriasService: CategoriasService, public userService: UserService) {
+              public categoriasService: CategoriasService, public userService: UserService, public loadingService: LoadingProvider) {
   }
 
   ionViewDidLoad() {
@@ -56,8 +57,10 @@ export class NewCategoryPage {
   }
 
   public guardar() {
+    this.loadingService.show();
     let newCategoria = new NewCategoria(this.newCategoryForm);
     this.categoriasService.add(newCategoria, this.fileFoto).then((resp) => {
+      this.loadingService.dissmis();
       this.navCtrl.pop();
     });
   }

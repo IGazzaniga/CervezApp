@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { Categoria } from '../../models/Categoria';
 import { Item } from '../../models/Item';
 import { ItemsService } from '../../providers/items/items-service';
+import { LoadingProvider } from "../../providers/loading/loading";
 
 /**
  * Generated class for the CategoriaDetailPage page.
@@ -24,7 +25,8 @@ export class CategoriaDetailPage {
   nombreNegocio: string;
   spinner: Boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public itemService: ItemsService,  public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  public itemService: ItemsService,  public alertCtrl: AlertController, public loading:LoadingProvider) {
     this.categoria = this.navParams.get('categoria');
     this.nombreNegocio = this.navParams.get('nombre-neg');
   }
@@ -53,7 +55,9 @@ export class CategoriaDetailPage {
         {
           text: 'Eliminar',
           handler: () => {
+            this.loading.show();
             this.itemService.delete(it.id).then(()=> {
+              this.loading.dissmis();
             });
           }
         }

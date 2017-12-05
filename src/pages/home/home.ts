@@ -6,6 +6,7 @@ import { CategoriasService } from "../../providers/categorias/categorias-service
 import { User } from '../../models/User';
 import { Item } from '../../models/Item';
 import { ItemsService } from '../../providers/items/items-service';
+import { LoadingProvider } from "../../providers/loading/loading";
 
 /**
  * Generated class for the HomePage page.
@@ -25,7 +26,10 @@ export class HomePage {
   negocio: User;
   spinner: Boolean = false;
 
-  constructor(public navCtrl: NavController, public userService: UserService, public categoriasService: CategoriasService, public itemsService: ItemsService, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public menuCtrl: MenuController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public userService: UserService, 
+  public categoriasService: CategoriasService, public itemsService: ItemsService, 
+  public navParams: NavParams, public actionSheetCtrl: ActionSheetController, 
+  public menuCtrl: MenuController, public alertCtrl: AlertController, public loadingService: LoadingProvider) {
       
   }
 
@@ -69,7 +73,9 @@ export class HomePage {
         {
           text: 'Eliminar',
           handler: () => {
+            this.loadingService.show();
             this.categoriasService.delete(cat.id).then(()=> {
+              this.loadingService.dissmis();
             });
           }
         }

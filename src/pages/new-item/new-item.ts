@@ -6,6 +6,7 @@ import { UserService } from "../../providers/user/user-service";
 import { CategoriasService } from '../../providers/categorias/categorias-service';
 import { NewItem } from '../../models/New-Item';
 import { Categoria } from "../../models/Categoria";
+import { LoadingProvider } from "../../providers/loading/loading";
 
 /**
  * Generated class for the NewItemPage page.
@@ -26,7 +27,7 @@ export class NewItemPage {
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemsService: ItemsService,
-    public categoriasService: CategoriasService, public userService: UserService) {
+    public categoriasService: CategoriasService, public userService: UserService, public loadingService: LoadingProvider) {
   }
 
   ionViewDidLoad() {
@@ -44,8 +45,10 @@ export class NewItemPage {
   }
 
   public guardar() {
+    this.loadingService.show();
     let newItem = new NewItem(this.newItemForm);
     this.itemsService.add(newItem, this.categoriaId).then((resp) => {
+      this.loadingService.dissmis();
       this.navCtrl.pop();
     });
   }

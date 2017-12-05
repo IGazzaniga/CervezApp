@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { User } from "../../models/User";
 import { UserService } from "../../providers/user/user-service";
+import { LoadingProvider } from "../../providers/loading/loading";
 
 /**
  * Generated class for the ProfilePage page.
@@ -20,7 +21,8 @@ export class ProfilePage {
   public currentUser: User;
   private fileFoto: File;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public userService: UserService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  public toastCtrl: ToastController, public userService: UserService, public loadingService: LoadingProvider) {
   }
 
   ionViewDidLoad() {
@@ -48,11 +50,13 @@ export class ProfilePage {
   }
 
   guardar () {
+    this.loadingService.show();
     if (this.fileFoto) {
       this.userService.saveImageProfile(this.fileFoto).then((snap) => {
         this.currentUser.foto = snap.downloadURL;
         this.userService.updateProfile(this.currentUser).then(() => {
           this.userService.setCurrentUser(this.currentUser).then(() => {
+            this.loadingService.dissmis();
             let toast = this.toastCtrl.create({
               message: 'El perfil se actualizo correctamente',
               duration: 3000,
@@ -65,6 +69,7 @@ export class ProfilePage {
     } else {
       this.userService.updateProfile(this.currentUser).then(() => {
         this.userService.setCurrentUser(this.currentUser).then(() => {
+          this.loadingService.dissmis();
           let toast = this.toastCtrl.create({
             message: 'El perfil se actualizo correctamente',
             duration: 3000,

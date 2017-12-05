@@ -9,15 +9,15 @@ import { LoadingController, Loading } from "ionic-angular";
 */
 @Injectable()
 export class LoadingProvider {
-  public loading:Loading ;
+  private loading: Loading;
 
   constructor(public loadingCtrl: LoadingController) {
-    this.loading = this.loadingCtrl.create({
-      content: 'Cargando...'
-    });
   }
 
   public show () {
+    this.loading = this.loadingCtrl.create({
+      content: 'Cargando...'
+    });
     this.loading.present();
   }
 
