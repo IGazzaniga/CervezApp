@@ -22,6 +22,7 @@ import { Settings } from "../providers/settings/settings";
 
 import firebase from 'firebase';
 import { CategoriaCardComponentModule } from "../components/categoria-card/categoria-card.module";
+import { LoadingProvider } from '../providers/loading/loading';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -80,7 +81,8 @@ firebase.initializeApp(envprod.firebase);
     AngularFireDatabase,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    LoadingProvider
   ]
 })
 export class AppModule { }

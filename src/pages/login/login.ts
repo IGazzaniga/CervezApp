@@ -1,7 +1,8 @@
 import {UserService} from '../../providers/user/user-service';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuController, IonicPage,  NavController,  ToastController } from 'ionic-angular';
+import { MenuController, IonicPage, NavController, ToastController } from 'ionic-angular';
+import { LoadingProvider } from "../../providers/loading/loading";
 
 @IonicPage()
 @Component({
@@ -22,6 +23,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public userService: UserService,
     public toastCtrl: ToastController,
+    public loadingService: LoadingProvider,
     public menuCtrl: MenuController,
     public translateService: TranslateService) {
       this.translateService.get('LOGIN_ERROR').subscribe((value) => {
@@ -45,7 +47,12 @@ export class LoginPage {
 
   // Attempt to login in through our User service
   doLogin() {
-    this.userService.login(this.account).catch((err) => {
+    this.loadingService.show();
+    this.userService.login(this.account)
+    .then(() => {
+      this.loadingService.dissmis();
+    })
+    .catch((err) => {
       // Unable to log in
       let toast = this.toastCtrl.create({
         message: this.loginErrorString,
