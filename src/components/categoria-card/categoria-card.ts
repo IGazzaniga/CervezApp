@@ -15,8 +15,4 @@ export class CategoriaCardComponent {
 
   @Input("categoria") categoria: Categoria;
 
-  constructor() {
-    console.log('Hello CategoriaCardComponent Component');
-  }
-
 }

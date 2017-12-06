@@ -1,5 +1,6 @@
 export class User {
     email: string;
+    username: string;
     nombre: string;
     foto: string;
     uid: string;
@@ -10,6 +11,7 @@ export class User {
 
     constructor(userLogin: any) {
         this.email = userLogin.email;
+        this.username = userLogin.username || null;
         this.nombre = userLogin.displayName || userLogin.nombre || null;
         this.foto = userLogin.photoURL || userLogin.foto || null;
         this.uid = userLogin.uid;

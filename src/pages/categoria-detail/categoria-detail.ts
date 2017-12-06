@@ -13,7 +13,7 @@ import { LoadingProvider } from "../../providers/loading/loading";
  */
 
 @IonicPage({
-  segment: 'lugar-admin/:nombre-neg/:nombre-cat'
+  segment: 'admin/:nombre-neg/:nombre-cat'
 })
 @Component({
   selector: 'page-categoria-detail',
@@ -33,10 +33,14 @@ export class CategoriaDetailPage {
 
   ionViewDidLoad() {
     this.spinner = true;
-    this.itemService.getAll(this.categoria.id).subscribe((items) => {
-      this.items = items;
-      this.spinner = false;
-    });
+    if (this.categoria) {
+      this.itemService.getAll(this.categoria.id).subscribe((items) => {
+        this.items = items;
+        this.spinner = false;
+      });
+    } else {
+      this.navCtrl.setRoot('HomePage');
+    }
   }
 
   public addItem () {

@@ -12,7 +12,7 @@ import { ItemsService } from '../../providers/items/items-service';
  */
 
 @IonicPage({
-  segment: 'lugar/:nombre-neg/:nombre-cat'
+  segment: 'home/:nombre-neg/:nombre-cat'
 })
 @Component({
   selector: 'page-categoria-detail-cliente',
@@ -29,9 +29,14 @@ export class CategoriaDetailClientePage {
   }
 
   ionViewDidLoad() {
-    this.itemService.getAll(this.categoria.id).subscribe((items) => {
-      this.items = items;
-    });
+    if (this.categoria) {
+      this.itemService.getAll(this.categoria.id).subscribe((items) => {
+        this.items = items;
+      });
+    } else {
+      this.navCtrl.setRoot('MainPage');
+      this.navCtrl.push('NegocioMainPage', {'nombre': this.nombreNegocio});
+    }
   }
     
   public goToItem(it: Item) {

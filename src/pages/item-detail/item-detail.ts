@@ -13,7 +13,7 @@ import { ItemsService } from '../../providers/items/items-service';
  */
 
 @IonicPage({
-  segment: 'lugar/:nombre-neg/:nombre-cat/:nombre-item'
+  segment: 'home/:nombre-neg/:nombre-cat/:nombre-item'
 })
 @Component({
   selector: 'page-item-detail',
@@ -21,11 +21,17 @@ import { ItemsService } from '../../providers/items/items-service';
 })
 export class ItemDetailPage {
   item: Item;
+  nombreNegocio: string;
   
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.item = this.navParams.get('item');
+    this.nombreNegocio = this.navParams.get('nombre-neg');
   }
 
   ionViewDidLoad() {
+    if (!this.item) {
+      this.navCtrl.setRoot('MainPage');
+      this.navCtrl.push('NegocioMainPage', {'nombre': this.nombreNegocio});
+    }
   }
 }

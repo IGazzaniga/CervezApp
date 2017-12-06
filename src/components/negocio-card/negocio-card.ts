@@ -15,8 +15,4 @@ export class NegocioCardComponent {
 
   @Input("negocio") negocio: User;
 
-  constructor() {
-    console.log(this.negocio);
-  }
-
 }

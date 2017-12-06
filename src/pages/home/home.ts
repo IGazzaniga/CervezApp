@@ -15,7 +15,9 @@ import { LoadingProvider } from "../../providers/loading/loading";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: 'admin'
+})
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -85,7 +87,7 @@ export class HomePage {
   }
     
   public goToCategoria (cat: Categoria) {
-    this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.nombre, 'nombre-cat': cat.nombre, 'categoria': cat});
+    this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.username, 'nombre-cat': cat.nombre, 'categoria': cat});
   }
 
 }

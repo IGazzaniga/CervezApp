@@ -11,7 +11,7 @@ import { User } from "../../models/User";
  */
 
 @IonicPage({
-  segment: 'lugares'
+  segment: 'home'
 })
 @Component({
   selector: 'page-main',
@@ -34,7 +34,7 @@ export class MainPage {
   }
 
   public goToNegocio (neg: User) {
-    this.navCtrl.push('NegocioMainPage', {'nombre': neg.nombre, 'negocio': neg});
+    this.navCtrl.push('NegocioMainPage', {'nombre': neg.username, 'negocio': neg});
   }
 
 }
