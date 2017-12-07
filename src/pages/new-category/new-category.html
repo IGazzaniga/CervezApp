@@ -27,7 +27,18 @@
         <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
       </ion-item>
       <img style="width: 100%" *ngIf="newCategoryForm.imagen" [src]="newCategoryForm.imagen" alt="">
-
+      
+      <ion-item>
+        <ion-label>Icono</ion-label>
+        <ion-select interface="action-sheet" [ngModelOptions]="{standalone: true}" [(ngModel)]="newCategoryForm.icono">
+          <ion-option value="cafe"><ion-icon name="cafe"></ion-icon> Cafe</ion-option>
+          <ion-option value="wine"><ion-icon name="wine"></ion-icon> Copa</ion-option>
+          <ion-option value="ice-cream"><ion-icon name="ice-cream"> Helado</ion-icon></ion-option>
+          <ion-option value="pizza"><ion-icon name="pizza"> Pizza</ion-icon></ion-option>
+          <ion-option value="restaurant"><ion-icon name="restaurant"> Cubiertos</ion-icon></ion-option>
+        </ion-select>
+      </ion-item>
+      
       <div padding>
         <button ion-button color="primary" block>Guardar</button>
       </div>

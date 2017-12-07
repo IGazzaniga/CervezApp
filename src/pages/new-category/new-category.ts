@@ -1,6 +1,6 @@
 import {Categoria} from '../../models/Categoria';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {ActionSheetController, IonicPage,  NavController,  NavParams} from 'ionic-angular';
 import { CategoriasService } from "../../providers/categorias/categorias-service";
 import { UserService } from "../../providers/user/user-service";
 import { NewCategoria } from "../../models/New-Categoria";
@@ -22,13 +22,19 @@ export class NewCategoryPage {
   @ViewChild('fileInput') fileInput;
   public newCategoryForm: any = {};
   private fileFoto: File;
+  public selectOptions:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-              public categoriasService: CategoriasService, public userService: UserService, public loadingService: LoadingProvider) {
+              public categoriasService: CategoriasService, public userService: UserService, 
+              public loadingService: LoadingProvider, public actionSheetCtrl: ActionSheetController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NewCategoryPage');
+    this.selectOptions = {
+      title: 'Pizza Toppings',
+      subTitle: 'Select your toppings',
+      mode: 'md'
+    };
   }
 
   ionViewCanEnter(): boolean{

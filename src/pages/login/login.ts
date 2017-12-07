@@ -26,9 +26,7 @@ export class LoginPage {
     public loadingService: LoadingProvider,
     public menuCtrl: MenuController,
     public translateService: TranslateService) {
-      this.translateService.get('LOGIN_ERROR').subscribe((value) => {
-        this.loginErrorString = value;
-      })
+      this.loginErrorString = "Usuario o contraseña incorrecto. Vuelva a intentarlo"
   }
 
   ionViewDidLoad () {
@@ -54,6 +52,7 @@ export class LoginPage {
     })
     .catch((err) => {
       // Unable to log in
+      this.loadingService.dissmis();
       let toast = this.toastCtrl.create({
         message: this.loginErrorString,
         duration: 3000,
