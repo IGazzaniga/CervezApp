@@ -2,7 +2,7 @@ categoria-card {
     ion-card {
         position: relative;
         text-align: center;
-        height: 210px;
+        max-height: 150px;
         img {
             -webkit-filter: brightness(0.4);
             -moz-filter: brightness(0.4);
