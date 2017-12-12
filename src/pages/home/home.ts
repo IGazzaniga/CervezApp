@@ -65,7 +65,7 @@ export class HomePage {
   public deleteCategory (cat: Categoria) {
     let prompt = this.alertCtrl.create({
       title: '',
-      message: '¿Desea eliminar la categoría?',
+      message: '¿Desea eliminar la categoría? <br> Se eliminaran todos los productos asociados a esta categoria.',
       buttons: [
         {
           text: 'Cancelar',

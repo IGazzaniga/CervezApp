@@ -13,7 +13,7 @@ import { NewItem } from '../../models/New-Item';
 export class ItemsService {
   private itemsRef: firebase.database.Reference;
 
-  constructor(public api: Api, public categoriasService: CategoriasService, public db: AngularFireDatabase) {
+  constructor(public api: Api, public db: AngularFireDatabase) {
     this.itemsRef = firebase.database().ref('items');
   }
 
@@ -33,5 +33,12 @@ export class ItemsService {
     return this.itemsRef.child(itemId).remove();
   }
 
+  public deleteAllByCategoriaId(categoriaId: string): Promise<any> {
+    return this.itemsRef.orderByChild('idCategoria').equalTo(categoriaId).once('value', snapshot => {
+     let updates = {};
+     snapshot.forEach(child => updates[child.key] = null);
+     this.itemsRef.update(updates);
+    });
+  }
 
 }

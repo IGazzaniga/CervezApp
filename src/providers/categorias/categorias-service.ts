@@ -1,3 +1,4 @@
+import {ItemsService} from '../items/items-service';
 import {UserService} from '../user/user-service';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
@@ -15,7 +16,7 @@ export class CategoriasService{
   private categoriasRef: firebase.database.Reference;
   private storageRef: firebase.storage.Reference;
 
-  constructor(public api: Api, public userService: UserService, public db: AngularFireDatabase) {
+  constructor(public api: Api, public userService: UserService, public db: AngularFireDatabase, public itemsService: ItemsService) {
     this.categoriasRef = firebase.database().ref('categorias');
     this.storageRef = firebase.storage().ref();
   }
@@ -45,7 +46,9 @@ export class CategoriasService{
   }
 
   public delete (catId: string): Promise<any> {
-    return this.categoriasRef.child(catId).remove();
+    return this.categoriasRef.child(catId).remove().then(() => {
+      return this.itemsService.deleteAllByCategoriaId(catId);
+    });
   }
 
   public saveImage (idCat:string, foto: File) {
