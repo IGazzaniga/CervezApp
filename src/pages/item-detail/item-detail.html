@@ -23,6 +23,8 @@
         <h2><strong>Racion: </strong>{{racion.nombre}}</h2> 
         <h2><strong>Precio: </strong>$ {{racion.precio}}</h2> 
       </ion-item>
+      <ion-item *ngIf="item?.stock"><strong>Stock: </strong>Si</ion-item>
+      <ion-item *ngIf="!item?.stock"><strong>Stock: </strong>No</ion-item>
     </ion-list> 
 
 </ion-content>

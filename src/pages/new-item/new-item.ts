@@ -35,6 +35,7 @@ export class NewItemPage {
     this.categoriaId = this.navParams.get('categoriaId');
     let racionInit = new Racion({nombre: '', precio: ''});
     this.newItemForm.raciones = [racionInit];
+    this.newItemForm.stock = true;
   }
 
   ionViewCanEnter(): boolean{

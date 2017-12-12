@@ -14,7 +14,7 @@ export class NewItem {
     tipo: string;
 
 	constructor(newitem: any) {
-       this.raciones = newitem.raciones;
+       this.raciones = newitem.raciones || null;
        this.descripcion = newitem.descripcion ;
        this.nombre = newitem.nombre ;
        this.idCategoria = newitem.idCategoria;

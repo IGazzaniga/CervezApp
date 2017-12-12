@@ -42,6 +42,12 @@
         <ion-input type="text" [(ngModel)]="newItemForm.proveedor" name="proveedor"></ion-input>
       </ion-item>
 
+      <ion-item>
+        <ion-label>Stock</ion-label>
+        <ion-toggle [(ngModel)]="newItemForm.stock" name="stock"></ion-toggle>
+      </ion-item>
+
+
       <ion-item-group *ngFor="let racion of newItemForm.raciones; let i = index">
         <ion-item-divider color="light">Racion {{i + 1}} <span (click)="removeRacion(i);" style="float: right;">X</span></ion-item-divider>
         <ion-item>
