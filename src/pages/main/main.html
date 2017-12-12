@@ -9,7 +9,9 @@
   <ion-navbar>
     <ion-title>Main</ion-title>
   </ion-navbar>
-
+  <ion-toolbar>
+    <ion-searchbar #searchbar autofocus (ionInput)="searchNegocio($event)" type="search" placeholder="Buscar" showCancelButton="true" cancelButtonText="Cancelar" animated="true"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 

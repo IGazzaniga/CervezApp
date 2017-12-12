@@ -120,6 +120,10 @@ export class UserService {
   public getUserByUsername(username: string): Promise<any> {
     return this.usersDB.orderByChild('username').equalTo(username).once("value");
   }
+  
+  public searchNegocio(nombre: string): Promise<any> {
+    return this.usersDB.orderByChild('nombre').equalTo(nombre).once("value");
+  }
 }
 
 

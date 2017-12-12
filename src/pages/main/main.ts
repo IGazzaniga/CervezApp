@@ -18,6 +18,8 @@ import { User } from "../../models/User";
   templateUrl: 'main.html',
 })
 export class MainPage {
+  searchedNegocios: User[];
+  originalNegocios: User[];
   public negocios: User[];
   spinner: Boolean;
 
@@ -29,6 +31,8 @@ export class MainPage {
     this.spinner = true;
     this.userService.getAll().subscribe((negocios) => {
       this.negocios = negocios;
+      this.searchedNegocios = negocios;
+      this.originalNegocios = negocios;
       this.spinner = false;
     })
   }
@@ -37,4 +41,17 @@ export class MainPage {
     this.navCtrl.push('NegocioMainPage', {'nombre': neg.username, 'negocio': neg});
   }
 
+  public searchNegocio(ev: any) {
+    this.negocios = this.originalNegocios;
+    this.searchedNegocios = this.negocios;
+		let val: string = ev.target.value;
+		if (val && val.trim() != '') {
+      this.searchedNegocios = this.negocios.filter((negocio) => {
+        return (negocio.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+	}
+  
 }
+
+
