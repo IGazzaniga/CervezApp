@@ -27,7 +27,6 @@
         <ion-input type="text" [(ngModel)]="newItemForm.descripcion" name="description"></ion-input>
       </ion-item>
 
-
       <ion-item>
         <ion-label fixed>Graduación alcohólica</ion-label>
         <ion-input type="number" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
@@ -42,6 +41,20 @@
         <ion-label fixed>Proveedor</ion-label>
         <ion-input type="text" [(ngModel)]="newItemForm.proveedor" name="proveedor"></ion-input>
       </ion-item>
+
+      <ion-item-group *ngFor="let racion of newItemForm.raciones; let i = index">
+        <ion-item-divider color="light">Racion {{i + 1}} <span (click)="removeRacion(i);" style="float: right;">X</span></ion-item-divider>
+        <ion-item>
+          <ion-label fixed>Nombre</ion-label>
+          <ion-input type="text" [(ngModel)]="racion.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Precio</ion-label>
+          <ion-input type="text" [(ngModel)]="racion.precio" [ngModelOptions]="{standalone: true}"></ion-input>
+        </ion-item>
+      </ion-item-group>
+
+      <button ion-button (click)="addRacion($event);" color="secondary">Agregar Racion</button>
 
       <div padding>
         <button ion-button color="primary" block>Guardar</button>

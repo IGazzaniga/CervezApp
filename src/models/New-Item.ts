@@ -1,7 +1,9 @@
 import { Categoria } from "./Categoria";
+import { Racion } from "./Racion";
 
 export class NewItem {
     descripcion: string;
+    raciones: Racion[];
     nombre: string;
     fotos: string[];
     graduacion: number;
@@ -12,6 +14,7 @@ export class NewItem {
     tipo: string;
 
 	constructor(newitem: any) {
+       this.raciones = newitem.raciones;
        this.descripcion = newitem.descripcion ;
        this.nombre = newitem.nombre ;
        this.idCategoria = newitem.idCategoria;

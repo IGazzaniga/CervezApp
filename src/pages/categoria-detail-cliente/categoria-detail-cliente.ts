@@ -40,6 +40,7 @@ export class CategoriaDetailClientePage {
   }
     
   public goToItem(it: Item) {
+    console.log(it)
     this.navCtrl.push('ItemDetailPage', {'nombre-neg': this.nombreNegocio, 'nombre-cat': this.categoria.nombre, 'nombre-item': it.nombre, 'item': it});
   }
 

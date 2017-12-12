@@ -14,7 +14,7 @@ export class Item {
     idCategoria: string;
     descripcion: string;
     nombre: string;
-    racion: Racion;
+    raciones: Racion[];
     fotos: string[];
     graduacion: number;
     ibu: number;
@@ -27,10 +27,10 @@ export class Item {
       this.idCategoria = item.idCategoria;
       this.descripcion = item.descripcion || null;
       this.nombre = item.nombre || null;
-      if (item.racion) {
-        this.racion = new Racion(item.racion);
+      if (item.raciones) {
+        this.raciones = item.raciones
       } else {
-        this.racion = null;
+        this.raciones = null;
       }
       this.fotos = item.fotos || null;
       this.graduacion = item.graduacion || null;

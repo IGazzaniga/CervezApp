@@ -7,6 +7,7 @@ import { CategoriasService } from '../../providers/categorias/categorias-service
 import { NewItem } from '../../models/New-Item';
 import { Categoria } from "../../models/Categoria";
 import { LoadingProvider } from "../../providers/loading/loading";
+import { Racion } from "../../models/Racion";
 
 /**
  * Generated class for the NewItemPage page.
@@ -32,6 +33,8 @@ export class NewItemPage {
 
   ionViewDidLoad() {
     this.categoriaId = this.navParams.get('categoriaId');
+    let racionInit = new Racion({nombre: '', precio: ''});
+    this.newItemForm.raciones = [racionInit];
   }
 
   ionViewCanEnter(): boolean{
@@ -51,6 +54,15 @@ export class NewItemPage {
       this.loadingService.dissmis();
       this.navCtrl.pop();
     });
+  }
+
+  public addRacion (event) {
+    event.preventDefault();
+    this.newItemForm.raciones.push({nombre: '', precio: ''});
+  }
+
+  public removeRacion (index) {
+    this.newItemForm.raciones.splice(index, 1);
   }
 
 }
