@@ -25,6 +25,7 @@ export class NewItemPage {
   private categoriaId: string;
   public newItemForm: any = {};
   public categorias: Categoria[];
+  public esCerveza: Boolean = false;
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemsService: ItemsService,

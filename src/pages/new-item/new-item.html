@@ -18,29 +18,37 @@
     <ion-list>
 
       <ion-item>
-        <ion-label fixed>Nombre</ion-label>
+        <ion-label stacked>Nombre</ion-label>
         <ion-input type="text" [(ngModel)]="newItemForm.nombre" name="name"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label fixed>Descripción</ion-label>
+        <ion-label stacked>Descripción</ion-label>
         <ion-input type="text" [(ngModel)]="newItemForm.descripcion" name="description"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label fixed>Graduación alcohólica</ion-label>
-        <ion-input type="number" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
+        <ion-label>Es Cerveza?</ion-label>
+        <ion-toggle [(ngModel)]="esCerveza" name="esCerveza"></ion-toggle>
       </ion-item>
 
-      <ion-item>
-        <ion-label fixed>IBU</ion-label>
-        <ion-input type="number" [(ngModel)]="newItemForm.ibu" name="IBU"></ion-input>
-      </ion-item>
+      <ion-item-group *ngIf="esCerveza">
+        <ion-item-divider color="light">Atributos para Cerveza</ion-item-divider>
+        <ion-item>
+          <ion-label stacked>Graduación alcohólica</ion-label>
+          <ion-input type="number" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label fixed>Proveedor</ion-label>
-        <ion-input type="text" [(ngModel)]="newItemForm.proveedor" name="proveedor"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label stacked>IBU</ion-label>
+          <ion-input type="number" [(ngModel)]="newItemForm.ibu" name="IBU"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Proveedor</ion-label>
+          <ion-input type="text" [(ngModel)]="newItemForm.proveedor" name="proveedor"></ion-input>
+        </ion-item>
+      </ion-item-group>
 
       <ion-item>
         <ion-label>Stock</ion-label>
@@ -51,11 +59,22 @@
       <ion-item-group *ngFor="let racion of newItemForm.raciones; let i = index">
         <ion-item-divider color="light">Racion {{i + 1}} <span (click)="removeRacion(i);" style="float: right;">X</span></ion-item-divider>
         <ion-item>
-          <ion-label fixed>Nombre</ion-label>
+          <ion-label stacked>Tamaño</ion-label>
           <ion-input type="text" [(ngModel)]="racion.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label fixed>Precio</ion-label>
+          <ion-label stacked>Medida</ion-label>
+          <ion-input type="text" [(ngModel)]="racion.medida" [ngModelOptions]="{standalone: true}"></ion-input>
+          <ion-select name="unidad" [(ngModel)]="racion.unidad" interface="popover">
+            <ion-option value="kg">Kg</ion-option>
+            <ion-option value="g">g</ion-option>
+            <ion-option value="cm3">cm3</ion-option>
+            <ion-option value="litro">Litro</ion-option>
+            <ion-option value="unidad">Unidad</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Precio</ion-label>
           <ion-input type="text" [(ngModel)]="racion.precio" [ngModelOptions]="{standalone: true}"></ion-input>
         </ion-item>
       </ion-item-group>

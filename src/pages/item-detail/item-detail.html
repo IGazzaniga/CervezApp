@@ -15,10 +15,10 @@
 
 <ion-content padding>
     <ion-list>
-      <ion-item><strong>Descripción: </strong>{{item?.descripcion}}</ion-item>
-      <ion-item><strong>Graduación alcohólica: </strong>{{item?.graduacion}}</ion-item>
-      <ion-item><strong>IBU: </strong>{{item?.ibu}}</ion-item>
-      <ion-item><strong>Proveedor: </strong>{{item?.proveedor}}</ion-item>
+      <ion-item *ngIf="item?.descripcion"><strong>Descripción: </strong>{{item?.descripcion}}</ion-item>
+      <ion-item *ngIf="item?.graduacion"><strong>Graduación alcohólica: </strong>{{item?.graduacion}}</ion-item>
+      <ion-item *ngIf="item?.ibu"><strong>IBU: </strong>{{item?.ibu}}</ion-item>
+      <ion-item *ngIf="item?.proveedor"><strong>Proveedor: </strong>{{item?.proveedor}}</ion-item>
       <ion-item *ngFor="let racion of item?.raciones">
         <h2><strong>Racion: </strong>{{racion.nombre}}</h2> 
         <h2><strong>Precio: </strong>$ {{racion.precio}}</h2> 
