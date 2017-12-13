@@ -20,8 +20,12 @@
       <ion-item *ngIf="item?.ibu"><strong>IBU: </strong>{{item?.ibu}}</ion-item>
       <ion-item *ngIf="item?.proveedor"><strong>Proveedor: </strong>{{item?.proveedor}}</ion-item>
       <ion-item *ngFor="let racion of item?.raciones">
-        <h2><strong>Racion: </strong>{{racion.nombre}}</h2> 
-        <h2><strong>Precio: </strong>$ {{racion.precio}}</h2> 
+        <h2><strong>Tamaño: </strong>{{racion.nombre}}</h2> 
+        <h2><strong>Medida: </strong>{{racion.medida}} {{racion.unidad}}</h2> 
+        <h2><strong>Precio: </strong>$ {{racion.precio}}</h2>
+        <ion-thumbnail item-start>
+          <img [src]="racion.foto">
+        </ion-thumbnail>
       </ion-item>
       <ion-item *ngIf="item?.stock"><strong>Stock: </strong>Si</ion-item>
       <ion-item *ngIf="!item?.stock"><strong>Stock: </strong>No</ion-item>

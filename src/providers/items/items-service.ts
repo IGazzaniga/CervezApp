@@ -12,9 +12,11 @@ import { NewItem } from '../../models/New-Item';
 @Injectable()
 export class ItemsService {
   private itemsRef: firebase.database.Reference;
+  private storageRef: firebase.storage.Reference;
 
   constructor(public api: Api, public db: AngularFireDatabase) {
     this.itemsRef = firebase.database().ref('items');
+    this.storageRef = firebase.storage().ref();
   }
 
 
@@ -22,11 +24,25 @@ export class ItemsService {
     return this.db.list<Item>(this.itemsRef, ref => ref.orderByChild('idCategoria').equalTo(categoriaId)).valueChanges();
   }
 
-  public add(newitem: NewItem, categoriaId: string): Promise<any> {
+  public add(newitem: NewItem, fotos:File[], categoriaId: string): Promise<any> {
       let item = new Item(newitem);
       item.id = this.itemsRef.push().key;
       item.idCategoria = categoriaId;
-      return this.itemsRef.child(item.id).set(item);
+      if (fotos.length != 0) {
+        for (var index = 0; index < fotos.length; index++) {
+          var foto = fotos[index];
+          this.saveImage(item.id, index, foto).then((snap) => {
+            item.raciones[index].foto = snap.downloadURL;
+          });
+        }
+        return this.itemsRef.child(item.id).set(item);
+      } else {
+        return this.itemsRef.child(item.id).set(item);
+      }
+  }
+
+  public saveImage (idItem:string, index:number, foto: File) {
+    return this.storageRef.child(`items-images/${idItem}/racion/${index}.jpg`).put(foto);
   }
   
   public delete (itemId: string): Promise<any> {

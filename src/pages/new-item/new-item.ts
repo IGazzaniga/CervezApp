@@ -1,5 +1,5 @@
 import { Item } from '../../models/Item'
-import { Component } from '@angular/core';
+import { Component, ViewChild, QueryList, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ItemsService } from "../../providers/items/items-service";
 import { UserService } from "../../providers/user/user-service";
@@ -22,6 +22,7 @@ import { Racion } from "../../models/Racion";
   templateUrl: 'new-item.html',
 })
 export class NewItemPage {
+  private filesFotos: File[] = [];
   private categoriaId: string;
   public newItemForm: any = {};
   public categorias: Categoria[];
@@ -49,10 +50,25 @@ export class NewItemPage {
       }
   }
 
+  getPicture(event: Event, i:number) {
+    event.preventDefault();
+    document.getElementById('file'+i).click();
+  }
+
+  processWebImage(event, index) {
+    let reader = new FileReader();
+    reader.onload = (readerEvent) => {
+      let imageData = (readerEvent.target as any).result;
+      this.newItemForm.raciones[index].foto = imageData;
+    };
+    this.filesFotos[index] = event.target.files[0];
+    reader.readAsDataURL(this.filesFotos[index]);
+  }
+
   public guardar() {
     this.loadingService.show();
     let newItem = new NewItem(this.newItemForm);
-    this.itemsService.add(newItem, this.categoriaId).then((resp) => {
+    this.itemsService.add(newItem, this.filesFotos, this.categoriaId).then((resp) => {
       this.loadingService.dissmis();
       this.navCtrl.pop();
     });

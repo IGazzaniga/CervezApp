@@ -65,18 +65,23 @@
         <ion-item>
           <ion-label stacked>Medida</ion-label>
           <ion-input type="text" [(ngModel)]="racion.medida" [ngModelOptions]="{standalone: true}"></ion-input>
-          <ion-select name="unidad" [(ngModel)]="racion.unidad" interface="popover">
-            <ion-option value="kg">Kg</ion-option>
-            <ion-option value="g">g</ion-option>
-            <ion-option value="cm3">cm3</ion-option>
-            <ion-option value="litro">Litro</ion-option>
-            <ion-option value="unidad">Unidad</ion-option>
-          </ion-select>
         </ion-item>
+        <select name="unidad" [(ngModel)]="racion.unidad">
+          <option value="kg">Kg</option>
+          <option value="g">g</option>
+          <option value="cm3">cm3</option>
+          <option value="litro">Litro</option>
+          <option value="unidad">Unidad</option>
+        </select>
         <ion-item>
           <ion-label stacked>Precio</ion-label>
           <ion-input type="text" [(ngModel)]="racion.precio" [ngModelOptions]="{standalone: true}"></ion-input>
         </ion-item>
+        <ion-item>
+          <button ion-button color="primary" (click)="getPicture($event, i)">Agregar imagen</button>
+          <input type="file" [id]="'file' + i" style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event, i)" />
+        </ion-item>
+        <img style="width: 100%" *ngIf="racion.foto" [src]="racion.foto" alt="">
       </ion-item-group>
 
       <button ion-button (click)="addRacion($event);" color="secondary">Agregar Racion</button>

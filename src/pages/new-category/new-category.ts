@@ -30,11 +30,6 @@ export class NewCategoryPage {
   }
 
   ionViewDidLoad() {
-    this.selectOptions = {
-      title: 'Pizza Toppings',
-      subTitle: 'Select your toppings',
-      mode: 'md'
-    };
   }
 
   ionViewCanEnter(): boolean{
