@@ -44,6 +44,10 @@ export class CategoriasService{
       })
     }
   }
+
+  public editCategory(key:string, editCategory: any): Promise<any> {
+    return this.categoriasRef.child(key).update(editCategory);
+  }
   
 
   public delete (catId: string): Promise<any> {

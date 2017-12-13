@@ -85,7 +85,10 @@ export class HomePage {
     });
     prompt.present();
   }
-    
+  public editCategory (cat: Categoria){
+    this.navCtrl.push('EditCategoryPage');
+  }
+  
   public goToCategoria (cat: Categoria) {
     this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.username, 'nombre-cat': cat.nombre, 'categoria': cat});
   }
