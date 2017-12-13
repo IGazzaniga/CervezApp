@@ -8,6 +8,7 @@ export class User {
     horaApertura: Date;
     horaCierre: Date;
     localidad: string;
+    patrocinado: boolean;
 
     constructor(userLogin: any) {
         this.email = userLogin.email;
@@ -19,6 +20,7 @@ export class User {
         this.horaApertura = userLogin.horaApertura || null;
         this.horaCierre = userLogin.horaCierre || null;
         this.localidad = userLogin.localidad || null;
+        this.patrocinado = userLogin.patrocinado;
     }
 
 }
