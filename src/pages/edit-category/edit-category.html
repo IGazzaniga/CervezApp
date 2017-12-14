@@ -7,28 +7,28 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>edit-category</ion-title>
+    <ion-title>{{currentCategory.nombre}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form (submit)="editCategory(editCategoryForm.value)">
+  <form (submit)="editCategory(currentCategory)">
     <ion-list>
 
       <ion-item>
         <ion-label floating>Titulo</ion-label>
-        <ion-input type="text" [(ngModel)]="editCategoryForm.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-input type="text" [(ngModel)]="currentCategory.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
 
       <ion-item>
         <button ion-button color="primary" (click)="getPicture($event)">Subir imagen</button>
         <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
       </ion-item>
-      <img style="width: 100%" *ngIf="editCategoryForm.imagen" [src]="editCategoryForm.imagen" alt="">
+      <img style="width: 100%" *ngIf="currentCategory.imagen" [src]="editCategoryForm.imagen" alt="">
       
       <ion-item>
         <ion-label>Icono</ion-label>
-        <ion-select cancelText="Cancelar" okText="Aceptar" [ngModelOptions]="{standalone: true}" [(ngModel)]="editCategoryForm.icono">
+        <ion-select cancelText="Cancelar" okText="Aceptar" [ngModelOptions]="{standalone: true}" [(ngModel)]="currentCategory.icono">
           <ion-option value="cafe"><ion-icon name="cafe"></ion-icon> Cafe</ion-option>
           <ion-option value="wine"><ion-icon name="wine"></ion-icon> Copa</ion-option>
           <ion-option value="ice-cream"><ion-icon name="ice-cream"> Helado</ion-icon></ion-option>

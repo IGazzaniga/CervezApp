@@ -6,6 +6,7 @@ import { UserService } from '../../providers/user/user-service';
 import { CategoriasService } from '../../providers/categorias/categorias-service';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { NewCategoria } from '../../models/New-Categoria';
+import { Categoria } from '../../models/Categoria';
 
 /**
  * Generated class for the EditCategoryPage page.
@@ -22,7 +23,7 @@ import { NewCategoria } from '../../models/New-Categoria';
 export class EditCategoryPage {
   @ViewChild('fileInput') fileInput;
   public currentUser: User;
-  public currentCategory: any;
+  public currentCategory: Categoria;
   public editCategoryForm: any = {};
   private spinner: any;
   private fileFoto: File;
@@ -68,16 +69,17 @@ export class EditCategoryPage {
     reader.readAsDataURL(this.fileFoto);
   }
 
- public editCategory(newCategoria: any) {
-  if (newCategoria.name.trim()) {
+ public editCategory(newCategoria: Categoria) {
+  if (newCategoria.nombre.trim()) {
       this.spinner.present();
 
-      this.categoriasService.editCategory(this.currentCategory.$key, newCategoria)
+      this.categoriasService.editCategory(this.currentCategory.id, newCategoria)
       .then((data) => {
           this.spinner.dismiss();
-          this.viewCtrl.dismiss(this.currentCategory, newCategoria);
+          this.viewCtrl.dismiss(this.currentCategory, newCategoria.id);
       })
       .catch((e:Error) => {
+        console.log("Hola");
           this.spinner.dismiss();
           this.viewCtrl.dismiss();
       });
