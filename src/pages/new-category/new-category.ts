@@ -60,10 +60,27 @@ export class NewCategoryPage {
   public guardar() {
     this.loadingService.show();
     let newCategoria = new NewCategoria(this.newCategoryForm);
-    this.categoriasService.add(newCategoria, this.fileFoto).then((resp) => {
+    if(newCategoria.nombre === undefined || newCategoria.nombre.trim() === ""){
+      alert("Falta completar el nombre de la categoría");
       this.loadingService.dissmis();
-      this.navCtrl.pop();
-    });
+    }
+      else if(newCategoria.imagen === null){
+        alert("Falta agregar una imagen a la categoría");
+        this.loadingService.dissmis();
+      }
+      else if(newCategoria.icono === null){
+        alert("Falta asignar un ícono a la categoría");
+        this.loadingService.dissmis();
+      }
+      else{
+        this.categoriasService.add(newCategoria, this.fileFoto).then((resp) => {
+          this.loadingService.dissmis();
+          this.navCtrl.pop();
+        });
+        alert ("Está todo bien")
+      }
+    
+      
   }
 
 }
