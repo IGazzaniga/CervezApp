@@ -24,34 +24,26 @@ export class EditCategoryPage {
   @ViewChild('fileInput') fileInput;
   public currentUser: User;
   public currentCategory: Categoria;
-  public editCategoryForm: any = {};
-  private spinner: any;
   private fileFoto: File;
 
-  constructor(private loadingCtrl: LoadingController, 
-  public viewCtrl: ViewController,
-  public navCtrl: NavController, 
-  public navParams: NavParams,
-  public formBuilder: FormBuilder,
-  public userService: UserService,
-  public categoriasService: CategoriasService,
-  public loadingService: LoadingProvider, 
-  
-  public actionSheetCtrl: ActionSheetController) {
-    this.currentCategory = this.navParams.get('currentCategory');
-       
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public userService: UserService,
+    public loadingService: LoadingProvider,
+    public categoriasService: CategoriasService) {
+      this.currentCategory = this.navParams.get('currentCategory');     
   }
+
   ionViewDidLoad() {
   }
 
-  ionViewCanEnter(): boolean{
-    //solo se puede entrar al login cuando no hay un usuario logueado
-    if(this.userService.isUserAuth()){
-        return true;
-      } else {
-        this.navCtrl.setRoot('MainPage');
-        return false;
-      }
+  ionViewCanEnter(): boolean {
+    if (this.userService.isUserAuth() && this.currentCategory){
+      return true;
+    } else {
+      this.navCtrl.setRoot('HomePage');
+      return false;
+    }
   }
 
   getPicture(event: Event) {
@@ -63,29 +55,25 @@ export class EditCategoryPage {
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
       let imageData = (readerEvent.target as any).result;
-      this.editCategoryForm.imagen = imageData;
+      this.currentCategory.imagen = imageData;
     };
     this.fileFoto = event.target.files[0];
     reader.readAsDataURL(this.fileFoto);
   }
 
- public editCategory(newCategoria: Categoria) {
-  if (newCategoria.nombre.trim()) {
-      this.spinner.present();
-
-      this.categoriasService.editCategory(this.currentCategory.id, newCategoria)
-      .then((data) => {
-          this.spinner.dismiss();
-          this.viewCtrl.dismiss(this.currentCategory, newCategoria.id);
-      })
-      .catch((e:Error) => {
-        console.log("Hola");
-          this.spinner.dismiss();
-          this.viewCtrl.dismiss();
-      });
-      
+ public editCategory() {
+    this.loadingService.show();
+    this.categoriasService.editCategory(this.currentCategory.id, this.currentCategory, this.fileFoto)
+    .then((data) => {
+        this.loadingService.dissmis();
+        this.navCtrl.pop();
+    })
+    .catch((e:Error) => {
+        alert("Error al editar la categoria");
+        this.loadingService.dissmis();
+        this.navCtrl.pop();
+    });   
   }
-}
 
 
 }

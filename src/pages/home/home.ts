@@ -85,8 +85,10 @@ export class HomePage {
     });
     prompt.present();
   }
+
   public editCategory (cat: Categoria){
-    this.navCtrl.push('EditCategoryPage');
+    var copy = Object.assign({}, cat)
+    this.navCtrl.push('EditCategoryPage', {'currentCategory': copy});
   }
   
   public goToCategoria (cat: Categoria) {

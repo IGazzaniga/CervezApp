@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form (submit)="editCategory(currentCategory)">
+  <form (submit)="editCategory()">
     <ion-list>
 
       <ion-item>
@@ -21,10 +21,10 @@
       </ion-item>
 
       <ion-item>
-        <button ion-button color="primary" (click)="getPicture($event)">Subir imagen</button>
+        <button ion-button color="primary" (click)="getPicture($event)">Cambiar imagen</button>
         <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
       </ion-item>
-      <img style="width: 100%" *ngIf="currentCategory.imagen" [src]="editCategoryForm.imagen" alt="">
+      <img style="width: 100%" *ngIf="currentCategory.imagen" [src]="currentCategory.imagen" alt="">
       
       <ion-item>
         <ion-label>Icono</ion-label>
@@ -39,7 +39,7 @@
       </ion-item>
       
       <div padding>
-        <button ion-button color="primary" block>Guardar</button>
+        <button ion-button color="primary" block>Editar</button>
       </div>
 
     </ion-list>

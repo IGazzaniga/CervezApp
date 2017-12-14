@@ -45,8 +45,15 @@ export class CategoriasService{
     }
   }
 
-  public editCategory(catId:string, editCategory: any): Promise<any> {
-    return this.categoriasRef.child(catId).update(editCategory);
+  public editCategory(catId:string, editCategory: any, imagen:File): Promise<any> {
+    if (imagen) {
+      return this.saveImage(catId, imagen).then((snap) => {
+        editCategory.imagen = snap.downloadURL;
+        return this.categoriasRef.child(catId).update(editCategory);
+      })
+    } else {
+        return this.categoriasRef.child(catId).update(editCategory);
+    }
   }
   
 
