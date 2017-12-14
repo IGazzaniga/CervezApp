@@ -23,12 +23,14 @@
         <h2><strong>Tamaño: </strong>{{racion.nombre}}</h2> 
         <h2><strong>Medida: </strong>{{racion.medida}} {{racion.unidad}}</h2> 
         <h2><strong>Precio: </strong>$ {{racion.precio}}</h2>
-        <ion-thumbnail item-start>
-          <img [src]="racion.foto">
-        </ion-thumbnail>
       </ion-item>
       <ion-item *ngIf="item?.stock"><strong>Stock: </strong>Si</ion-item>
       <ion-item *ngIf="!item?.stock"><strong>Stock: </strong>No</ion-item>
+      <ion-slides>
+        <ion-slide *ngFor="let foto of item?.fotos">
+          <img [src]="foto">
+        </ion-slide>
+      </ion-slides>
     </ion-list> 
 
 </ion-content>

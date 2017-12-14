@@ -25,24 +25,36 @@ export class ItemsService {
   }
 
   public add(newitem: NewItem, fotos:File[], categoriaId: string): Promise<any> {
-      let item = new Item(newitem);
-      item.id = this.itemsRef.push().key;
-      item.idCategoria = categoriaId;
-      if (fotos.length != 0) {
-        for (var index = 0; index < fotos.length; index++) {
-          var foto = fotos[index];
-          this.saveImage(item.id, index, foto).then((snap) => {
-            item.raciones[index].foto = snap.downloadURL;
-          });
-        }
+    let item = new Item(newitem);
+    item.id = this.itemsRef.push().key;
+    item.idCategoria = categoriaId;
+    if (fotos.length > 0) {
+      return this.saveMultipleImage(item.id, fotos).then((fotosURL) => {
+        item.fotos = fotosURL;
         return this.itemsRef.child(item.id).set(item);
-      } else {
-        return this.itemsRef.child(item.id).set(item);
+      })
+    } else {
+      return this.itemsRef.child(item.id).set(item);
+    }
+  }
+
+  public saveMultipleImage (idItem: string, fotos: File[]): Promise<string[]> {
+    let fotosURL:string[] = []
+    return new Promise((resolve, reject) => {
+      for (var index = 0; index < fotos.length; index++) {
+        var foto = fotos[index];
+        this.saveImage(idItem, index, foto).then((snap) => {
+          fotosURL.push(snap.downloadURL);
+          if (fotosURL.length == fotos.length) {
+            resolve(fotosURL);
+          }
+        });
       }
+    });
   }
 
   public saveImage (idItem:string, index:number, foto: File) {
-    return this.storageRef.child(`items-images/${idItem}/racion/${index}.jpg`).put(foto);
+    return this.storageRef.child(`items-images/${idItem}/${index}.jpg`).put(foto);
   }
   
   public delete (itemId: string): Promise<any> {

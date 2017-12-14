@@ -22,9 +22,13 @@ import { Racion } from "../../models/Racion";
   templateUrl: 'new-item.html',
 })
 export class NewItemPage {
+  @ViewChild('file0') file0;
+  @ViewChild('file1') file1;
+  @ViewChild('file2') file2;
   private filesFotos: File[] = [];
   private categoriaId: string;
   public newItemForm: any = {};
+  public fotos = [];
   public categorias: Categoria[];
   public esCerveza: Boolean = false;
   
@@ -37,6 +41,7 @@ export class NewItemPage {
     this.categoriaId = this.navParams.get('categoriaId');
     let racionInit = new Racion({nombre: '', precio: ''});
     this.newItemForm.raciones = [racionInit];
+    this.newItemForm.fotos = [];
     this.newItemForm.stock = true;
   }
 
@@ -52,14 +57,22 @@ export class NewItemPage {
 
   getPicture(event: Event, i:number) {
     event.preventDefault();
-    document.getElementById('file'+i).click();
+    if (i==0) {
+      this.file0.nativeElement.click();
+    }
+    if (i==1) {
+      this.file1.nativeElement.click();
+    }
+    if (i==2) {
+      this.file2.nativeElement.click();
+    }
   }
 
   processWebImage(event, index) {
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
       let imageData = (readerEvent.target as any).result;
-      this.newItemForm.raciones[index].foto = imageData;
+      this.fotos[index] = imageData;
     };
     this.filesFotos[index] = event.target.files[0];
     reader.readAsDataURL(this.filesFotos[index]);
