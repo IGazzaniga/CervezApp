@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import {MenuController, IonicPage,  NavController,  NavParams} from 'ionic-angular';
 import { UserService } from "../../providers/user/user-service";
 import { User } from "../../models/User";
+import { Geolocation } from '@ionic-native/geolocation';
+import { GeoProvider } from "../../providers/geo/geo-service";
+
 
 /**
  * Generated class for the MainPage page.
@@ -23,7 +26,9 @@ export class MainPage {
   public negocios: User[];
   spinner: Boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl:MenuController, public userService: UserService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  public menuCtrl:MenuController, public userService: UserService, 
+  private geolocation: Geolocation, public geoService: GeoProvider) {
     this.menuCtrl.enable(false);  
   }
 
@@ -35,6 +40,13 @@ export class MainPage {
       this.originalNegocios = negocios;
       this.spinner = false;
     })
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.geoService.getLocationName(resp.coords.latitude, resp.coords.longitude).subscribe((data:any) => {
+        if (data.results) {
+          alert('Usted esta en: ' + data.results[2].formatted_address);
+        }
+      });
+    });
   }
 
   public goToNegocio (neg: User) {

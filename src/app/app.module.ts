@@ -14,6 +14,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 import { envprod } from "../config/env.prod";
@@ -23,6 +24,7 @@ import { Settings } from "../providers/settings/settings";
 import firebase from 'firebase';
 import { CategoriaCardComponentModule } from "../components/categoria-card/categoria-card.module";
 import { LoadingProvider } from '../providers/loading/loading';
+import { GeoProvider } from '../providers/geo/geo-service';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -75,14 +77,13 @@ firebase.initializeApp(envprod.firebase);
     ItemsService,
     UserService,
     CategoriasService,
-    Camera,
-    SplashScreen,
-    StatusBar,
+    Geolocation,
     AngularFireDatabase,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    LoadingProvider
+    LoadingProvider,
+    GeoProvider
   ]
 })
 export class AppModule { }

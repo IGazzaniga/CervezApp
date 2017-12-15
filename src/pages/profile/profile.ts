@@ -49,6 +49,12 @@ export class ProfilePage {
     return 'url(' + this.currentUser.foto + ')'
   }
 
+  getAddress(place:Object) {       
+      this.currentUser.localidad = place['formatted_address'];
+      this.currentUser.urlmap = place['url'];
+      console.log("Address Object", place);
+  }
+
   guardar () {
     this.loadingService.show();
     if (this.fileFoto) {

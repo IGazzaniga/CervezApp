@@ -100,6 +100,7 @@ export class UserService {
         direccion: user.direccion || null,
         horaApertura: user.horaApertura || null,
         horaCierre: user.horaCierre || null,
+        urlmap: user.urlmap || null,
         localidad: user.localidad || null
       });
     }).catch(function(error) {

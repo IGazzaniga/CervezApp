@@ -15,6 +15,7 @@
 
 <ion-content padding>
   <ion-title margin-top margin-bottom text-center>Carta</ion-title>
+  <a target="_blank" [href]="negocio?.urlmap">Ver ciudad en mapa</a>
   <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
   <categoria-card (click)="goToCategoria(cat)" *ngFor="let cat of categorias" [categoria]="cat"></categoria-card>
 </ion-content>
