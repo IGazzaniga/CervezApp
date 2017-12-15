@@ -93,7 +93,7 @@ export class NewItemPage {
       alert("Falta completar la descripción del producto");
       this.loadingService.dissmis();
     }
-    else if(newItem.raciones !== undefined){
+    else if(newItem.raciones.length !== 0){
       for(i=0; i < long; i++){
         if (newItem.raciones[i].nombre === undefined || newItem.raciones[i].nombre.trim() === ""){
           alert("Falta completar el nombre de la ración");
@@ -104,18 +104,16 @@ export class NewItemPage {
           this.loadingService.dissmis();
         }
         else{
-          this.loadingService.dissmis();
-          alert("Racion ok")
+          
+          this.itemsService.add(newItem, this.filesFotos, this.categoriaId).then((resp) => {
+            this.loadingService.dissmis();
+            this.navCtrl.pop();
+          });
+          alert("Producto cargado")
         }
       }
     }
-    else{
-    this.itemsService.add(newItem, this.filesFotos, this.categoriaId).then((resp) => {
-      this.loadingService.dissmis();
-      this.navCtrl.pop();
-    });
-    alert("Producto cargado")
-  }
+    
   }
   
   public addRacion (event) {
