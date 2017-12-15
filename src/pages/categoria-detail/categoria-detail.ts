@@ -69,6 +69,12 @@ export class CategoriaDetailPage {
     });
     prompt.present();
   }
+
+  public editItem (it: Item){
+    var copy = Object.assign({}, it)
+    this.navCtrl.push('EditItemPage', {'currentItem': copy});
+  }
+
   public goToItem(it: Item) {
     this.navCtrl.push('ItemDetailPage', {'nombre-neg': this.nombreNegocio, 'nombre-cat': this.categoria.nombre, 'nombre-item': it.nombre, 'item': it});
   }

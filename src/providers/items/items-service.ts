@@ -56,6 +56,18 @@ export class ItemsService {
   public saveImage (idItem:string, index:number, foto: File) {
     return this.storageRef.child(`items-images/${idItem}/${index}.jpg`).put(foto);
   }
+
+  public editItem(itemId:string, editItem: any, index:number, imagen:File): Promise<any> {
+    if (imagen) {
+      return this.saveImage(itemId, index, imagen).then((snap) => {
+        editItem.imagen = snap.downloadURL;
+        return this.itemsRef.child(itemId).update(editItem);
+      })
+    } else {
+        return this.itemsRef.child(itemId).update(editItem);
+    }
+  }
+  
   
   public delete (itemId: string): Promise<any> {
     return this.itemsRef.child(itemId).remove();

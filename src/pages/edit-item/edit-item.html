@@ -1,5 +1,5 @@
 <!--
-  Generated template for the NewItemPage page.
+  Generated template for the EditItemPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,56 +7,55 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>NewItem</ion-title>
+    <ion-title>{{currentItem.nombre}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-  <form (submit)="guardar()">
+  <form (submit)="editItem()">
     <ion-list>
 
       <ion-item>
         <ion-label stacked>Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="newItemForm.nombre" name="name"></ion-input>
+        <ion-input type="text" [(ngModel)]="currentItem.nombre" name="name"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked>Descripción</ion-label>
-        <ion-input type="text" [(ngModel)]="newItemForm.descripcion" name="description"></ion-input>
+        <ion-input type="text" [(ngModel)]="currentItem.descripcion" name="description"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Es Cerveza?</ion-label>
-        <ion-toggle [(ngModel)]="esCerveza" name="esCerveza"></ion-toggle>
+        <ion-toggle [(ngModel)]="currentItem.esCerveza" name="esCerveza"></ion-toggle>
       </ion-item>
 
-      <ion-item-group *ngIf="esCerveza">
+      <ion-item-group *ngIf="currentItem.esCerveza">
         <ion-item-divider color="light">Atributos para Cerveza</ion-item-divider>
         <ion-item>
           <ion-label stacked>Graduación alcohólica</ion-label>
-          <ion-input type="number" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
+          <ion-input type="number" [(ngModel)]="currentItem.graduacion" name="graduation"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label stacked>IBU</ion-label>
-          <ion-input type="number" [(ngModel)]="newItemForm.ibu" name="IBU"></ion-input>
+          <ion-input type="number" [(ngModel)]="currentItem.ibu" name="IBU"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label stacked>Proveedor</ion-label>
-          <ion-input type="text" [(ngModel)]="newItemForm.proveedor" name="proveedor"></ion-input>
+          <ion-input type="text" [(ngModel)]="currentItem.proveedor" name="proveedor"></ion-input>
         </ion-item>
       </ion-item-group>
 
       <ion-item>
         <ion-label>Stock</ion-label>
-        <ion-toggle [(ngModel)]="newItemForm.stock" name="stock"></ion-toggle>
+        <ion-toggle [(ngModel)]="currentItem.stock" name="stock"></ion-toggle>
       </ion-item>
-     
 
-      <ion-item-group *ngFor="let racion of newItemForm.raciones; let i = index">
+
+      <ion-item-group *ngFor="let racion of currentItem.raciones; let i = index">
         <ion-item-divider color="light">Racion {{i + 1}} <span (click)="removeRacion(i);" style="float: right;">X</span></ion-item-divider>
         <ion-item>
           <ion-label stacked>Tamaño</ion-label>

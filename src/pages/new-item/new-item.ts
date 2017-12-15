@@ -81,12 +81,43 @@ export class NewItemPage {
   public guardar() {
     this.loadingService.show();
     let newItem = new NewItem(this.newItemForm);
+    let long = newItem.raciones.length;
+    let i : number = 0;
+    console.log (long);
+                
+    if(newItem.nombre === undefined || newItem.nombre.trim() === ""){
+      alert("Falta completar el nombre del producto");
+      this.loadingService.dissmis();
+    }
+    else if(newItem.descripcion === undefined || newItem.nombre.trim() === ""){
+      alert("Falta completar la descripción del producto");
+      this.loadingService.dissmis();
+    }
+    else if(newItem.raciones !== undefined){
+      for(i=0; i < long; i++){
+        if (newItem.raciones[i].nombre === undefined || newItem.raciones[i].nombre.trim() === ""){
+          alert("Falta completar el nombre de la ración");
+          this.loadingService.dissmis();
+        }
+        else if(newItem.raciones[i].precio.toString() === ""){
+          alert("Falta completar el precio de la ración");
+          this.loadingService.dissmis();
+        }
+        else{
+          this.loadingService.dissmis();
+          alert("Racion ok")
+        }
+      }
+    }
+    else{
     this.itemsService.add(newItem, this.filesFotos, this.categoriaId).then((resp) => {
       this.loadingService.dissmis();
       this.navCtrl.pop();
     });
+    alert("Producto cargado")
   }
-
+  }
+  
   public addRacion (event) {
     event.preventDefault();
     this.newItemForm.raciones.push({nombre: '', precio: ''});
