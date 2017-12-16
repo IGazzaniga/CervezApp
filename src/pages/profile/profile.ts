@@ -52,6 +52,7 @@ export class ProfilePage {
   getAddress(place:Object) {       
       this.currentUser.localidad = place['formatted_address'];
       this.currentUser.urlmap = place['url'];
+      this.currentUser.place_id = place['place_id'];
       console.log("Address Object", place);
   }
 

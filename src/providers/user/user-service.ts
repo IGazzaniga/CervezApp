@@ -101,6 +101,7 @@ export class UserService {
         horaApertura: user.horaApertura || null,
         horaCierre: user.horaCierre || null,
         urlmap: user.urlmap || null,
+        place_id: user.place_id || null,
         localidad: user.localidad || null
       });
     }).catch(function(error) {
@@ -108,8 +109,8 @@ export class UserService {
     });
   }
 
-  public getAll (): Observable<User[]> {
-    return this.db.list<User>(this.usersDB).valueChanges()
+  public getAll (place_id:string): Observable<User[]> {
+    return this.db.list<User>(this.usersDB, ref => ref.orderByChild('place_id').equalTo(place_id)).valueChanges();
   }
 
   public saveImageProfile (foto: File) {

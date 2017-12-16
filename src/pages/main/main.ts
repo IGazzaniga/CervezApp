@@ -21,10 +21,9 @@ import { GeoProvider } from "../../providers/geo/geo-service";
   templateUrl: 'main.html',
 })
 export class MainPage {
-  searchedNegocios: User[];
-  originalNegocios: User[];
   public negocios: User[];
   spinner: Boolean;
+  location: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public menuCtrl:MenuController, public userService: UserService, 
@@ -34,18 +33,21 @@ export class MainPage {
 
   ionViewDidLoad() {
     this.spinner = true;
-    this.userService.getAll().subscribe((negocios) => {
-      this.negocios = negocios;
-      this.searchedNegocios = negocios;
-      this.originalNegocios = negocios;
-      this.spinner = false;
-    })
     this.geolocation.getCurrentPosition().then((resp) => {
       this.geoService.getLocationName(resp.coords.latitude, resp.coords.longitude).subscribe((data:any) => {
         if (data.results) {
-          alert('Usted esta en: ' + data.results[2].formatted_address);
+          this.location = data.results[1].formatted_address;
+          let place_id = data.results[1].place_id
+          this.userService.getAll(place_id).subscribe((negocios) => {
+            this.negocios = negocios;
+            this.spinner = false;
+          })
         }
       });
+    }).catch((err) => {
+      console.log(err);
+      this.negocios = [];
+      this.spinner = false;
     });
   }
 
@@ -53,16 +55,9 @@ export class MainPage {
     this.navCtrl.push('NegocioMainPage', {'nombre': neg.username, 'negocio': neg});
   }
 
-  public searchNegocio(ev: any) {
-    this.negocios = this.originalNegocios;
-    this.searchedNegocios = this.negocios;
-		let val: string = ev.target.value;
-		if (val && val.trim() != '') {
-      this.searchedNegocios = this.negocios.filter((negocio) => {
-        return (negocio.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-	}
+  public searchNegocio () {
+    //implementar
+  }
   
 }
 

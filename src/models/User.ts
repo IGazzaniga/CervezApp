@@ -10,6 +10,7 @@ export class User {
     localidad: string;
     patrocinado: boolean;
     urlmap: string;
+    place_id: string;
 
     constructor(userLogin: any) {
         this.email = userLogin.email;
@@ -23,6 +24,7 @@ export class User {
         this.localidad = userLogin.localidad || null;
         this.patrocinado = userLogin.patrocinado || null;
         this.urlmap = userLogin.urlmap || null;
+        this.place_id = userLogin.place_id || null;
     }
 
 }

@@ -23,7 +23,10 @@ export class GoogleplaceDirective  {
 
   ngAfterViewInit () {
     var input: HTMLInputElement = document.getElementById('autocomplete').getElementsByTagName('input')[0];
-    let options = {componentRestrictions: {country: 'ar'}};
+    var options = {
+      types: ['(cities)'],
+      componentRestrictions: {country: 'ar'}
+    };
     this.autocomplete = new google.maps.places.Autocomplete(input, options);
     google.maps.event.addListener(this.autocomplete, 'place_changed', ()=> {
       var place = this.autocomplete.getPlace();
