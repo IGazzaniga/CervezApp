@@ -99,12 +99,12 @@ export class NewItemPage {
           this.loadingService.dissmis();
           return false;
         }
-        else if(newItem.raciones[i].medida === undefined || newItem.raciones[i].medida.trim() === ""){
+        else if(newItem.raciones[i].medida === null || newItem.raciones[i].unidad === undefined || newItem.raciones[i].medida.trim() === ""){
           alert("Falta completar la medida de la ración "+ [i+1]);
           this.loadingService.dissmis();
           return false;
         }
-        else if(newItem.raciones[i].unidad === undefined || newItem.raciones[i].unidad.trim() === ""){
+        else if(newItem.raciones[i].unidad === null || newItem.raciones[i].unidad === undefined || newItem.raciones[i].unidad.trim() === ""){
           alert("Falta completar la unidad de la ración "+ [i+1]);
           this.loadingService.dissmis();
           return false;
