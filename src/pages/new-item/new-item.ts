@@ -78,44 +78,54 @@ export class NewItemPage {
     reader.readAsDataURL(this.filesFotos[index]);
   }
 
-  public guardar() {
-    this.loadingService.show();
-    let newItem = new NewItem(this.newItemForm);
-    let long = newItem.raciones.length;
+  
+  public validacion(newItem: NewItem):boolean{
     let i : number = 0;
-    console.log (long);
-                
+    
     if(newItem.nombre === undefined || newItem.nombre.trim() === ""){
       alert("Falta completar el nombre del producto");
       this.loadingService.dissmis();
+      return false;
     }
     else if(newItem.descripcion === undefined || newItem.nombre.trim() === ""){
       alert("Falta completar la descripción del producto");
       this.loadingService.dissmis();
+      return false;
     }
     else if(newItem.raciones.length !== 0){
-      for(i=0; i < long; i++){
+      for(i=0; i < newItem.raciones.length; i++){
         if (newItem.raciones[i].nombre === undefined || newItem.raciones[i].nombre.trim() === ""){
-          alert("Falta completar el nombre de la ración");
+          alert("Falta completar el nombre de la ración "+ [i+1]);
           this.loadingService.dissmis();
+          return false;
         }
         else if(newItem.raciones[i].precio.toString() === ""){
-          alert("Falta completar el precio de la ración");
+          alert("Falta completar el precio de la ración "+ [i+1]);
           this.loadingService.dissmis();
+          return false;
         }
         else{
-          
-          this.itemsService.add(newItem, this.filesFotos, this.categoriaId).then((resp) => {
-            this.loadingService.dissmis();
-            this.navCtrl.pop();
-          });
-          alert("Producto cargado")
         }
       }
+      
     }
+      
+    return true;
+  }                 
     
+  public guardar() {
+    this.loadingService.show();
+    let newItem = new NewItem(this.newItemForm);
+    let cond = this.validacion(newItem);
+    if(cond){
+      this.itemsService.add(newItem, this.filesFotos, this.categoriaId).then((resp) => {
+        this.loadingService.dissmis();
+        this.navCtrl.pop();
+      });
+      alert("Producto cargado");
+    }
   }
-  
+
   public addRacion (event) {
     event.preventDefault();
     this.newItemForm.raciones.push({nombre: '', precio: ''});
