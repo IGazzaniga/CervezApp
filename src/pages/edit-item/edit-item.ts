@@ -103,10 +103,10 @@ export class EditItemPage {
       this.loadingService.dissmis();
       return false;
     }
-    else if(this.esCerveza &&(currentItem.graduacion > 100 || currentItem.graduacion < 0)){
+    else if (this.esCerveza && (currentItem.graduacion > 100 || currentItem.graduacion < 0)) {
       alert("La graduación debe ser un valor entre 0 y 100");
       this.loadingService.dissmis();
-      return false
+      return false;
     }
     else if(this.esCerveza &&(!currentItem.ibu || currentItem.ibu.toString() === "")){
       alert("Falta completar el IBU de la cerveza");
