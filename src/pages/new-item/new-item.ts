@@ -116,7 +116,7 @@ export class NewItemPage {
       this.loadingService.dissmis();
       return false
     }
-    else if((newItem.esCerveza && !newItem.proveedor || newItem.proveedor.trim() === "")){
+    else if(newItem.esCerveza && (!newItem.proveedor || newItem.proveedor.trim() === "")){
       alert("Debe completar el proveedor de la cerveza");
       this.loadingService.dissmis();
       return false;

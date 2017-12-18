@@ -92,7 +92,7 @@ export class EditItemPage {
       this.loadingService.dissmis();
       return false;
     }
-    else if(!currentItem.descripcion || currentItem.nombre.trim() === ""){
+    else if(!currentItem.descripcion || currentItem.descripcion.trim() === ""){
       alert("Falta completar la descripción del producto");
       this.loadingService.dissmis();
       return false;
@@ -112,7 +112,7 @@ export class EditItemPage {
       this.loadingService.dissmis();
       return false;
     }
-    else if(currentItem.esCerveza &&(!currentItem.ibu || currentItem.ibu.toString() === "")){
+    else if(currentItem.esCerveza && (!currentItem.ibu || currentItem.ibu.toString() === "")){
       alert("Falta completar el IBU de la cerveza");
       this.loadingService.dissmis();
       return false;
@@ -122,7 +122,7 @@ export class EditItemPage {
       this.loadingService.dissmis();
       return false
     }
-    else if((currentItem.esCerveza && !currentItem.proveedor || currentItem.proveedor.trim() === "")){
+    else if(currentItem.esCerveza && (!currentItem.proveedor || currentItem.proveedor.trim() === "")){
       alert("Debe completar el proveedor de la cerveza");
       this.loadingService.dissmis();
       return false;
