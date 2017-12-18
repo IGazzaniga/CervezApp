@@ -50,7 +50,8 @@ export class ProfilePage {
     return 'url(' + this.currentUser.foto + ')'
   }
 
-  getAddress(place:Object) {       
+  getAddress(place:Object){   
+      this.place = place;  
       this.currentUser.localidad = place['formatted_address'];
       this.currentUser.urlmap = place['url'];
       this.currentUser.place_id = place['place_id'];
@@ -59,6 +60,11 @@ export class ProfilePage {
   validacion(currentUser:User):boolean{
     if(!currentUser.nombre || currentUser.nombre.trim()===""){
       alert("Falta completar el nombre");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(!currentUser.foto || currentUser.foto.trim()===""){
+      alert("Debe incluir una foto de perfil");
       this.loadingService.dissmis();
       return false;
     }
