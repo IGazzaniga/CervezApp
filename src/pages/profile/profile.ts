@@ -57,14 +57,14 @@ export class ProfilePage {
       this.currentUser.place_id = place['place_id'];
       console.log("Address Object", place);
   }
+
   validacion(currentUser:User):boolean{
     if(!currentUser.nombre || currentUser.nombre.trim()===""){
       alert("Falta completar el nombre");
       this.loadingService.dissmis();
       return false;
     }
-    else if(this.fileFoto.type !== (('image/jpeg') && ('image/png')) || !this.fileFoto || !currentUser.foto || currentUser.foto.trim()===""){
-      alert(this.fileFoto.type);
+    else if(!this.fileFoto || !currentUser.foto || this.fileFoto.type !== (('image/jpeg') && ('image/png')) || currentUser.foto.trim()===""){
       alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
       this.loadingService.dissmis();
       return false;
@@ -106,8 +106,7 @@ export class ProfilePage {
   guardar () {
     this.loadingService.show();
     if(this.validacion(this.currentUser)){
-    if (this.fileFoto) {
-      this.userService.saveImageProfile(this.fileFoto).then((snap) => {
+        this.userService.saveImageProfile(this.fileFoto).then((snap) => {
         this.currentUser.foto = snap.downloadURL;
         this.userService.updateProfile(this.currentUser).then(() => {
           this.userService.setCurrentUser(this.currentUser).then(() => {
@@ -121,19 +120,7 @@ export class ProfilePage {
           })
         })
       });
-    } else {
-      this.userService.updateProfile(this.currentUser).then(() => {
-        this.userService.setCurrentUser(this.currentUser).then(() => {
-          this.loadingService.dissmis();
-          let toast = this.toastCtrl.create({
-            message: 'El perfil se actualizo correctamente',
-            duration: 3000,
-            position: 'top'
-          });
-          toast.present();
-        })
-      })
-    }
+    
   }
   }
 }
