@@ -64,7 +64,7 @@ export class ProfilePage {
       this.loadingService.dissmis();
       return false;
     }
-    else if(!this.fileFoto || !currentUser.foto || this.fileFoto.type !== (('image/jpeg') && ('image/png')) || currentUser.foto.trim()===""){
+    else if(!this.fileFoto || !currentUser.foto || (this.fileFoto.type !== ('image/jpeg')) && (this.fileFoto.type !== ('image/png')) || currentUser.foto.trim()===""){
       alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
       this.loadingService.dissmis();
       return false;
