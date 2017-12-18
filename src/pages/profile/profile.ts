@@ -20,6 +20,7 @@ export class ProfilePage {
   @ViewChild('fileInput') fileInput;
   public currentUser: User;
   private fileFoto: File;
+  public place: Object;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public toastCtrl: ToastController, public userService: UserService, public loadingService: LoadingProvider) {
@@ -55,9 +56,48 @@ export class ProfilePage {
       this.currentUser.place_id = place['place_id'];
       console.log("Address Object", place);
   }
+  validacion(currentUser:User):boolean{
+    if(!currentUser.nombre || currentUser.nombre.trim()===""){
+      alert("Falta completar el nombre");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(!currentUser.email || currentUser.email.trim()===""){
+      alert("Falta completar el mail");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(!currentUser.direccion || currentUser.direccion.trim()===""){
+      alert("Falta completar la dirección");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(!currentUser.horaApertura || currentUser.horaApertura.toString()===""){
+      alert("Falta completar la hora de apertura");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(!currentUser.horaCierre || currentUser.horaCierre.toString()===""){
+      alert("Falta completar la hora de cierre");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(!currentUser.localidad || currentUser.localidad.trim()===""){
+      alert("Falta completar la localidad");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(!this.place || currentUser.localidad !== this.place['formatted_address']){
+      alert("El campo localidad es inválido");
+      this.loadingService.dissmis();
+      return false;
+    }
+    return true;
+  }
 
   guardar () {
     this.loadingService.show();
+    if(this.validacion(this.currentUser)){
     if (this.fileFoto) {
       this.userService.saveImageProfile(this.fileFoto).then((snap) => {
         this.currentUser.foto = snap.downloadURL;
@@ -86,5 +126,6 @@ export class ProfilePage {
         })
       })
     }
+  }
   }
 }
