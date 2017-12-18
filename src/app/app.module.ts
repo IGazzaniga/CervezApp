@@ -25,6 +25,7 @@ import firebase from 'firebase';
 import { CategoriaCardComponentModule } from "../components/categoria-card/categoria-card.module";
 import { LoadingProvider } from '../providers/loading/loading';
 import { GeoProvider } from '../providers/geo/geo-service';
+import { NotificationsProvider } from '../providers/notifications/notifications';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -83,7 +84,8 @@ firebase.initializeApp(envprod.firebase);
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LoadingProvider,
-    GeoProvider
+    GeoProvider,
+    NotificationsProvider
   ]
 })
 export class AppModule { }

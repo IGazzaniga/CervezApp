@@ -46,7 +46,6 @@ export class NewItemPage {
   }
 
   ionViewCanEnter(): boolean{
-    //solo se puede entrar al login cuando no hay un usuario logueado
     if(this.userService.isUserAuth()){
         return true;
       } else {

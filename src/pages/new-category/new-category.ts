@@ -33,7 +33,6 @@ export class NewCategoryPage {
   }
 
   ionViewCanEnter(): boolean{
-    //solo se puede entrar al login cuando no hay un usuario logueado
     if(this.userService.isUserAuth()){
         return true;
       } else {
