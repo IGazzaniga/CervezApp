@@ -91,6 +91,11 @@ export class NewItemPage {
       this.loadingService.dissmis();
       return false;
     }
+    else if (this.esCerveza && (!newItem.tipo || newItem.tipo.trim() === "")) {
+      alert("Falta completar el tipo de la cerveza");
+      this.loadingService.dissmis();
+      return false;
+    }
     else if (this.esCerveza && (!newItem.graduacion || newItem.graduacion.toString() === "")) {
       alert("Falta completar la graduación de la cerveza");
       this.loadingService.dissmis();

@@ -35,6 +35,10 @@
       <ion-item-group *ngIf="esCerveza">
         <ion-item-divider color="light">Atributos para Cerveza</ion-item-divider>
         <ion-item>
+          <ion-label stacked>Tipo de cerveza</ion-label>
+          <ion-input type="text" [(ngModel)]="newItemForm.tipo" name="tipo"></ion-input>
+        </ion-item>
+        <ion-item>
           <ion-label stacked>Graduación alcohólica</ion-label>
           <ion-input type="number" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
         </ion-item>

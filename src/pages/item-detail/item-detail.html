@@ -17,6 +17,7 @@
     <ion-list>
       <ion-item *ngIf="item?.descripcion"><strong>Descripción: </strong>{{item?.descripcion}}</ion-item>
       <ion-item-group *ngIf="item?.esCerveza"> <!-- Esto siempre es false..es como que siempre por defecto está en false, me pasa lo mismo al editar un item, cuando me traigo el current item -->
+        <ion-item *ngIf="item?.tipo"><strong>Tipo: </strong>{{item?.tipo}}</ion-item>
         <ion-item *ngIf="item?.graduacion"><strong>Graduación alcohólica: </strong>{{item?.graduacion}}</ion-item>
         <ion-item *ngIf="item?.ibu"><strong>IBU: </strong>{{item?.ibu}}</ion-item>
         <ion-item *ngIf="item?.proveedor"><strong>Proveedor: </strong>{{item?.proveedor}}</ion-item>

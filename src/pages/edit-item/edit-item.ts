@@ -103,6 +103,11 @@ export class EditItemPage {
       this.loadingService.dissmis();
       return false;
     }
+    else if (this.esCerveza && (!currentItem.tipo || currentItem.tipo.trim() === "")) {
+      alert("Falta completar el tipo de la cerveza");
+      this.loadingService.dissmis();
+      return false;
+    }
     else if (this.esCerveza && (currentItem.graduacion > 100 || currentItem.graduacion < 0)) {
       alert("La graduación debe ser un valor entre 0 y 100");
       this.loadingService.dissmis();
