@@ -63,8 +63,9 @@ export class ProfilePage {
       this.loadingService.dissmis();
       return false;
     }
-    else if(!currentUser.foto || currentUser.foto.trim()===""){
-      alert("Debe incluir una foto de perfil");
+    else if(this.fileFoto.type !== (('image/jpeg') && ('image/png')) || !this.fileFoto || !currentUser.foto || currentUser.foto.trim()===""){
+      alert(this.fileFoto.type);
+      alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
       this.loadingService.dissmis();
       return false;
     }
@@ -98,6 +99,7 @@ export class ProfilePage {
       this.loadingService.dissmis();
       return false;
     }
+    console.log(this.fileFoto);
     return true;
   }
 
