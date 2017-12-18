@@ -6,6 +6,7 @@ export class NewItem {
     raciones: Racion[];
     nombre: string;
     fotos: string[];
+    esCerveza: boolean;
     graduacion: number;
     ibu: number;
     proveedor: string;
@@ -18,6 +19,7 @@ export class NewItem {
        this.descripcion = newitem.descripcion ;
        this.nombre = newitem.nombre ;
        this.idCategoria = newitem.idCategoria;
+       this.esCerveza = newitem.esCerveza;
        this.graduacion = newitem.graduacion ;
        this.ibu = newitem.ibu ;
        this.proveedor = newitem.proveedor;

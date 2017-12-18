@@ -30,7 +30,7 @@ export class NewItemPage {
   public newItemForm: any = {};
   public fotos = [];
   public categorias: Categoria[];
-  public esCerveza: Boolean = false;
+  
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemsService: ItemsService,
@@ -91,32 +91,32 @@ export class NewItemPage {
       this.loadingService.dissmis();
       return false;
     }
-    else if (this.esCerveza && (!newItem.tipo || newItem.tipo.trim() === "")) {
+    else if (newItem.esCerveza && (!newItem.tipo || newItem.tipo.trim() === "")) {
       alert("Falta completar el tipo de la cerveza");
       this.loadingService.dissmis();
       return false;
     }
-    else if (this.esCerveza && (!newItem.graduacion || newItem.graduacion.toString() === "")) {
+    else if (newItem.esCerveza && (!newItem.graduacion || newItem.graduacion.toString() === "")) {
       alert("Falta completar la graduación de la cerveza");
       this.loadingService.dissmis();
       return false;
     }
-    else if(this.esCerveza &&(newItem.graduacion > 100 || newItem.graduacion < 0)){
+    else if(newItem.esCerveza &&(newItem.graduacion > 100 || newItem.graduacion < 0)){
       alert("La graduación debe ser un valor entre 0 y 100");
       this.loadingService.dissmis();
       return false
     }
-    else if(this.esCerveza &&(!newItem.ibu || newItem.ibu.toString() === "")){
+    else if(newItem.esCerveza &&(!newItem.ibu || newItem.ibu.toString() === "")){
       alert("Falta completar el IBU de la cerveza");
       this.loadingService.dissmis();
       return false;
     }
-    else if(this.esCerveza && (newItem.ibu > 100 || newItem.ibu < 0)){
+    else if(newItem.esCerveza && (newItem.ibu > 100 || newItem.ibu < 0)){
       alert("El IBU debe ser un valor entre 0 y 100");
       this.loadingService.dissmis();
       return false
     }
-    else if((this.esCerveza && !newItem.proveedor || newItem.proveedor.trim() === "")){
+    else if((newItem.esCerveza && !newItem.proveedor || newItem.proveedor.trim() === "")){
       alert("Debe completar el proveedor de la cerveza");
       this.loadingService.dissmis();
       return false;

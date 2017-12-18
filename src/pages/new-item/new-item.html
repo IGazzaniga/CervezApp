@@ -29,10 +29,10 @@
 
       <ion-item>
         <ion-label>Es Cerveza?</ion-label>
-        <ion-toggle [(ngModel)]="esCerveza" name="esCerveza"></ion-toggle>
+        <ion-toggle [(ngModel)]="newItemForm.esCerveza" name="esCerveza"></ion-toggle>
       </ion-item>
 
-      <ion-item-group *ngIf="esCerveza">
+      <ion-item-group *ngIf="newItemForm.esCerveza">
         <ion-item-divider color="light">Atributos para Cerveza</ion-item-divider>
         <ion-item>
           <ion-label stacked>Tipo de cerveza</ion-label>

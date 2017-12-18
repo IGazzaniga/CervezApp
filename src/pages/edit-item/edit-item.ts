@@ -30,7 +30,6 @@ export class EditItemPage {
   public fotos = [];
   public currentUser: User;
   public currentItem: Item;
-  public esCerveza: Boolean;
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -98,32 +97,32 @@ export class EditItemPage {
       this.loadingService.dissmis();
       return false;
     }
-    else if (this.esCerveza && (!currentItem.graduacion || currentItem.graduacion.toString() === "")) {
+    else if (currentItem.esCerveza && (!currentItem.graduacion || currentItem.graduacion.toString() === "")) {
       alert("Falta completar la graduación de la cerveza");
       this.loadingService.dissmis();
       return false;
     }
-    else if (this.esCerveza && (!currentItem.tipo || currentItem.tipo.trim() === "")) {
+    else if (currentItem.esCerveza && (!currentItem.tipo || currentItem.tipo.trim() === "")) {
       alert("Falta completar el tipo de la cerveza");
       this.loadingService.dissmis();
       return false;
     }
-    else if (this.esCerveza && (currentItem.graduacion > 100 || currentItem.graduacion < 0)) {
+    else if (currentItem.esCerveza && (currentItem.graduacion > 100 || currentItem.graduacion < 0)) {
       alert("La graduación debe ser un valor entre 0 y 100");
       this.loadingService.dissmis();
       return false;
     }
-    else if(this.esCerveza &&(!currentItem.ibu || currentItem.ibu.toString() === "")){
+    else if(currentItem.esCerveza &&(!currentItem.ibu || currentItem.ibu.toString() === "")){
       alert("Falta completar el IBU de la cerveza");
       this.loadingService.dissmis();
       return false;
     }
-    else if(this.esCerveza && (currentItem.ibu > 100 || currentItem.ibu < 0)){
+    else if(currentItem.esCerveza && (currentItem.ibu > 100 || currentItem.ibu < 0)){
       alert("El IBU debe ser un valor entre 0 y 100");
       this.loadingService.dissmis();
       return false
     }
-    else if((this.esCerveza && !currentItem.proveedor || currentItem.proveedor.trim() === "")){
+    else if((currentItem.esCerveza && !currentItem.proveedor || currentItem.proveedor.trim() === "")){
       alert("Debe completar el proveedor de la cerveza");
       this.loadingService.dissmis();
       return false;
