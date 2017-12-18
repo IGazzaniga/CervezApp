@@ -30,6 +30,7 @@ export class EditItemPage {
   public fotos = [];
   public currentUser: User;
   public currentItem: Item;
+  public esCerveza: Boolean;
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -83,7 +84,7 @@ export class EditItemPage {
   public removeRacion (index) {
     this.currentItem.raciones.splice(index, 1);
   }
-
+  
   public validacion(currentItem: Item):boolean{
     let i : number = 0;
     
@@ -94,6 +95,31 @@ export class EditItemPage {
     }
     else if(!currentItem.descripcion || currentItem.nombre.trim() === ""){
       alert("Falta completar la descripción del producto");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if (this.esCerveza && (!currentItem.graduacion || currentItem.graduacion.toString() === "")) {
+      alert("Falta completar la graduación de la cerveza");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(this.esCerveza &&(currentItem.graduacion > 100 || currentItem.graduacion < 0)){
+      alert("La graduación debe ser un valor entre 0 y 100");
+      this.loadingService.dissmis();
+      return false
+    }
+    else if(this.esCerveza &&(!currentItem.ibu || currentItem.ibu.toString() === "")){
+      alert("Falta completar el IBU de la cerveza");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(this.esCerveza && (currentItem.ibu > 100 || currentItem.ibu < 0)){
+      alert("El IBU debe ser un valor entre 0 y 100");
+      this.loadingService.dissmis();
+      return false
+    }
+    else if((this.esCerveza && !currentItem.proveedor || currentItem.proveedor.trim() === "")){
+      alert("Debe completar el proveedor de la cerveza");
       this.loadingService.dissmis();
       return false;
     }
