@@ -77,34 +77,63 @@ export class NewItemPage {
     this.filesFotos[index] = event.target.files[0];
     reader.readAsDataURL(this.filesFotos[index]);
   }
-
   
   public validacion(newItem: NewItem):boolean{
     let i : number = 0;
     
-    if(newItem.nombre === undefined || newItem.nombre.trim() === ""){
+    if(!newItem.nombre || newItem.nombre.trim() === ""){
       alert("Falta completar el nombre del producto");
       this.loadingService.dissmis();
       return false;
     }
-    else if(newItem.descripcion === undefined || newItem.nombre.trim() === ""){
+    else if(!newItem.descripcion || newItem.nombre.trim() === ""){
       alert("Falta completar la descripción del producto");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if (this.esCerveza && (!newItem.graduacion || newItem.graduacion.toString() === "")) {
+      alert("Falta completar la graduación de la cerveza");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(this.esCerveza &&(newItem.graduacion > 100 || newItem.graduacion < 0)){
+      alert("La graduación debe ser un valor entre 0 y 100");
+      this.loadingService.dissmis();
+      return false
+    }
+    else if(this.esCerveza &&(!newItem.ibu || newItem.ibu.toString() === "")){
+      alert("Falta completar el IBU de la cerveza");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(this.esCerveza && (newItem.ibu > 100 || newItem.ibu < 0)){
+      alert("El IBU debe ser un valor entre 0 y 100");
+      this.loadingService.dissmis();
+      return false
+    }
+    else if((this.esCerveza && !newItem.proveedor || newItem.proveedor.trim() === "")){
+      alert("Debe completar el proveedor de la cerveza");
       this.loadingService.dissmis();
       return false;
     }
     else if(newItem.raciones.length !== 0){
       for(i=0; i < newItem.raciones.length; i++){
-        if (newItem.raciones[i].nombre === undefined || newItem.raciones[i].nombre.trim() === ""){
+        if (!newItem.raciones[i].nombre || newItem.raciones[i].nombre.trim() === ""){
           alert("Falta completar el nombre de la ración "+ [i+1]);
           this.loadingService.dissmis();
           return false;
         }
-        else if(newItem.raciones[i].medida === null || newItem.raciones[i].unidad === undefined || newItem.raciones[i].medida.trim() === ""){
+        else if(!newItem.raciones[i].medida || newItem.raciones[i].medida.toString() === ""){
           alert("Falta completar la medida de la ración "+ [i+1]);
           this.loadingService.dissmis();
           return false;
         }
-        else if(newItem.raciones[i].unidad === null || newItem.raciones[i].unidad === undefined || newItem.raciones[i].unidad.trim() === ""){
+        else if(isNaN(newItem.raciones[i].medida)){
+          alert("El campo medida de la ración "+ [i+1] +" debe ser un número");
+          this.loadingService.dissmis();
+          return false;
+        }
+        else if(!newItem.raciones[i].unidad || newItem.raciones[i].unidad.trim() === ""){
           alert("Falta completar la unidad de la ración "+ [i+1]);
           this.loadingService.dissmis();
           return false;
@@ -114,14 +143,18 @@ export class NewItemPage {
           this.loadingService.dissmis();
           return false;
         }
-        else{
+        else if(isNaN(newItem.raciones[i].precio)){
+          alert("El campo precio de la ración "+ [i+1] +" debe ser un número");
+          this.loadingService.dissmis();
+          return false;
         }
+        else{}
       }
-      
-    }
-      
+    }  
     return true;
-  }                 
+  }   
+    
+                    
     
   public guardar() {
     this.loadingService.show();
@@ -138,7 +171,7 @@ export class NewItemPage {
 
   public addRacion (event) {
     event.preventDefault();
-    this.newItemForm.raciones.push({nombre: '', precio: ''});
+    this.newItemForm.raciones.push({nombre: '', precio: '', medida: '', unidad: ''});
   }
 
   public removeRacion (index) {

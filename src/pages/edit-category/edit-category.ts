@@ -60,20 +60,44 @@ export class EditCategoryPage {
     this.fileFoto = event.target.files[0];
     reader.readAsDataURL(this.fileFoto);
   }
-
- public editCategory() {
-    this.loadingService.show();
-    this.categoriasService.editCategory(this.currentCategory.id, this.currentCategory, this.fileFoto)
-    .then((data) => {
+ 
+  public validacion(currentCategory: Categoria):boolean{
+    if(!currentCategory.nombre || currentCategory.nombre.trim() === ""){
+      alert("Falta completar el nombre de la categoría");
+      this.loadingService.dissmis();
+      return false;
+    }
+      else if(!currentCategory.imagen){
+        alert("Falta agregar una imagen a la categoría");
         this.loadingService.dissmis();
-        this.navCtrl.pop();
-    })
-    .catch((e:Error) => {
+        return false;
+      }
+      else if(!currentCategory.icono){
+        alert("Falta asignar un ícono a la categoría");
+        this.loadingService.dissmis();
+        return false;
+      }
+      else{
+        return true;
+      }
+
+  } 
+
+  public editCategory() {
+    this.loadingService.show();
+    let cond = this.validacion(this.currentCategory);
+    if(cond){
+      this.categoriasService.editCategory(this.currentCategory.id, this.currentCategory, this.fileFoto)
+      .then((data) => {
+          this.loadingService.dissmis();
+          this.navCtrl.pop();
+      })
+      .catch((e:Error) => {
         alert("Error al editar la categoria");
         this.loadingService.dissmis();
         this.navCtrl.pop();
-    });   
+      });   
+    }
   }
-
 
 }

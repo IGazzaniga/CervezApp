@@ -56,31 +56,39 @@ export class NewCategoryPage {
     this.fileFoto = event.target.files[0];
     reader.readAsDataURL(this.fileFoto);
   }
+  public validacion(newCategoria: NewCategoria):boolean{
+    if(!newCategoria.nombre || newCategoria.nombre.trim() === ""){
+      alert("Falta completar el nombre de la categoría");
+      this.loadingService.dissmis();
+      return false;
+    }
+      else if(!newCategoria.imagen){
+        alert("Falta agregar una imagen a la categoría");
+        this.loadingService.dissmis();
+        return false;
+      }
+      else if(!newCategoria.icono){
+        alert("Falta asignar un ícono a la categoría");
+        this.loadingService.dissmis();
+        return false;
+      }
+      else{
+        return true;
+      }
+
+  }
 
   public guardar() {
     this.loadingService.show();
     let newCategoria = new NewCategoria(this.newCategoryForm);
-    if(newCategoria.nombre === undefined || newCategoria.nombre.trim() === ""){
-      alert("Falta completar el nombre de la categoría");
-      this.loadingService.dissmis();
+    let cond = this.validacion(newCategoria);
+    if(cond){
+      this.categoriasService.add(newCategoria, this.fileFoto).then((resp) => {
+        this.loadingService.dissmis();
+        this.navCtrl.pop();
+      });
+    alert ("Categoría cargada")
     }
-      else if(newCategoria.imagen === null){
-        alert("Falta agregar una imagen a la categoría");
-        this.loadingService.dissmis();
-      }
-      else if(newCategoria.icono === null){
-        alert("Falta asignar un ícono a la categoría");
-        this.loadingService.dissmis();
-      }
-      else{
-        this.categoriasService.add(newCategoria, this.fileFoto).then((resp) => {
-          this.loadingService.dissmis();
-          this.navCtrl.pop();
-        });
-        alert ("Está todo bien")
-      }
-    
-      
   }
 
 }

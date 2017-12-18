@@ -1,6 +1,6 @@
 export class Racion {
     nombre: string;
-    medida: string;
+    medida: number;
     precio: number;
     unidad: string;
     

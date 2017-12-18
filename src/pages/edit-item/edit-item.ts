@@ -84,19 +84,75 @@ export class EditItemPage {
     this.currentItem.raciones.splice(index, 1);
   }
 
+  public validacion(currentItem: Item):boolean{
+    let i : number = 0;
+    
+    if(!currentItem.nombre || currentItem.nombre.trim() === ""){
+      alert("Falta completar el nombre del producto");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(!currentItem.descripcion || currentItem.nombre.trim() === ""){
+      alert("Falta completar la descripción del producto");
+      this.loadingService.dissmis();
+      return false;
+    }
+    else if(currentItem.raciones.length !== 0){
+      for(i=0; i < currentItem.raciones.length; i++){
+        if (!currentItem.raciones[i].nombre || currentItem.raciones[i].nombre.trim() === ""){
+          alert("Falta completar el nombre de la ración "+ [i+1]);
+          this.loadingService.dissmis();
+          return false;
+        }
+        else if(!currentItem.raciones[i].medida || currentItem.raciones[i].medida.toString() === ""){
+          alert("Falta completar la medida de la ración "+ [i+1]);
+          this.loadingService.dissmis();
+          return false;
+        }
+        else if(isNaN(currentItem.raciones[i].medida)){
+          alert("El campo medida de la ración "+ [i+1] +" debe ser un número");
+          this.loadingService.dissmis();
+          return false;
+        }
+        else if(!currentItem.raciones[i].unidad || currentItem.raciones[i].unidad.trim() === ""){
+          alert("Falta completar la unidad de la ración "+ [i+1]);
+          this.loadingService.dissmis();
+          return false;
+        }
+        else if(currentItem.raciones[i].precio.toString() === ""){
+          alert("Falta completar el precio de la ración "+ [i+1]);
+          this.loadingService.dissmis();
+          return false;
+        }
+        else if(isNaN(currentItem.raciones[i].precio)){
+          alert("El campo precio de la ración "+ [i+1] +" debe ser un número");
+          this.loadingService.dissmis();
+          return false;
+        }
+        else{
+        }
+      }
+      
+    }
+      
+    return true;
+  }            
 
- public editItem() {
+  public editItem() {
     this.loadingService.show();
-    this.itemsService.editItem(this.currentItem.id, this.currentItem, this.index, this.filesFotos[this.index])
-    .then((data) => {
-        this.loadingService.dissmis();
-        this.navCtrl.pop();
-    })
-    .catch((e:Error) => {
-        alert("Error al editar la categoria");
-        this.loadingService.dissmis();
-        this.navCtrl.pop();
-    });   
+    let cond = this.validacion(this.currentItem);
+    if(cond){
+      this.itemsService.editItem(this.currentItem.id, this.currentItem, this.index, this.filesFotos[this.index])
+      .then((data) => {
+          this.loadingService.dissmis();
+          this.navCtrl.pop();
+      })
+      .catch((e:Error) => {
+          alert("Error al editar la categoria");
+          this.loadingService.dissmis();
+          this.navCtrl.pop();
+      });   
+    }
   }
 
 }
