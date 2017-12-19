@@ -30,6 +30,7 @@ export class EditItemPage {
   public fotos = [];
   public currentUser: User;
   public currentItem: Item;
+  public racionesOptions: string[];
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -41,6 +42,9 @@ export class EditItemPage {
   }
 
   ionViewDidLoad() {
+    this.itemsService.getRaciones().subscribe((raciones) => {
+      this.racionesOptions = raciones;
+    })
   }
 
   ionViewCanEnter(): boolean {

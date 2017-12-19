@@ -23,7 +23,8 @@
         <ion-item *ngIf="item?.proveedor"><strong>Proveedor: </strong>{{item?.proveedor}}</ion-item>
       </ion-item-group>
       <ion-item *ngFor="let racion of item?.raciones">
-        <h2><strong>Tamaño: </strong>{{racion.nombre}}</h2> 
+        <h2 *ngIf="!racion.otro"><strong>Tamaño: </strong>{{racion.nombre}}</h2>
+        <h2 *ngIf="racion.otro"><strong>Tamaño: </strong>{{racion.otro}}</h2>
         <h2><strong>Medida: </strong>{{racion.medida}} {{racion.unidad}}</h2> 
         <h2><strong>Precio: </strong>$ {{racion.precio}}</h2>
       </ion-item>
