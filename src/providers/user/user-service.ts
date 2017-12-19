@@ -118,6 +118,7 @@ export class UserService {
       return this.storageRef.child(`profile-images/${user.uid}.jpg`).put(foto);
     })
   }
+  
 
   public getUserByUsername(username: string): Promise<any> {
     return this.usersDB.orderByChild('username').equalTo(username).once("value");

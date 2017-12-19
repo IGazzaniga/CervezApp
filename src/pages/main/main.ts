@@ -37,7 +37,7 @@ export class MainPage {
       this.geoService.getLocationName(resp.coords.latitude, resp.coords.longitude).subscribe((data:any) => {
         if (data.results) {
           this.location = data.results[1].formatted_address;
-          let place_id = data.results[1].place_id
+          let place_id = data.results[1].place_id;
           this.userService.getAll(place_id).subscribe((negocios) => {
             this.negocios = negocios;
             this.spinner = false;
@@ -54,11 +54,18 @@ export class MainPage {
   public goToNegocio (neg: User) {
     this.navCtrl.push('NegocioMainPage', {'nombre': neg.username, 'negocio': neg});
   }
-
-  public searchNegocio () {
-    //implementar
+  
+  public searchNegocio (ev) {
+    // set val to the value of the ev target
+    var val = ev.target.value;
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.negocios = this.negocios.filter((negocio) => {
+        return (negocio);
+      })
+    }}
   }
   
-}
+
 
 

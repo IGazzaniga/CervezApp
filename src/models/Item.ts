@@ -16,6 +16,7 @@ export class Item {
     nombre: string;
     raciones: Racion[];
     fotos: string[];
+    esCerveza: boolean;
     graduacion: number;
     ibu: number;
     proveedor: string;
@@ -33,6 +34,7 @@ export class Item {
         this.raciones = null;
       }
       this.fotos = item.fotos || null;
+      this.esCerveza = item.esCerveza || null;
       this.graduacion = item.graduacion || null;
       this.ibu = item.ibu || null;
       this.proveedor = item.proveedor || null;

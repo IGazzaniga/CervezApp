@@ -20,6 +20,7 @@ export class ProfilePage {
   @ViewChild('fileInput') fileInput;
   public currentUser: User;
   private fileFoto: File;
+  public place: Object;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public toastCtrl: ToastController, public userService: UserService, public loadingService: LoadingProvider) {
@@ -42,49 +43,90 @@ export class ProfilePage {
       this.currentUser.foto = imageData;
     };
     this.fileFoto = event.target.files[0];
-    reader.readAsDataURL(this.fileFoto);
+    if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/png") {
+      alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
+      this.fileFoto = null;
+    } else {
+      reader.readAsDataURL(this.fileFoto);
+    }
   }
 
   getProfileImageStyle() {
     return 'url(' + this.currentUser.foto + ')'
   }
 
-  getAddress(place:Object) {       
-      this.currentUser.localidad = place['formatted_address'];
-      this.currentUser.urlmap = place['url'];
-      this.currentUser.place_id = place['place_id'];
-      console.log("Address Object", place);
+  validacion(currentUser:User):boolean{
+    if(!currentUser.nombre || currentUser.nombre.trim()===""){
+      alert("Falta completar el nombre");
+      return false;
+    }
+    if(this.fileFoto){
+      if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/png") {
+        alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
+        return false;
+      }
+    } else if (!currentUser.foto.includes('firebase')) {
+        alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
+        return false;
+    }
+    if(!currentUser.email || currentUser.email.trim()===""){
+      alert("Falta completar el mail");
+      return false;
+    }
+    if(!currentUser.direccion || currentUser.direccion.trim()===""){
+      alert("Falta completar la dirección");
+      return false;
+    }
+    if(!currentUser.horaApertura || currentUser.horaApertura.toString()===""){
+      alert("Falta completar la hora de apertura");
+      return false;
+    }
+    if(!currentUser.horaCierre || currentUser.horaCierre.toString()===""){
+      alert("Falta completar la hora de cierre");
+      return false;
+    }
+    if(!currentUser.localidad || currentUser.localidad.trim()===""){
+      alert("Falta completar la localidad");
+      return false;
+    }
+    if(!this.place || currentUser.localidad !== this.place['formatted_address']){
+      alert("El campo localidad es inválido");
+      return false;
+    }
+    return true;
   }
 
   guardar () {
-    this.loadingService.show();
-    if (this.fileFoto) {
-      this.userService.saveImageProfile(this.fileFoto).then((snap) => {
-        this.currentUser.foto = snap.downloadURL;
+    if(this.validacion(this.currentUser)){
+      this.loadingService.show();
+      if (this.fileFoto) {
+        this.userService.saveImageProfile(this.fileFoto).then((snap) => {
+          this.currentUser.foto = snap.downloadURL;
+          this.userService.updateProfile(this.currentUser).then(() => {
+            this.userService.setCurrentUser(this.currentUser).then(() => {
+              this.loadingService.dissmis();
+              let toast = this.toastCtrl.create({
+                message: 'El perfil se actualizo correctamente',
+                duration: 3000,
+                position: 'bottom'
+              });
+              toast.present();
+            })
+          })
+        });
+      } else {
         this.userService.updateProfile(this.currentUser).then(() => {
           this.userService.setCurrentUser(this.currentUser).then(() => {
             this.loadingService.dissmis();
             let toast = this.toastCtrl.create({
               message: 'El perfil se actualizo correctamente',
               duration: 3000,
-              position: 'top'
+              position: 'bottom'
             });
             toast.present();
           })
         })
-      });
-    } else {
-      this.userService.updateProfile(this.currentUser).then(() => {
-        this.userService.setCurrentUser(this.currentUser).then(() => {
-          this.loadingService.dissmis();
-          let toast = this.toastCtrl.create({
-            message: 'El perfil se actualizo correctamente',
-            duration: 3000,
-            position: 'top'
-          });
-          toast.present();
-        })
-      })
+      }
     }
   }
 }
