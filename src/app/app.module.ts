@@ -25,6 +25,8 @@ import firebase from 'firebase';
 import { CategoriaCardComponentModule } from "../components/categoria-card/categoria-card.module";
 import { LoadingProvider } from '../providers/loading/loading';
 import { GeoProvider } from '../providers/geo/geo-service';
+import { AgmCoreModule } from '@agm/core';
+
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -66,7 +68,11 @@ firebase.initializeApp(envprod.firebase);
     }),
     IonicModule.forRoot(MyApp),//, { locationStrategy: 'path' }),
     CategoriaCardComponentModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCPrRMiMVPWD6PRYrJPkkcLtRa4_p28YjA'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
