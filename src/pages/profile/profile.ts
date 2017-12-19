@@ -55,14 +55,6 @@ export class ProfilePage {
     return 'url(' + this.currentUser.foto + ')'
   }
 
-  getAddress(place:Object){   
-      this.place = place;  
-      this.currentUser.localidad = place['formatted_address'];
-      this.currentUser.urlmap = place['url'];
-      this.currentUser.place_id = place['place_id'];
-      console.log("Address Object", place);
-  }
-
   validacion(currentUser:User):boolean{
     if(!currentUser.nombre || currentUser.nombre.trim()===""){
       alert("Falta completar el nombre");
@@ -116,7 +108,7 @@ export class ProfilePage {
               let toast = this.toastCtrl.create({
                 message: 'El perfil se actualizo correctamente',
                 duration: 3000,
-                position: 'top'
+                position: 'bottom'
               });
               toast.present();
             })
