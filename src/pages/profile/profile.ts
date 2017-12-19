@@ -43,7 +43,12 @@ export class ProfilePage {
       this.currentUser.foto = imageData;
     };
     this.fileFoto = event.target.files[0];
-    reader.readAsDataURL(this.fileFoto);
+    if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/png") {
+      alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
+      this.fileFoto = null;
+    } else {
+      reader.readAsDataURL(this.fileFoto);
+    }
   }
 
   getProfileImageStyle() {
@@ -61,66 +66,75 @@ export class ProfilePage {
   validacion(currentUser:User):boolean{
     if(!currentUser.nombre || currentUser.nombre.trim()===""){
       alert("Falta completar el nombre");
-      this.loadingService.dissmis();
       return false;
     }
-    else if(!this.fileFoto || !currentUser.foto || ((this.fileFoto.type !== ('image/jpeg')) && (this.fileFoto.type !== ('image/png'))) || currentUser.foto.trim()===""){
-      alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
-      this.loadingService.dissmis();
-      return false;
+    if(this.fileFoto){
+      if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/png") {
+        alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
+        return false;
+      }
+    } else if (!currentUser.foto.includes('firebase')) {
+        alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
+        return false;
     }
-    else if(!currentUser.email || currentUser.email.trim()===""){
+    if(!currentUser.email || currentUser.email.trim()===""){
       alert("Falta completar el mail");
-      this.loadingService.dissmis();
       return false;
     }
-    else if(!currentUser.direccion || currentUser.direccion.trim()===""){
+    if(!currentUser.direccion || currentUser.direccion.trim()===""){
       alert("Falta completar la dirección");
-      this.loadingService.dissmis();
       return false;
     }
-    else if(!currentUser.horaApertura || currentUser.horaApertura.toString()===""){
+    if(!currentUser.horaApertura || currentUser.horaApertura.toString()===""){
       alert("Falta completar la hora de apertura");
-      this.loadingService.dissmis();
       return false;
     }
-    else if(!currentUser.horaCierre || currentUser.horaCierre.toString()===""){
+    if(!currentUser.horaCierre || currentUser.horaCierre.toString()===""){
       alert("Falta completar la hora de cierre");
-      this.loadingService.dissmis();
       return false;
     }
-    else if(!currentUser.localidad || currentUser.localidad.trim()===""){
+    if(!currentUser.localidad || currentUser.localidad.trim()===""){
       alert("Falta completar la localidad");
-      this.loadingService.dissmis();
       return false;
     }
-    else if(!this.place || currentUser.localidad !== this.place['formatted_address']){
+    if(!this.place || currentUser.localidad !== this.place['formatted_address']){
       alert("El campo localidad es inválido");
-      this.loadingService.dissmis();
       return false;
     }
-    console.log(this.fileFoto);
     return true;
   }
 
   guardar () {
-    this.loadingService.show();
     if(this.validacion(this.currentUser)){
+      this.loadingService.show();
+      if (this.fileFoto) {
         this.userService.saveImageProfile(this.fileFoto).then((snap) => {
-        this.currentUser.foto = snap.downloadURL;
+          this.currentUser.foto = snap.downloadURL;
+          this.userService.updateProfile(this.currentUser).then(() => {
+            this.userService.setCurrentUser(this.currentUser).then(() => {
+              this.loadingService.dissmis();
+              let toast = this.toastCtrl.create({
+                message: 'El perfil se actualizo correctamente',
+                duration: 3000,
+                position: 'top'
+              });
+              toast.present();
+            })
+          })
+        });
+      } else {
         this.userService.updateProfile(this.currentUser).then(() => {
           this.userService.setCurrentUser(this.currentUser).then(() => {
             this.loadingService.dissmis();
             let toast = this.toastCtrl.create({
               message: 'El perfil se actualizo correctamente',
               duration: 3000,
-              position: 'top'
+              position: 'bottom'
             });
             toast.present();
           })
         })
-      });
-    
-  }
+      }
+    }
   }
 }

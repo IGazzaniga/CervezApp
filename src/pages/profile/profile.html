@@ -16,7 +16,7 @@
 <ion-content padding>
   <form *ngIf="currentUser" (submit)="guardar()">
 
-    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+    <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
     <div class="profile-image-wrapper" (click)="getPicture()">
       <div class="profile-image-placeholder" *ngIf="!currentUser.foto">
         <ion-icon name="add"></ion-icon>
