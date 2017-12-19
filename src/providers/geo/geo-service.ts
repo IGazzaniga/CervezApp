@@ -19,5 +19,6 @@ export class GeoProvider {
     let params = `latlng=${lat},${long}&key=AIzaSyAPbnlhnWFRIBKbPx8iLFcUD0PDoGc4KCY`
     return this.http.get(this.endpoint + params);
   }
+  
 
 }

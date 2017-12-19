@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { User } from "../../models/User";
 import { UserService } from "../../providers/user/user-service";
 import { LoadingProvider } from "../../providers/loading/loading";
+import { MouseEvent } from '@agm/core';
 
 /**
  * Generated class for the ProfilePage page.
@@ -20,7 +21,9 @@ export class ProfilePage {
   @ViewChild('fileInput') fileInput;
   public currentUser: User;
   private fileFoto: File;
-  public place: Object;
+  marker: Object;
+  lat: number = 51.678418;
+  lng: number = 7.809007;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public toastCtrl: ToastController, public userService: UserService, public loadingService: LoadingProvider) {
@@ -35,6 +38,9 @@ export class ProfilePage {
   getPicture() {
     this.fileInput.nativeElement.click();
   }
+  
+  
+
 
   processWebImage(event) {
     let reader = new FileReader();
@@ -89,10 +95,10 @@ export class ProfilePage {
       alert("Falta completar la localidad");
       return false;
     }
-    if(!this.place || currentUser.localidad !== this.place['formatted_address']){
+    /* if(!this.place || currentUser.localidad !== this.place['formatted_address']){
       alert("El campo localidad es inválido");
       return false;
-    }
+    } */
     return true;
   }
 

@@ -41,9 +41,11 @@
 
       <ion-item>
         <ion-label fixed>Direccion</ion-label>
-        <ion-input type="text" name="horacierre" [(ngModel)]="currentUser.direccion"></ion-input>
+        <ion-input disabled="true" type="text" name="horacierre" [(ngModel)]="currentUser.direccion"></ion-input>
       </ion-item>
-
+      <agm-map [zoomControl]="true" (mapClick)="mapClicked($event)" [latitude]="lat" [longitude]="lng">
+      </agm-map>
+      
       <ion-item>
         <ion-label>Hora de Apertura</ion-label>
         <ion-datetime name="horaaper" displayFormat="HH:mm" [(ngModel)]="currentUser.horaApertura"></ion-datetime>
@@ -56,7 +58,7 @@
 
       <ion-item>
         <ion-label fixed>Localidad</ion-label>
-        <ion-input type="text" id="autocomplete" name="localidad" [(ngModel)]="currentUser.localidad"></ion-input>
+        <ion-input disabled="true" type="text" id="autocomplete" name="localidad" [(ngModel)]="currentUser.localidad"></ion-input>
       </ion-item>
 
       <div padding>
