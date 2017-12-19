@@ -5,7 +5,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 
 import { User } from "../models/User";
-import { Settings } from "../providers/settings/settings";
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -40,7 +39,7 @@ export class MyApp {
     { title: 'Perfil', component: 'ProfilePage'}
   ]
 
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings,
+  constructor(private translate: TranslateService, platform: Platform,
               private config: Config, private userService: UserService) {
     this.checkAuthUser();
   }

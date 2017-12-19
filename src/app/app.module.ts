@@ -19,7 +19,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { envprod } from "../config/env.prod";
 import { CategoriasService } from '../providers/categorias/categorias-service';
-import { Settings } from "../providers/settings/settings";
 
 import firebase from 'firebase';
 import { CategoriaCardComponentModule } from "../components/categoria-card/categoria-card.module";
@@ -31,21 +30,6 @@ import { NotificationsProvider } from '../providers/notifications/notifications'
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-export function provideSettings(storage: Storage) {
-  /**
-   * The Settings provider takes a set of default settings for your app.
-   *
-   * You can add new settings options at any time. Once the settings are saved,
-   * these values will not overwrite the saved values (this can be done manually if desired).
-   */
-  return new Settings(storage, {
-    option1: true,
-    option2: 'Ionitron J. Framework',
-    option3: '3',
-    option4: 'Hello'
-  });
 }
 
 firebase.initializeApp(envprod.firebase);
@@ -80,7 +64,6 @@ firebase.initializeApp(envprod.firebase);
     CategoriasService,
     Geolocation,
     AngularFireDatabase,
-    { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LoadingProvider,
