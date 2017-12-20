@@ -1,2 +1,4 @@
 importScripts('./service-worker.js');
-importScripts('https://cdn.onesignal.com/sdks/OneSignalSDK.js');
+if (self.location.hostname != 'localhost') {
+    importScripts('https://cdn.onesignal.com/sdks/OneSignalSDK.js');
+}
