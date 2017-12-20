@@ -31,7 +31,7 @@
 
       <ion-item>
         <ion-label fixed>Nombre</ion-label>
-        <ion-input type="text"  name="nombre" [(ngModel)]="currentUser.nombre"></ion-input>
+        <ion-input type="text" name="nombre" [(ngModel)]="currentUser.nombre"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -41,7 +41,11 @@
 
       <ion-item>
         <ion-label fixed>Direccion</ion-label>
-        <ion-input disabled="true" type="text" name="horacierre" [(ngModel)]="currentUser.direccion"></ion-input>
+        <ion-input disabled="true" id="direccion" type="text" name="direccion" [(ngModel)]="currentUser.direccion"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Localidad</ion-label>
+        <ion-input disabled="true" type="text" id="autocomplete" name="localidad" [(ngModel)]="currentUser.localidad"></ion-input>
       </ion-item>
       <div id="map"></div>     
       <ion-item>
@@ -51,13 +55,10 @@
 
       <ion-item>
         <ion-label>Hora de Cierre</ion-label>
-        <ion-datetime [ngModelOptions]="{standalone: true}" displayFormat="HH:mm" [(ngModel)]="currentUser.horaCierre"></ion-datetime>
+        <ion-datetime name="horacierre" [ngModelOptions]="{standalone: true}" displayFormat="HH:mm" [(ngModel)]="currentUser.horaCierre"></ion-datetime>
       </ion-item>
 
-      <ion-item>
-        <ion-label fixed>Localidad</ion-label>
-        <ion-input disabled="true" type="text" id="autocomplete" name="localidad" [(ngModel)]="currentUser.localidad"></ion-input>
-      </ion-item>
+      
 
       <div padding>
         <button ion-button color="primary" block>Guardar</button>

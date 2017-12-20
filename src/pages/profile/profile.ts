@@ -80,19 +80,33 @@ export class ProfilePage {
     // create map
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
-      zoom: 12
+      zoom: 15,
+      zoomControl:true,
     });
-    console.log(document.getElementById('map'));
     google.maps.event.addListenerOnce(this.map, 'idle', () => {
       let marker = new google.maps.Marker({
         position: myLatLng,
         map: this.map,
-        title: 'Hello World!'
+        draggable: true,
+        title: 'Arrastra el marcador hasta la dirección de tu negocio'
       });
-      document.getElementById('map').classList.add('show-map');
+      marker.addListener('dragend', function() {
+       let direccion = (document.getElementById('direccion') as HTMLTextAreaElement);
+       let ciudad = (document.getElementById('autocomplete') as HTMLTextAreaElement);
+       direccion.value = marker.getPosition().lat();
+       direccion.innerHTML = direccion.value;
+       ciudad.value = marker.getPosition().lng();
+       ciudad.innerHTML = ciudad.value;
+             
+       
+       console.log(marker.getPosition().lat());
+       console.log(marker.getPosition().lng());
+        
+      });
+      console.log(position) 
     });
   }
-
+  
   validacion(currentUser:User):boolean{
     if(!currentUser.nombre || currentUser.nombre.trim()===""){
       alert("Falta completar el nombre");
