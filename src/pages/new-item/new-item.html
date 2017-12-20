@@ -64,7 +64,13 @@
         <ion-item-divider color="light">Racion {{i + 1}} <span (click)="removeRacion(i);" style="float: right;">X</span></ion-item-divider>
         <ion-item>
           <ion-label stacked>Tamaño</ion-label>
-          <ion-input type="text" [(ngModel)]="racion.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
+          <ion-select [(ngModel)]="racion.nombre" name="tamaño">
+            <ion-option *ngFor="let racion of racionesOptions" [value]="racion">{{racion}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="racion.nombre == 'Otro'">
+          <ion-label stacked>Otro</ion-label>
+          <ion-input type="text" [(ngModel)]="racion.otro" [ngModelOptions]="{standalone: true}"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Medida</ion-label>

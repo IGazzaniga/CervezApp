@@ -81,4 +81,8 @@ export class ItemsService {
     });
   }
 
+  public getRaciones (): Observable<string[]> {
+    return this.db.list<string>('raciones').valueChanges();
+  }
+
 }

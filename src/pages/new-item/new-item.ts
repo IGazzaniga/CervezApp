@@ -30,8 +30,7 @@ export class NewItemPage {
   public newItemForm: any = {};
   public fotos = [];
   public categorias: Categoria[];
-  
-  
+  public racionesOptions: string[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemsService: ItemsService,
     public categoriasService: CategoriasService, public userService: UserService, public loadingService: LoadingProvider) {
@@ -43,6 +42,9 @@ export class NewItemPage {
     this.newItemForm.raciones = [racionInit];
     this.newItemForm.fotos = [];
     this.newItemForm.stock = true;
+    this.itemsService.getRaciones().subscribe((raciones) => {
+      this.racionesOptions = raciones;
+    })
   }
 
   ionViewCanEnter(): boolean{
@@ -83,74 +85,60 @@ export class NewItemPage {
     
     if(!newItem.nombre || newItem.nombre.trim() === ""){
       alert("Falta completar el nombre del producto");
-      this.loadingService.dissmis();
       return false;
     }
     else if(!newItem.descripcion || newItem.nombre.trim() === ""){
       alert("Falta completar la descripción del producto");
-      this.loadingService.dissmis();
       return false;
     }
     else if (newItem.esCerveza && (!newItem.tipo || newItem.tipo.trim() === "")) {
       alert("Falta completar el tipo de la cerveza");
-      this.loadingService.dissmis();
       return false;
     }
     else if (newItem.esCerveza && (!newItem.graduacion || newItem.graduacion.toString() === "")) {
       alert("Falta completar la graduación de la cerveza");
-      this.loadingService.dissmis();
       return false;
     }
     else if(newItem.esCerveza &&(newItem.graduacion > 100 || newItem.graduacion < 0)){
       alert("La graduación debe ser un valor entre 0 y 100");
-      this.loadingService.dissmis();
       return false
     }
     else if(newItem.esCerveza &&(!newItem.ibu || newItem.ibu.toString() === "")){
       alert("Falta completar el IBU de la cerveza");
-      this.loadingService.dissmis();
       return false;
     }
     else if(newItem.esCerveza && (newItem.ibu > 100 || newItem.ibu < 0)){
       alert("El IBU debe ser un valor entre 0 y 100");
-      this.loadingService.dissmis();
       return false
     }
     else if(newItem.esCerveza && (!newItem.proveedor || newItem.proveedor.trim() === "")){
       alert("Debe completar el proveedor de la cerveza");
-      this.loadingService.dissmis();
       return false;
     }
     else if(newItem.raciones.length !== 0){
       for(i=0; i < newItem.raciones.length; i++){
         if (!newItem.raciones[i].nombre || newItem.raciones[i].nombre.trim() === ""){
           alert("Falta completar el nombre de la ración "+ [i+1]);
-          this.loadingService.dissmis();
           return false;
         }
         else if(!newItem.raciones[i].medida || newItem.raciones[i].medida.toString() === ""){
           alert("Falta completar la medida de la ración "+ [i+1]);
-          this.loadingService.dissmis();
           return false;
         }
         else if(isNaN(newItem.raciones[i].medida)){
           alert("El campo medida de la ración "+ [i+1] +" debe ser un número");
-          this.loadingService.dissmis();
           return false;
         }
         else if(!newItem.raciones[i].unidad || newItem.raciones[i].unidad.trim() === ""){
           alert("Falta completar la unidad de la ración "+ [i+1]);
-          this.loadingService.dissmis();
           return false;
         }
         else if(newItem.raciones[i].precio.toString() === ""){
           alert("Falta completar el precio de la ración "+ [i+1]);
-          this.loadingService.dissmis();
           return false;
         }
         else if(isNaN(newItem.raciones[i].precio)){
           alert("El campo precio de la ración "+ [i+1] +" debe ser un número");
-          this.loadingService.dissmis();
           return false;
         }
         else{}
@@ -162,15 +150,15 @@ export class NewItemPage {
                     
     
   public guardar() {
-    this.loadingService.show();
     let newItem = new NewItem(this.newItemForm);
     let cond = this.validacion(newItem);
     if(cond){
+      this.loadingService.show();
       this.itemsService.add(newItem, this.filesFotos, this.categoriaId).then((resp) => {
         this.loadingService.dissmis();
+        alert("Producto cargado");
         this.navCtrl.pop();
       });
-      alert("Producto cargado");
     }
   }
 
