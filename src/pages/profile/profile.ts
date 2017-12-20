@@ -74,26 +74,22 @@ export class ProfilePage {
     let longitude = position.coords.longitude;
     console.log(latitude, longitude);
     
-    // create a new map by passing HTMLElement
-    let mapEle: HTMLElement = document.getElementById('map');
-    let pepe= document.getElementsByName('nombre');
-  
     // create LatLng object
     let myLatLng = {lat: latitude, lng: longitude};
   
     // create map
-    this.map = new google.maps.Map(mapEle, {
+    this.map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
       zoom: 12
     });
-    console.log(mapEle);
+    console.log(document.getElementById('map'));
     google.maps.event.addListenerOnce(this.map, 'idle', () => {
       let marker = new google.maps.Marker({
         position: myLatLng,
         map: this.map,
         title: 'Hello World!'
       });
-      mapEle.classList.add('show-map');
+      document.getElementById('map').classList.add('show-map');
     });
   }
 
