@@ -15,14 +15,14 @@
   <!-- cordova.js required for cordova apps -->
   <script src="cordova.js"></script>
 
-  <!-- un-comment this code to enable service worker
+  <!-- un-comment this code to enable service worker-->
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
+      navigator.serviceWorker.register('OneSignalSDKWorker.js')
         .then(() => console.log('service worker installed'))
         .catch(err => console.error('Error', err));
     }
-  </script>-->
+  </script>
 
   <link href="build/main.css" rel="stylesheet">
 
@@ -38,6 +38,31 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPbnlhnWFRIBKbPx8iLFcUD0PDoGc4KCY"></script>
   <!-- The bundle js is generated during the build process -->
   <script src="build/main.js"></script>
+  <!--OneSignal para notificaciones push-->
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+  <script>
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(["init", {
+      appId: "b9ec6e45-e209-4bac-bdbf-a37ed5e77207",
+      autoRegister: false, /* Set to true to automatically prompt visitors */
+      welcomeNotification: {
+        "title": "CervezApp",
+        "message": "A partir de ahora podrás recibir notificaciones con descuentos, promociones, HappyHours y más!",
+        // "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
+      },
+      promptOptions: {
+        /* actionMessage limited to 90 characters */
+        actionMessage: "Desea recibir notificaciones con descuentos, promociones, HappyHours y muchas cosas mas?",
+        /* acceptButtonText limited to 15 characters */
+        acceptButtonText: "Permitir",
+        /* cancelButtonText limited to 15 characters */
+        cancelButtonText: "No, Gracias"
+      }
+    }]);
+    OneSignal.push(function() {
+      OneSignal.showHttpPrompt();
+    });
+  </script>
 
 </body>
 </html>

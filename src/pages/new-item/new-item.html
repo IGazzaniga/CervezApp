@@ -97,13 +97,13 @@
 
       <ion-item>
         <button ion-button color="primary" (click)="getPicture($event, 1)">Imagen 2</button>
-        <input type="file" accept="image/*" #file1 style="visibility: hidden; height: 0px" name="img2]" (change)="processWebImage($event, 1)" />
+        <input type="file" accept="image/*" #file1 style="visibility: hidden; height: 0px" name="img2" (change)="processWebImage($event, 1)" />
       </ion-item>
       <img style="width: 100%" *ngIf="fotos[1]" [src]="fotos[1]" alt="">
 
       <ion-item>
         <button ion-button color="primary" (click)="getPicture($event, 2)">Imagen 3</button>
-        <input type="file" accept="image/*" #file2 style="visibility: hidden; height: 0px" name="img3]" (change)="processWebImage($event, 2)" />
+        <input type="file" accept="image/*" #file2 style="visibility: hidden; height: 0px" name="img3" (change)="processWebImage($event, 2)" />
       </ion-item>
       <img style="width: 100%" *ngIf="fotos[2]" [src]="fotos[2]" alt="">
 

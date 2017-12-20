@@ -1,0 +1,30 @@
+<!--
+  Generated template for the NotificacionesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button menuToggle ion-button>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Notificaciones</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-title>Enviar notificacion a todos</ion-title>
+    <form (submit)="enviar()">
+      <ion-list>
+        <ion-item>
+          <ion-label floating>Texto de la notificacion</ion-label>
+          <ion-input type="text" [(ngModel)]="descripcion" name="descripcion"></ion-input>
+        </ion-item>
+        <div padding>
+          <button ion-button color="primary" block>Enviar</button>
+        </div>
+      </ion-list>
+    </form>
+</ion-content>
