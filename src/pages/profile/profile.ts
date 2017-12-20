@@ -3,7 +3,9 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { User } from "../../models/User";
 import { UserService } from "../../providers/user/user-service";
 import { LoadingProvider } from "../../providers/loading/loading";
-import { MouseEvent } from '@agm/core';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+
+declare var google;
 
 /**
  * Generated class for the ProfilePage page.
@@ -22,15 +24,19 @@ export class ProfilePage {
   public currentUser: User;
   private fileFoto: File;
   
-
+  map: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-  public toastCtrl: ToastController, public userService: UserService, public loadingService: LoadingProvider) {
+  public toastCtrl: ToastController, public userService: UserService, public loadingService: LoadingProvider, public geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
     })
+    
+  }
+  ionViewWillEnter(){
+    this.getPosition();
   }
 
   getPicture() {
@@ -54,6 +60,41 @@ export class ProfilePage {
 
   getProfileImageStyle() {
     return 'url(' + this.currentUser.foto + ')'
+  }
+  getPosition():any{
+    this.geolocation.getCurrentPosition().then(response => {
+      this.loadMap(response);
+    })
+    .catch(error =>{
+      console.log(error);
+    })
+  }
+  loadMap(position: Geoposition){
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+    console.log(latitude, longitude);
+    
+    // create a new map by passing HTMLElement
+    let mapEle: HTMLElement = document.getElementById('map');
+    let pepe= document.getElementsByName('nombre');
+  
+    // create LatLng object
+    let myLatLng = {lat: latitude, lng: longitude};
+  
+    // create map
+    this.map = new google.maps.Map(mapEle, {
+      center: myLatLng,
+      zoom: 12
+    });
+    console.log(mapEle);
+    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+      let marker = new google.maps.Marker({
+        position: myLatLng,
+        map: this.map,
+        title: 'Hello World!'
+      });
+      mapEle.classList.add('show-map');
+    });
   }
 
   validacion(currentUser:User):boolean{
