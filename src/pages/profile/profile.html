@@ -47,6 +47,9 @@
         <ion-label fixed>Localidad</ion-label>
         <ion-input disabled="true" type="text" id="autocomplete" name="localidad" [(ngModel)]="currentUser.localidad"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-input hidden type="text" name="marker" [(ngModel)]="currentUser.marker"></ion-input>
+      </ion-item>
       <div id="map"></div>     
       <ion-item>
         <ion-label>Hora de Apertura</ion-label>

@@ -11,6 +11,7 @@ export class User {
     patrocinado: boolean;
     urlmap: string;
     place_id: string;
+    marker: string;
 
     constructor(userLogin: any) {
         this.email = userLogin.email;
@@ -25,6 +26,7 @@ export class User {
         this.patrocinado = userLogin.patrocinado || null;
         this.urlmap = userLogin.urlmap || null;
         this.place_id = userLogin.place_id || null;
+        this.marker = userLogin.marker || null;
     }
 
 }

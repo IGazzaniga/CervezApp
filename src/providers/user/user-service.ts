@@ -102,7 +102,8 @@ export class UserService {
         horaCierre: user.horaCierre || null,
         urlmap: user.urlmap || null,
         place_id: user.place_id || null,
-        localidad: user.localidad || null
+        localidad: user.localidad || null,
+        marker: user.marker || null,
       });
     }).catch(function(error) {
       console.log("error en la actualizacion del perfil: ", error);

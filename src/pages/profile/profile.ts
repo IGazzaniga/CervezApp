@@ -23,7 +23,7 @@ export class ProfilePage {
   @ViewChild('fileInput') fileInput;
   public currentUser: User;
   private fileFoto: File;
-  
+  geocoder = new google.maps.Geocoder;
   map: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public toastCtrl: ToastController, public userService: UserService, public loadingService: LoadingProvider, public geolocation: Geolocation) {
@@ -61,6 +61,7 @@ export class ProfilePage {
   getProfileImageStyle() {
     return 'url(' + this.currentUser.foto + ')'
   }
+
   getPosition():any{
     this.geolocation.getCurrentPosition().then(response => {
       this.loadMap(response);
@@ -69,10 +70,10 @@ export class ProfilePage {
       console.log(error);
     })
   }
+  
   loadMap(position: Geoposition){
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-    console.log(latitude, longitude);
     
     // create LatLng object
     let myLatLng = {lat: latitude, lng: longitude};
@@ -83,30 +84,30 @@ export class ProfilePage {
       zoom: 15,
       zoomControl:true,
     });
+    
     google.maps.event.addListenerOnce(this.map, 'idle', () => {
       let marker = new google.maps.Marker({
         position: myLatLng,
         map: this.map,
         draggable: true,
-        title: 'Arrastra el marcador hasta la dirección de tu negocio'
+        title: 'Arrastra el marcador hasta la dirección de tu negocio',
       });
-      marker.addListener('dragend', function() {
-       let direccion = (document.getElementById('direccion') as HTMLTextAreaElement);
-       let ciudad = (document.getElementById('autocomplete') as HTMLTextAreaElement);
-       direccion.value = marker.getPosition().lat();
-       direccion.innerHTML = direccion.value;
-       ciudad.value = marker.getPosition().lng();
-       ciudad.innerHTML = ciudad.value;
-             
+      marker.addListener('dragend', () => {
+       var latlng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
+       this.geocoder.geocode({'location': latlng},(results, status)=> {
+       if (status === 'OK') {
+          console.log(results[0].address_components);
+          this.currentUser.direccion = (results[0].formatted_address);
+        }
+       })
        
-       console.log(marker.getPosition().lat());
-       console.log(marker.getPosition().lng());
-        
       });
-      console.log(position) 
+
     });
+    
+    
   }
-  
+   
   validacion(currentUser:User):boolean{
     if(!currentUser.nombre || currentUser.nombre.trim()===""){
       alert("Falta completar el nombre");
