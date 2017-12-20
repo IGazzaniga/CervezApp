@@ -121,6 +121,10 @@ export class NewItemPage {
           alert("Falta completar el nombre de la ración "+ [i+1]);
           return false;
         }
+        else if(newItem.raciones[i].nombre === "Otro" && (!newItem.raciones[i].otro || newItem.raciones[i].otro.trim() ==="")){
+          alert("Falta completar el nombre de la ración "+[i+1]);
+          return false;
+        }
         else if(!newItem.raciones[i].medida || newItem.raciones[i].medida.toString() === ""){
           alert("Falta completar la medida de la ración "+ [i+1]);
           return false;

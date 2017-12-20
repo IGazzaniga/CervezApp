@@ -138,6 +138,11 @@ export class EditItemPage {
           this.loadingService.dissmis();
           return false;
         }
+        else if(currentItem.raciones[i].nombre === "Otro" && (!currentItem.raciones[i].otro || currentItem.raciones[i].otro.trim() ==="")){
+          alert("Falta completar el nombre de la ración "+[i+1]);
+          this.loadingService.dissmis();
+          return false;
+        }
         else if(!currentItem.raciones[i].medida || currentItem.raciones[i].medida.toString() === ""){
           alert("Falta completar la medida de la ración "+ [i+1]);
           this.loadingService.dissmis();
