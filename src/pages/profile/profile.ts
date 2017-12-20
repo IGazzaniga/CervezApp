@@ -21,9 +21,7 @@ export class ProfilePage {
   @ViewChild('fileInput') fileInput;
   public currentUser: User;
   private fileFoto: File;
-  marker: Object;
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public toastCtrl: ToastController, public userService: UserService, public loadingService: LoadingProvider) {
@@ -39,9 +37,6 @@ export class ProfilePage {
     this.fileInput.nativeElement.click();
   }
   
-  
-
-
   processWebImage(event) {
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
