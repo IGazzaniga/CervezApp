@@ -33,7 +33,7 @@
       <button (click)="editCategory(cat)" ion-button clear item-end>Editar</button>
       <button (click)="deleteCategory(cat)" ion-button clear item-end>Borrar</button>
     </ion-item>
-    <p *ngIf="categorias?.length == 0 && !spinner">No tiene categorias creadas aun</p>
+    <p text-center *ngIf="categorias?.length == 0 && !spinner">No tiene categorias creadas aun</p>
   </ion-list>
   
   <ion-fab right bottom>

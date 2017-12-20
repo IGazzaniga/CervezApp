@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>NewCategory</ion-title>
+    <ion-title>Nueva Categoria</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -26,6 +26,10 @@
         <button ion-button color="primary" (click)="getPicture($event)">Subir imagen</button>
         <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
       </ion-item>
+
+      <button type="button" *ngIf="newCategoryForm.imagen" ion-button icon-only clear color="light" class="remove-image" (click)="removeImage($event)">
+        <ion-icon name="close"></ion-icon>
+      </button>
       <img style="width: 100%" *ngIf="newCategoryForm.imagen" [src]="newCategoryForm.imagen" alt="">
       
       <ion-item>

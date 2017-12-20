@@ -9,23 +9,20 @@
     <button menuToggle ion-button>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Perfil {{currentUser?.nombre}}</ion-title>
+    <ion-title>Perfil de {{currentUser?.nombre}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <form *ngIf="currentUser" (submit)="guardar()">
-
-    <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
-    <div class="profile-image-wrapper" (click)="getPicture()">
-      <div class="profile-image-placeholder" *ngIf="!currentUser.foto">
-        <ion-icon name="add"></ion-icon>
-        <div>
-          Cambiar imagen
-        </div>
-      </div>
-      <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="currentUser.foto"></div>
-    </div>
+    <ion-item class="card-header">
+      <ion-thumbnail tappable (click)="presentUserPhotoActionSheet(user)">
+        <ion-icon name="camera" class="change-photo"></ion-icon>
+        <img *ngIf="currentUser?.foto" [src]="currentUser?.foto" [alt]="currentUser?.nombre"/>
+        <img *ngIf="!currentUser?.foto" src="assets/imgs/partylogo.png" [alt]="currentUser?.nombre"/>
+      </ion-thumbnail>
+      <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+    </ion-item>
 
     <ion-list>
 

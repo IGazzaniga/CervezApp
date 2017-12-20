@@ -75,6 +75,11 @@ export class NewCategoryPage {
 
   }
 
+  public removeImage(event) {
+    event.stopPropagation();
+    this.newCategoryForm.imagen = null;
+  }
+
   public guardar() {
     let newCategoria = new NewCategoria(this.newCategoryForm);
     let cond = this.validacion(newCategoria);
