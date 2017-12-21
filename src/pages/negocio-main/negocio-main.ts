@@ -24,6 +24,7 @@ export class NegocioMainPage {
   negocio: User;
   categorias: Categoria[];
   spinner: Boolean;
+  options = 'carta';
 
   constructor(public navCtrl: NavController, public userService: UserService, public navParams: NavParams, public categoriaService: CategoriasService) {
     this.negocio = this.navParams.get('negocio');

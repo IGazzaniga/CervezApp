@@ -5,17 +5,40 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>{{negocio?.nombre}}</ion-title>
   </ion-navbar>
-
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="options">
+      <ion-segment-button value="carta">
+        Carta
+      </ion-segment-button>
+      <ion-segment-button value="info">
+        Info
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
-  <ion-title margin-top margin-bottom text-center>Carta</ion-title>
-  <a target="_blank" [href]="negocio?.urlmap">Ver en mapa</a>
-  <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
-  <categoria-card (click)="goToCategoria(cat)" *ngFor="let cat of categorias" [categoria]="cat"></categoria-card>
+  <div *ngIf="options == 'carta'">
+    <ion-title margin-top margin-bottom text-center>Carta</ion-title>
+    <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
+    <categoria-card (click)="goToCategoria(cat)" *ngFor="let cat of categorias" [categoria]="cat"></categoria-card>
+  </div>
+  <div *ngIf="options == 'info'">
+    <ion-title margin-top margin-bottom text-center>Info</ion-title>
+    <p text-center><a target="_blank" [href]="negocio?.urlmap">Ver en mapa</a></p>
+    <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
+    <ion-list>
+      <ion-item>Nombre: {{negocio?.nombre}}</ion-item>
+      <ion-item>Email: {{negocio?.email}}</ion-item>
+      <ion-item>Calle: {{negocio?.calle}}</ion-item>
+      <ion-item>Altura: {{negocio?.altura}}</ion-item>
+      <ion-item>Ciudad: {{negocio?.localidad}}</ion-item>
+      <ion-item>Hora de apertura: {{negocio?.horaApertura}}</ion-item>
+      <ion-item>Hora de cierre: {{negocio?.horaCierre}}</ion-item>
+    </ion-list>
+  </div>
 </ion-content>
