@@ -52,6 +52,7 @@ export class ProfilePage {
           text: 'Ver foto de perfil',
           icon: 'camera',
           handler: () => {
+            window.open(this.currentUser.foto);
             console.log('Archive clicked');
           }
         },{
