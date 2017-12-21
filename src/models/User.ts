@@ -4,6 +4,7 @@ export class User {
     nombre: string;
     foto: string;
     uid: string;
+    ult_dir_valida: string;
     direccion: string;
     horaApertura: Date;
     horaCierre: Date;
@@ -19,6 +20,7 @@ export class User {
         this.nombre = userLogin.displayName || userLogin.nombre || null;
         this.foto = userLogin.photoURL || userLogin.foto || null;
         this.uid = userLogin.uid;
+        this.ult_dir_valida = userLogin.ult_dir_valida || null;
         this.direccion = userLogin.direccion || null;
         this.horaApertura = userLogin.horaApertura || null;
         this.horaCierre = userLogin.horaCierre || null;
