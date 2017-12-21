@@ -38,16 +38,16 @@
 
       <ion-item>
         <ion-label fixed>Direccion</ion-label>
-        <ion-input disabled="true" id="direccion" type="text" name="direccion" [(ngModel)]="currentUser.direccion"></ion-input>
+        <ion-input id="autocomplete"  type="text" name="direccion" [(ngModel)]="currentUser.direccion" (setAddress)="getAddress($event)" googleplace></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item  hidden>
         <ion-label fixed>Localidad</ion-label>
         <ion-input disabled="true" type="text" id="autocomplete" name="localidad" [(ngModel)]="currentUser.localidad"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item hidden>
         <ion-input hidden type="text" name="marker" [(ngModel)]="currentUser.marker"></ion-input>
       </ion-item>
-      <div id="map"></div>     
+           
       <ion-item>
         <ion-label>Hora de Apertura</ion-label>
         <ion-datetime name="horaaper" displayFormat="HH:mm" [(ngModel)]="currentUser.horaApertura"></ion-datetime>
