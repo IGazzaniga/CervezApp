@@ -4,4 +4,16 @@ page-new-item {
         bottom: 25px;
         position: relative;
     }
+    .remove-image {
+      position: absolute;
+      right: 15px;
+      background-color: rgba(49, 49, 49, 0.19);
+      z-index: 9999;
+    }
+    ion-list-header {
+        border-top: 0 !important;
+        margin: 10px 0 !important;
+        font-weight: bold !important;
+        text-decoration: underline;
+    }
 }

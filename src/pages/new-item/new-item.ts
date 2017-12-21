@@ -69,6 +69,11 @@ export class NewItemPage {
     }
   }
 
+  public removeImage(event, index) {
+    event.stopPropagation();
+    this.fotos[index] = null;
+  }
+
   processWebImage(event, index) {
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
@@ -171,7 +176,11 @@ export class NewItemPage {
   }
 
   public removeRacion (index) {
-    this.newItemForm.raciones.splice(index, 1);
+    if (this.newItemForm.raciones.length > 1) {
+      this.newItemForm.raciones.splice(index, 1);
+    } else {
+      alert ('El producto tiene que tener una racion como minimo');
+    }
   }
 
 }

@@ -55,7 +55,9 @@ export class ProfilePage {
           text: 'Ver foto de perfil',
           icon: 'camera',
           handler: () => {
-            console.log('Archive clicked');
+            if (this.currentUser.foto) {
+              window.open(this.currentUser.foto)
+            }
           }
         },{
           text: 'Cancel',
@@ -75,7 +77,7 @@ export class ProfilePage {
       this.currentUser.foto = imageData;
     };
     this.fileFoto = event.target.files[0];
-    if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/png") {
+    if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/jpeg" && this.fileFoto.type != "image/png") {
       alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
       this.fileFoto = null;
     } else {
@@ -135,7 +137,7 @@ export class ProfilePage {
       return false;
     }
     if(this.fileFoto){
-      if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/png") {
+      if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/jpeg" && this.fileFoto.type != "image/png") {
         alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
         return false;
       }

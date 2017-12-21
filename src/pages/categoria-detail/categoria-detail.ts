@@ -49,7 +49,7 @@ export class CategoriaDetailPage {
   public deleteItem (it: Item) {
     let prompt = this.alertCtrl.create({
       title: '',
-      message: '¿Desea eliminar el item?',
+      message: '¿Desea eliminar este producto?',
       buttons: [
         {
           text: 'Cancelar',
