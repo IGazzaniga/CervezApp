@@ -44,29 +44,32 @@ export class MapaPage {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
     console.log(latitude, longitude);
-    
-    // create a new map by passing HTMLElement
-    let mapEle: HTMLElement = document.getElementById('map');
-     
+        
     // create LatLng object
     let myLatLng = {lat: latitude, lng: longitude};
   
     // create map
-    this.map = new google.maps.Map(mapEle, {
+    this.map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
-      zoom: 12
+      zoom: 15
     });
-    console.log(mapEle);
+    console.log(document.getElementById('map'));
     google.maps.event.addListenerOnce(this.map, 'idle', () => {
       let marker = new google.maps.Marker({
         position: myLatLng,
         map: this.map,
-        title: 'Hello World!'
+        title: 'Hello World!',
+        infowindow
       });
-      mapEle.classList.add('show-map');
+      infowindow.open(this.map,marker);
+     
     });
+    var infowindow = new google.maps.InfoWindow({
+      content: "Usted se encuentra aquí"
+    });
+      
   }
-
+  
   public selectSegment(select) {
     if (select == 'home') {
       this.navCtrl.setRoot('MainPage');
