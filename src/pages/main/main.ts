@@ -24,6 +24,7 @@ export class MainPage {
   public negocios: User[];
   spinner: Boolean;
   location: string;
+  segment = 'home';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public menuCtrl:MenuController, public userService: UserService, 
@@ -54,17 +55,16 @@ export class MainPage {
   public goToNegocio (neg: User) {
     this.navCtrl.push('NegocioMainPage', {'nombre': neg.username, 'negocio': neg});
   }
-  
-  public searchNegocio (ev) {
-    // set val to the value of the ev target
-    var val = ev.target.value;
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.negocios = this.negocios.filter((negocio) => {
-        return (negocio);
-      })
-    }}
+
+  public selectSegment(select) {
+    if (select == 'search') {
+      this.navCtrl.setRoot('SearchPage');
+    } else if (select == 'mapa') {
+      this.navCtrl.setRoot('MapaPage');
+    }
   }
+
+}
   
 
 

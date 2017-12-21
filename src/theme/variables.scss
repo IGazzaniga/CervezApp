@@ -44,6 +44,15 @@ $colors: (
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
+ion-segment-button {
+  height: 52px !important;
+  p {
+    margin: 0 !important;
+    position: relative;
+    top: -25px;
+  }
+}
+
 
 
 
