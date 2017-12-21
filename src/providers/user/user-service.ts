@@ -116,6 +116,10 @@ export class UserService {
     return this.db.list<User>(this.usersDB, ref => ref.orderByChild('place_id').equalTo(place_id)).valueChanges();
   }
 
+  public getAlls (): Observable<User[]> {
+    return this.db.list<User>(this.usersDB).valueChanges();
+  }
+
   public saveImageProfile (foto: File) {
     return this.getCurrentUser().then((user) => {
       return this.storageRef.child(`profile-images/${user.uid}.jpg`).put(foto);
