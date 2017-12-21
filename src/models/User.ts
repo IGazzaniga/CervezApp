@@ -4,8 +4,9 @@ export class User {
     nombre: string;
     foto: string;
     uid: string;
-    ult_dir_valida: string;
-    direccion: string;
+    ult_loc_valida: string;
+    calle: string;
+    altura: number;
     horaApertura: Date;
     horaCierre: Date;
     localidad: string;
@@ -20,8 +21,9 @@ export class User {
         this.nombre = userLogin.displayName || userLogin.nombre || null;
         this.foto = userLogin.photoURL || userLogin.foto || null;
         this.uid = userLogin.uid;
-        this.ult_dir_valida = userLogin.ult_dir_valida || null;
-        this.direccion = userLogin.direccion || null;
+        this.ult_loc_valida = userLogin.ult_dir_valida || null;
+        this.calle = userLogin.calle || null;
+        this.altura = userLogin.altura || null;
         this.horaApertura = userLogin.horaApertura || null;
         this.horaCierre = userLogin.horaCierre || null;
         this.localidad = userLogin.localidad || null;

@@ -62,8 +62,8 @@ export class ProfilePage {
   }
   getAddress(place:Object) {       
       this.place = place;
-      this.currentUser.direccion = place['formatted_address'];
-      this.currentUser.ult_dir_valida = place['formatted_address'];
+      this.currentUser.localidad = place['formatted_address'];
+      this.currentUser.ult_loc_valida = place['formatted_address'];
       this.currentUser.urlmap = place['url'];
       this.currentUser.place_id = place['place_id'];
       console.log("Address Object", place);
@@ -88,8 +88,12 @@ export class ProfilePage {
       alert("Falta completar el mail");
       return false;
     }
-    if(!currentUser.direccion || currentUser.direccion.trim()===""){
-      alert("Falta completar la dirección");
+    if(!currentUser.calle || currentUser.calle.trim()===""){
+      alert("Falta completar la calle");
+      return false;
+    }
+    if(!currentUser.altura || currentUser.altura.toString()===""){
+      alert("Falta completar la altura");
       return false;
     }
     if(!currentUser.horaApertura || currentUser.horaApertura.toString()===""){
@@ -104,7 +108,7 @@ export class ProfilePage {
       alert("Falta completar la localidad");
       return false;
     }
-    if(currentUser.direccion !== currentUser.ult_dir_valida){
+    if(currentUser.localidad !== currentUser.ult_loc_valida){
       alert("El campo localidad es inválido");
       return false;
     }
