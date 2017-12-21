@@ -67,8 +67,11 @@ export class MapaPage {
     var infowindow = new google.maps.InfoWindow({
       content: "Usted se encuentra aquí"
     });
+   
+
+  };
       
-  }
+  
   
   public selectSegment(select) {
     if (select == 'home') {
