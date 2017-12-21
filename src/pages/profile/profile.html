@@ -16,7 +16,7 @@
 <ion-content padding>
   <form *ngIf="currentUser" (submit)="guardar()">
     <ion-item class="card-header">
-      <ion-thumbnail tappable (click)="presentUserPhotoActionSheet(user)">
+      <ion-thumbnail tappable (click)="presentUserPhotoActionSheet()">
         <ion-icon name="camera" class="change-photo"></ion-icon>
         <img *ngIf="currentUser?.foto" [src]="currentUser?.foto" [alt]="currentUser?.nombre"/>
         <img *ngIf="!currentUser?.foto" src="assets/imgs/partylogo.png" [alt]="currentUser?.nombre"/>

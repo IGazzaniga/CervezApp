@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ActionSheetController } from 'ionic-angular';
 import { User } from "../../models/User";
 import { UserService } from "../../providers/user/user-service";
 import { LoadingProvider } from "../../providers/loading/loading";
@@ -27,7 +27,8 @@ export class ProfilePage {
   geocoder = new google.maps.Geocoder;
   map: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-  public toastCtrl: ToastController, public userService: UserService, public loadingService: LoadingProvider, public geolocation: Geolocation) {
+  public toastCtrl: ToastController, public userService: UserService, 
+  public loadingService: LoadingProvider, public geolocation: Geolocation, public actionSheetCtrl: ActionSheetController) {
   }
 
   ionViewDidLoad() {
@@ -36,10 +37,32 @@ export class ProfilePage {
     })
     
   }
-  
-
-  getPicture() {
-    this.fileInput.nativeElement.click();
+    
+  public presentUserPhotoActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [
+        {
+          text: 'Seleccionar foto de perfil',
+          icon:'images',
+          handler: () => {
+            this.fileInput.nativeElement.click();
+          }
+        },{
+          text: 'Ver foto de perfil',
+          icon: 'camera',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
   
   processWebImage(event) {
@@ -49,7 +72,7 @@ export class ProfilePage {
       this.currentUser.foto = imageData;
     };
     this.fileFoto = event.target.files[0];
-    if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/png") {
+    if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/jpeg" && this.fileFoto.type != "image/png") {
       alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
       this.fileFoto = null;
     } else {
@@ -57,9 +80,6 @@ export class ProfilePage {
     }
   }
 
-  getProfileImageStyle() {
-    return 'url(' + this.currentUser.foto + ')'
-  }
   getAddress(place:Object) {       
       this.place = place;
       this.currentUser.localidad = place['formatted_address'];
@@ -69,14 +89,13 @@ export class ProfilePage {
       console.log("Address Object", place);
   }
 
-  
   validacion(currentUser:User):boolean{
     if(!currentUser.nombre || currentUser.nombre.trim()===""){
       alert("Falta completar el nombre");
       return false;
     }
     if(this.fileFoto){
-      if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/png") {
+      if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/jpeg" && this.fileFoto.type != "image/png") {
         alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
         return false;
       }
