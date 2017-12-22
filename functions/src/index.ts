@@ -1,14 +1,13 @@
 import * as functions from 'firebase-functions'
-import * as admin from 'firebase-admin'
-admin.initializeApp(functions.config().firebase);
+import * as firebase from 'firebase-admin'
 import * as express from 'express'
 const cors = require('cors')({origin: true});
 const app = express();
 
-// Express middleware that validates Firebase ID Tokens passed in the Authorization HTTP header.
-// The Firebase ID token needs to be passed as a Bearer token in the Authorization HTTP header like this:
-// `Authorization: Bearer <Firebase ID Token>`.
-// when decoded successfully, the ID Token content will be added as `req.user`.
+firebase.initializeApp(functions.config().firebase);
+const usersRef = firebase.database().ref('/users');
+
+/*
 const validateFirebaseIdToken = (req, res, next) => {
   console.log('Check if request is authorized with Firebase ID token');
 
@@ -40,13 +39,32 @@ const validateFirebaseIdToken = (req, res, next) => {
     console.error('Error while verifying Firebase ID token:', error);
     res.status(403).send('Unauthorized');
   });
-};
+};*/
 
 app.use(cors);
 //app.use(validateFirebaseIdToken);
 
-app.get('/prueba', (req, res) => {
-  res.send('hola');
+app.get('/user/search', (req, res) => {
+    const val = req.query.val;
+    console.log('valor de parametro: ' + val);
+    usersRef.orderByChild('username').startAt(val).endAt(`${val}\uf8ff`).once('value', (snap) => {
+      console.log('calor de snap: ' + snap.val());
+      if (snap.val() !== null) {
+        var returnArr = [];
+        for (var key in snap.val()) {
+          if (snap.val().hasOwnProperty(key)) {
+            var user = snap.val()[key];
+            returnArr.push(user);
+          }
+        }
+        res.status(200).json(returnArr);
+      } else {
+        res.status(200).json([]);
+      }
+    }).catch(error => {
+        console.log('Error getting user details', val, error.message);
+        res.sendStatus(500);
+    });
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.

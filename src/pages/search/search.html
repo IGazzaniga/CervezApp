@@ -15,7 +15,8 @@
 
 
 <ion-content padding>
-
+  <negocio-card *ngFor="let neg of negocios" (click)="goToNegocio(neg)" [negocio]="neg"></negocio-card>
+  <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
 </ion-content>
 
 <ion-footer>

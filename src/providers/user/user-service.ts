@@ -120,6 +120,22 @@ export class UserService {
     return this.db.list<User>(this.usersDB).valueChanges();
   }
 
+  public getByName (val: string): Observable<User[]> {
+    return this.api.get('user/search',{val: val}).map((users: any) => this.mapUsers(users));
+  }
+
+  private mapUsers(users: Array<any>) {
+    let result: Array<User> = [];
+    if (users) {
+      users.forEach((user: any) => {
+        result.push(
+          new User(user)
+        )
+      });
+    }
+    return result;
+  }
+
   public saveImageProfile (foto: File) {
     return this.getCurrentUser().then((user) => {
       return this.storageRef.child(`profile-images/${user.uid}.jpg`).put(foto);

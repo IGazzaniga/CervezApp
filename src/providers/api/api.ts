@@ -6,26 +6,15 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
+  url: string = 'https://us-central1-cervezapp-a5297.cloudfunctions.net/api';
 
   constructor(public http: HttpClient) {
   }
 
-  get(endpoint: string, params?: any, reqOpts?: any) {
-    if (!reqOpts) {
-      reqOpts = {
-        params: new HttpParams()
-      };
-    }
-
-    // Support easy query params for GET requests
-    if (params) {
-      reqOpts.params = new HttpParams();
-      for (let k in params) {
-        reqOpts.params.set(k, params[k]);
-      }
-    }
-
+  get(endpoint: string, params?: any) {
+    let reqOpts = {};
+    reqOpts['params'] = params;
+    
     return this.http.get(this.url + '/' + endpoint, reqOpts);
   }
 
