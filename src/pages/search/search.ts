@@ -20,12 +20,14 @@ export class SearchPage {
   segment = 'search';
   public negocios: User[];
   spinner: Boolean = false;
+  public radio;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService, public loading: LoadingProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
+    this.radio ="nombre";
   }
 
   public selectSegment(select) {
