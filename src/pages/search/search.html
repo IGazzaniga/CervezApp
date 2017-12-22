@@ -22,6 +22,7 @@
 <ion-content padding>
   <negocio-card *ngFor="let neg of negocios" (click)="goToNegocio(neg)" [negocio]="neg"></negocio-card>
   <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
+  <p text-center *ngIf="negocios?.length == 0 && !spinner">No hay resultados que coincidan con la busqueda</p>
 </ion-content>
 
 <ion-footer>

@@ -1,8 +1,8 @@
-import {LoadingProvider} from '../../providers/loading/loading';
 import {UserService} from '../../providers/user/user-service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from "../../models/User";
+import { LoadingProvider } from "../../providers/loading/loading";
 
 /**
  * Generated class for the SearchPage page.
@@ -19,6 +19,7 @@ import { User } from "../../models/User";
 export class SearchPage {
   segment = 'search';
   public negocios: User[];
+  spinner: Boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService, public loading: LoadingProvider) {
   }
@@ -40,16 +41,16 @@ export class SearchPage {
     if (val.trim() == '') {
       this.negocios = [];
     } else {
-      this.loading.show();
+      this.spinner = true;
       this.userService.getByName(val).subscribe((users) => {
         this.negocios = users;
-        this.loading.dissmis();
+        this.spinner = false;
       })
     }
   }
 
   getAddress(place:Object) {
-    this.loading.show();    
+    this.loading.show();
     this.userService.getByLocation(place['place_id']).subscribe((users) => {
       this.negocios = users;
       this.loading.dissmis();
