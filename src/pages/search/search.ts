@@ -1,3 +1,4 @@
+import {LoadingProvider} from '../../providers/loading/loading';
 import {UserService} from '../../providers/user/user-service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -19,7 +20,7 @@ export class SearchPage {
   segment = 'search';
   public negocios: User[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService, public loading: LoadingProvider) {
   }
 
   ionViewDidLoad() {
@@ -34,11 +35,26 @@ export class SearchPage {
     } 
   }
 
-  public getItems(ev) {
+  public getNegociosByName(ev) {
     let val = ev.target.value;
-    this.userService.getByName(val).subscribe((users) => {
+    if (val.trim() == '') {
+      this.negocios = [];
+    } else {
+      this.loading.show();
+      this.userService.getByName(val).subscribe((users) => {
+        this.negocios = users;
+        this.loading.dissmis();
+      })
+    }
+  }
+
+  getAddress(place:Object) {
+    this.loading.show();    
+    this.userService.getByLocation(place['place_id']).subscribe((users) => {
       this.negocios = users;
+      this.loading.dissmis();
     })
+    console.log("Address Object", place);
   }
 
 }

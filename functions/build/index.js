@@ -44,9 +44,7 @@ app.use(cors);
 //app.use(validateFirebaseIdToken);
 app.get('/user/search', (req, res) => {
     const val = req.query.val;
-    console.log('valor de parametro: ' + val);
     usersRef.orderByChild('username').startAt(val).endAt(`${val}\uf8ff`).once('value', (snap) => {
-        console.log('calor de snap: ' + snap.val());
         if (snap.val() !== null) {
             var returnArr = [];
             for (var key in snap.val()) {
@@ -62,6 +60,27 @@ app.get('/user/search', (req, res) => {
         }
     }).catch(error => {
         console.log('Error getting user details', val, error.message);
+        res.sendStatus(500);
+    });
+});
+app.get('/user/search-by-location', (req, res) => {
+    const placeId = req.query.placeId;
+    usersRef.orderByChild('place_id').equalTo(placeId).once('value', (snap) => {
+        if (snap.val() !== null) {
+            var returnArr = [];
+            for (var key in snap.val()) {
+                if (snap.val().hasOwnProperty(key)) {
+                    var user = snap.val()[key];
+                    returnArr.push(user);
+                }
+            }
+            res.status(200).json(returnArr);
+        }
+        else {
+            res.status(200).json([]);
+        }
+    }).catch(error => {
+        console.log('Error getting user details', placeId, error.message);
         res.sendStatus(500);
     });
 });

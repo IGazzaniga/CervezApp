@@ -121,7 +121,11 @@ export class UserService {
   }
 
   public getByName (val: string): Observable<User[]> {
-    return this.api.get('user/search',{val: val}).map((users: any) => this.mapUsers(users));
+    return this.api.get('user/search', {val: val}).map((users: any) => this.mapUsers(users));
+  }
+
+  public getByLocation (place_id: string): Observable<User[]> {
+    return this.api.get('user/search-by-location', {placeId: place_id}).map((users: any) => this.mapUsers(users));
   }
 
   private mapUsers(users: Array<any>) {

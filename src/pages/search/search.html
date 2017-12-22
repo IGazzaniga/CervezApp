@@ -9,7 +9,12 @@
     <ion-title>Search</ion-title>
   </ion-navbar>
   <ion-toolbar>
-    <ion-searchbar (input)="getItems($event)"></ion-searchbar>
+    <ion-title>Por Nombre</ion-title>
+    <ion-searchbar (input)="getNegociosByName($event)"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>Por Localidad</ion-title>
+    <ion-searchbar (setAddress)="getAddress($event)" id="autocomplete" googleplace></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
