@@ -3,16 +3,16 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SearchPage } from './search';
 import { GoogleplaceDirective } from "../../components/google-place-autocomplete/google-place.directive";
+import { GooglePlaceComponentModule } from "../../components/google-place-autocomplete/google-place.module";
 
 @NgModule({
   declarations: [
-    SearchPage,
-    GoogleplaceDirective
+    SearchPage
   ],
   imports: [
     IonicPageModule.forChild(SearchPage),
-    NegocioCardComponentModule
-  ],
-  exports: [GoogleplaceDirective]
+    NegocioCardComponentModule,
+    GooglePlaceComponentModule
+  ]
 })
 export class SearchPageModule {}
