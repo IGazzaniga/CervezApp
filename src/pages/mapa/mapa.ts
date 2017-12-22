@@ -67,9 +67,12 @@ export class MapaPage {
     var infowindow = new google.maps.InfoWindow({
       content: "Usted se encuentra aquí"
     });
-   
+    google.maps.event.addDomListener(window, 'resize', ()=> {
+      this.map.setCenter(myLatLng);
+  });
 
   };
+  
       
   
   
