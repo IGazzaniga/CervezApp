@@ -100,6 +100,10 @@ export class ProfilePage {
         alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
         return false;
       }
+      else if(this.fileFoto.size > 2097152){
+        alert("Debe incluir una foto de perfil que no sea mayor a 2MB");
+        return false;
+      }
     } else if (!currentUser.foto.includes('firebase')) {
         alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
         return false;
