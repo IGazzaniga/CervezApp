@@ -65,6 +65,10 @@ export class NewCategoryPage {
         alert("Falta agregar una imagen a la categoría");
         return false;
       }
+      else if(this.fileFoto.size > 2097152){
+        alert("Debe incluir una foto que no sea mayor a 2MB");
+        return false;
+      }
       else if(!newCategoria.icono){
         alert("Falta asignar un ícono a la categoría");
         return false;

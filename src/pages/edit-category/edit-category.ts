@@ -72,6 +72,11 @@ export class EditCategoryPage {
         this.loadingService.dissmis();
         return false;
       }
+      else if(this.fileFoto.size > 2097152){
+        alert("Debe incluir una foto que no sea mayor a 2MB");
+        this.loadingService.dissmis();
+        return false;
+      }
       else if(!currentCategory.icono){
         alert("Falta asignar un ícono a la categoría");
         this.loadingService.dissmis();

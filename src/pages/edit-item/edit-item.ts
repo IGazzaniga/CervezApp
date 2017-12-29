@@ -131,6 +131,16 @@ export class EditItemPage {
       this.loadingService.dissmis();
       return false;
     }
+    else if(this.fotos.length !== 0){
+      for(i=0; i < this.fotos.length; i++){
+        if(this.filesFotos[i].size > 2097152){
+          alert("La imagen "+(i+1)+" debe tener un tamaño menor a 2MB");
+          this.loadingService.dissmis();
+          return false;
+        } 
+      }
+
+    }
     else if(currentItem.raciones.length !== 0){
       for(i=0; i < currentItem.raciones.length; i++){
         if (!currentItem.raciones[i].nombre || currentItem.raciones[i].nombre.trim() === ""){

@@ -119,6 +119,15 @@ export class NewItemPage {
       alert("Debe completar el proveedor de la cerveza");
       return false;
     }
+    else if(this.fotos.length !== 0){
+      for(i=0; i < this.fotos.length; i++){
+        if(this.filesFotos[i].size > 2097152){
+          alert("La imagen "+(i+1)+" debe tener un tamaño menor a 2MB");
+          return false;
+        } 
+      }
+
+    }
     else if(newItem.raciones.length !== 0){
       for(i=0; i < newItem.raciones.length; i++){
         if (!newItem.raciones[i].nombre || newItem.raciones[i].nombre.trim() === ""){
