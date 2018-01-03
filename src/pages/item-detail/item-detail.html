@@ -15,6 +15,11 @@
 
 <ion-content padding>
     <ion-list>
+      <ion-slides pager loop zoom autoplay="3000">
+        <ion-slide *ngFor="let foto of item?.fotos">
+          <img [src]="foto">
+        </ion-slide>
+      </ion-slides>
       <ion-item *ngIf="item?.descripcion"><strong>Descripción: </strong>{{item?.descripcion}}</ion-item>
       <ion-item-group *ngIf="item?.esCerveza"> 
         <ion-item *ngIf="item?.tipo"><strong>Tipo: </strong>{{item?.tipo}}</ion-item>
@@ -30,11 +35,6 @@
       </ion-item>
       <ion-item *ngIf="item?.stock"><strong>Stock: </strong>Si</ion-item>
       <ion-item *ngIf="!item?.stock"><strong>Stock: </strong>No</ion-item>
-      <ion-slides>
-        <ion-slide *ngFor="let foto of item?.fotos">
-          <img [src]="foto">
-        </ion-slide>
-      </ion-slides>
     </ion-list> 
 
 </ion-content>

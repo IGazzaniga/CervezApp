@@ -60,4 +60,8 @@ export class SearchPage {
     console.log("Address Object", place);
   }
 
+  public goToNegocio (neg: User) {
+    this.navCtrl.push('NegocioMainPage', {'nombre': neg.username, 'negocio': neg});
+  }
+
 }
