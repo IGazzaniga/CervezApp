@@ -15,7 +15,7 @@
 
 <ion-content padding>
     <ion-list>
-      <ion-slides pager loop zoom autoplay="3000">
+      <ion-slides *ngIf="item.fotos" pager loop zoom autoplay="3000">
         <ion-slide *ngFor="let foto of item?.fotos">
           <img [src]="foto">
         </ion-slide>
