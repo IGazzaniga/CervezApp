@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { User } from '../../models/User';
 import { Categoria } from '../../models/Categoria';
 import { UserService } from '../../providers/user/user-service';
@@ -37,7 +37,8 @@ export class EditItemPage {
     public userService: UserService,
     public loadingService: LoadingProvider,
     public categoriasService: CategoriasService,
-    public itemsService: ItemsService) {
+    public itemsService: ItemsService,
+    public actionSheetCtrl: ActionSheetController) {
       this.currentItem = this.navParams.get('currentItem');     
   }
 
@@ -67,6 +68,51 @@ export class EditItemPage {
     if (i==2) {
       this.file2.nativeElement.click();
     }
+  }
+
+  public presentUserPhotoActionSheet(i:number) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [
+        {
+          text: 'Modificar imagen',
+          icon:'images',
+          handler: () => {
+            if (i === 0){
+              this.file0.nativeElement.click();
+            }
+            if (i === 1){
+              this.file1.nativeElement.click();
+            }
+            if (i === 2){
+              this.file2.nativeElement.click();
+            }
+          }
+        },{
+          text: 'Ver imagen',
+          icon: 'camera',
+          handler: () => {
+            if (i === 0){
+              window.open(this.currentItem.fotos[0]);
+            }
+            if (i === 1){
+              window.open(this.currentItem.fotos[1]);
+            }
+            if (i === 2){
+              window.open(this.currentItem.fotos[2]);
+            }
+
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   processWebImage(event, index) {

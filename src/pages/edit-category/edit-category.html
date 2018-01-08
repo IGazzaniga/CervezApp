@@ -21,10 +21,13 @@
       </ion-item>
 
       <ion-item>
-        <button ion-button color="primary" (click)="getPicture($event)">Cambiar imagen</button>
-        <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+        <ion-thumbnail tappable (click)="presentUserPhotoActionSheet()">
+          <ion-icon name="camera" class="change-photo"></ion-icon>
+          <img *ngIf="currentCategory.imagen" [src]="currentCategory.imagen" alt="currentCategory?.nombre">
+        </ion-thumbnail>
+        <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
       </ion-item>
-      <img style="width: 100%" *ngIf="currentCategory.imagen" [src]="currentCategory.imagen" alt="">
+      
       
       <ion-item>
         <ion-label>Icono</ion-label>

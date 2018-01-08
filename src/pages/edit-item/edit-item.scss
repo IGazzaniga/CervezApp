@@ -4,4 +4,16 @@ page-edit-item {
         bottom: 25px;
         position: relative;
     }
+    ion-thumbnail {
+        ion-icon {
+          position: absolute;
+          color: lightgray;
+          left: 20px;
+          top: 15px;
+        }
+        img {
+          width: 120px !important;
+          height: 120px !important;
+        }
+      }
 }

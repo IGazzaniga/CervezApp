@@ -30,7 +30,8 @@ export class EditCategoryPage {
     public navParams: NavParams,
     public userService: UserService,
     public loadingService: LoadingProvider,
-    public categoriasService: CategoriasService) {
+    public categoriasService: CategoriasService,
+    public actionSheetCtrl: ActionSheetController) {
       this.currentCategory = this.navParams.get('currentCategory');     
   }
 
@@ -49,6 +50,34 @@ export class EditCategoryPage {
   getPicture(event: Event) {
     event.preventDefault();
     this.fileInput.nativeElement.click();
+  }
+
+  public presentUserPhotoActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [
+        {
+          text: 'Modificar imagen',
+          icon:'images',
+          handler: () => {
+            this.fileInput.nativeElement.click();
+          }
+        },{
+          text: 'Ver imagen',
+          icon: 'camera',
+          handler: () => {
+            window.open(this.currentCategory.imagen);
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   processWebImage(event) {

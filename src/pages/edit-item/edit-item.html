@@ -15,7 +15,7 @@
 <ion-content padding>
   <form (submit)="editItem()">
     <ion-list>
-
+      
       <ion-item>
         <ion-label stacked>Nombre</ion-label>
         <ion-input type="text" [(ngModel)]="currentItem.nombre" name="name"></ion-input>
@@ -92,22 +92,41 @@
         <button ion-button color="primary" (click)="getPicture($event, 0)">Imagen 1</button>
         <input type="file" #file0 style="visibility: hidden; height: 0px" name="img1" (change)="processWebImage($event, 0)" />
       </ion-item>
-      <img style="width: 100%" *ngIf="fotos[0]" [src]="fotos[0]" alt="">
+
+      <ion-item>
+        <ion-thumbnail tappable (click)="presentUserPhotoActionSheet(0)">
+          <ion-icon name="camera" class="change-photo"></ion-icon>
+          <img *ngIf="currentItem.fotos[0]" [src]="currentItem.fotos[0]" alt="currentUser?.nombre">
+        </ion-thumbnail>
+        <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+      </ion-item>
 
       <ion-item>
         <button ion-button color="primary" (click)="getPicture($event, 1)">Imagen 2</button>
         <input type="file" #file1 style="visibility: hidden; height: 0px" name="img2]" (change)="processWebImage($event, 1)" />
       </ion-item>
-      <img style="width: 100%" *ngIf="fotos[1]" [src]="fotos[1]" alt="">
 
+      <ion-item>
+        <ion-thumbnail tappable (click)="presentUserPhotoActionSheet(1)">
+          <ion-icon name="camera" class="change-photo"></ion-icon>
+          <img *ngIf="currentItem.fotos[1]" [src]="currentItem.fotos[1]" alt="currentUser?.nombre">
+        </ion-thumbnail>
+        <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+      </ion-item>
+      
       <ion-item>
         <button ion-button color="primary" (click)="getPicture($event, 2)">Imagen 3</button>
         <input type="file" #file2 style="visibility: hidden; height: 0px" name="img3]" (change)="processWebImage($event, 2)" />
       </ion-item>
-      <img style="width: 100%" *ngIf="fotos[2]" [src]="fotos[2]" alt="">
 
-
-
+      <ion-item>
+        <ion-thumbnail tappable (click)="presentUserPhotoActionSheet(2)">
+          <ion-icon name="camera" class="change-photo"></ion-icon>
+          <img *ngIf="currentItem.fotos[2]" [src]="currentItem.fotos[2]" alt="currentUser?.nombre">
+        </ion-thumbnail>
+        <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+      </ion-item> 
+     
       <button ion-button (click)="addRacion($event);" color="secondary">Agregar Racion</button>
 
       <div padding>
