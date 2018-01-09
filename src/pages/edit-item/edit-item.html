@@ -93,7 +93,7 @@
         <input type="file" #file0 style="visibility: hidden; height: 0px" name="img1" (change)="processWebImage($event, 0)" />
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="currentItem.fotos">
         <ion-thumbnail tappable (click)="presentUserPhotoActionSheet(0)">
           <ion-icon name="camera" class="change-photo"></ion-icon>
           <img *ngIf="currentItem.fotos[0]" [src]="currentItem.fotos[0]" alt="currentUser?.nombre">
@@ -106,7 +106,7 @@
         <input type="file" #file1 style="visibility: hidden; height: 0px" name="img2]" (change)="processWebImage($event, 1)" />
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="currentItem.fotos">
         <ion-thumbnail tappable (click)="presentUserPhotoActionSheet(1)">
           <ion-icon name="camera" class="change-photo"></ion-icon>
           <img *ngIf="currentItem.fotos[1]" [src]="currentItem.fotos[1]" alt="currentUser?.nombre">
@@ -119,7 +119,7 @@
         <input type="file" #file2 style="visibility: hidden; height: 0px" name="img3]" (change)="processWebImage($event, 2)" />
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="currentItem.fotos">
         <ion-thumbnail tappable (click)="presentUserPhotoActionSheet(2)">
           <ion-icon name="camera" class="change-photo"></ion-icon>
           <img *ngIf="currentItem.fotos[2]" [src]="currentItem.fotos[2]" alt="currentUser?.nombre">
