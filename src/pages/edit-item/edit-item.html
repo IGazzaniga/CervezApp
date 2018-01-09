@@ -87,6 +87,8 @@
           <ion-input type="text" [(ngModel)]="racion.precio" [ngModelOptions]="{standalone: true}"></ion-input>
         </ion-item>
       </ion-item-group>
+ 
+      <button ion-button (click)="addRacion($event);" color="secondary">Agregar Racion</button>
 
       <ion-item>
         <button ion-button color="primary" (click)="getPicture($event, 0)">Imagen 1</button>
@@ -98,7 +100,7 @@
           <ion-icon name="camera" class="change-photo"></ion-icon>
           <img [src]="currentItem.fotos[0]" alt="currentUser?.nombre">
         </ion-thumbnail>
-        <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+        <input type="file" accept="image/*" #file0 style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event, 0)" />
       </ion-item>
 
       <ion-item>
@@ -111,7 +113,7 @@
           <ion-icon name="camera" class="change-photo"></ion-icon>
           <img [src]="currentItem.fotos[1]" alt="currentUser?.nombre">
         </ion-thumbnail>
-        <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+        <input type="file" accept="image/*" #file1 style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event, 1)" />
       </ion-item>
       
       <ion-item>
@@ -124,10 +126,8 @@
           <ion-icon name="camera" class="change-photo"></ion-icon>
           <img [src]="currentItem.fotos[2]" alt="currentUser?.nombre">
         </ion-thumbnail>
-        <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+        <input type="file" accept="image/*" #file2 style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event, 2)" />
       </ion-item> 
-     
-      <button ion-button (click)="addRacion($event);" color="secondary">Agregar Racion</button>
 
       <div padding>
         <button ion-button color="primary" block>Guardar</button>

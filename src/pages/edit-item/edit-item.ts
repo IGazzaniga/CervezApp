@@ -119,7 +119,7 @@ export class EditItemPage {
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
       let imageData = (readerEvent.target as any).result;
-      this.fotos[index] = imageData;
+      this.currentItem.fotos[index] = imageData;
     };
     this.filesFotos[index] = event.target.files[0];
     reader.readAsDataURL(this.filesFotos[index]);
