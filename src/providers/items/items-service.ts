@@ -69,8 +69,12 @@ export class ItemsService {
   }
   
   
-  public delete (itemId: string): Promise<any> {
-    return this.itemsRef.child(itemId).remove();
+  public delete (itemId: string, fotosCant: Number): Promise<any> {
+    return this.itemsRef.child(itemId).remove().then(()=> {
+      for (var index = 0; index < fotosCant; index++) {
+        this.storageRef.child(`items-images/${itemId}/${index}.jpg`).delete();
+      }
+    });
   }
 
   public deleteAllByCategoriaId(categoriaId: string): Promise<any> {

@@ -173,7 +173,6 @@ export class NewItemPage {
       this.loadingService.show();
       this.itemsService.add(newItem, this.filesFotos, this.categoriaId).then((resp) => {
         this.loadingService.dissmis();
-        alert("Producto cargado");
         this.navCtrl.pop();
       });
     }

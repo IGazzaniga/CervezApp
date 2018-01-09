@@ -60,7 +60,7 @@ export class CategoriaDetailPage {
           text: 'Eliminar',
           handler: () => {
             this.loading.show();
-            this.itemService.delete(it.id).then(()=> {
+            this.itemService.delete(it.id, it.fotos.length).then(()=> {
               this.loading.dissmis();
             });
           }

@@ -59,7 +59,9 @@ export class CategoriasService{
 
   public delete (catId: string): Promise<any> {
     return this.categoriasRef.child(catId).remove().then(() => {
-      return this.itemsService.deleteAllByCategoriaId(catId);
+      return this.storageRef.child(`categoria-images/${catId}.jpg`).delete().then(()=> {
+        return this.itemsService.deleteAllByCategoriaId(catId);
+      });
     });
   }
 
