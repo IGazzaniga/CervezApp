@@ -80,8 +80,12 @@ export class NewItemPage {
       let imageData = (readerEvent.target as any).result;
       this.fotos[index] = imageData;
     };
-    this.filesFotos[index] = event.target.files[0];
-    reader.readAsDataURL(this.filesFotos[index]);
+    if (event.target.files[0].size < 2097152) {
+      this.filesFotos[index] = event.target.files[0];
+      reader.readAsDataURL(this.filesFotos[index]);
+    } else {
+      alert("La imagen debe tener un tamaño menor a 2MB");
+    }
   }
   
   public validacion(newItem: NewItem):boolean{

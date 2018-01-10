@@ -52,8 +52,12 @@ export class NewCategoryPage {
       let imageData = (readerEvent.target as any).result;
       this.newCategoryForm.imagen = imageData;
     };
-    this.fileFoto = event.target.files[0];
-    reader.readAsDataURL(this.fileFoto);
+    if (event.target.files[0].size < 2097152) {
+      this.fileFoto = event.target.files[0];
+      reader.readAsDataURL(this.fileFoto);
+    } else {
+      alert("La imagen debe tener un tamaño menor a 2MB");
+    }
   }
 
   public validacion(newCategoria: NewCategoria):boolean{
