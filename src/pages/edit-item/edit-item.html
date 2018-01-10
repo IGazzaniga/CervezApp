@@ -121,7 +121,7 @@
         <input type="file" #file2 style="visibility: hidden; height: 0px" name="img3]" (change)="processWebImage($event, 2)" />
       </ion-item>
 
-      <ion-item *ngIf="currentItem.fotos && currentItem.fotos[2]">
+      <ion-item *ngIf="currentItem.fotos  && currentItem.fotos[2]">
         <ion-thumbnail tappable (click)="presentUserPhotoActionSheet(2)">
           <ion-icon name="camera" class="change-photo"></ion-icon>
           <img [src]="currentItem.fotos[2]" alt="currentUser?.nombre">
