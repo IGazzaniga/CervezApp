@@ -119,6 +119,12 @@ export class EditItemPage {
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
       let imageData = (readerEvent.target as any).result;
+      if (!this.currentItem.fotos) {
+        this.currentItem.fotos = [];
+        for (var i = 0; i < 3; i++) {
+          this.currentItem.fotos[i] = null;
+        }
+      }
       this.currentItem.fotos[index] = imageData;
     };
     this.filesFotos[index] = event.target.files[0];
