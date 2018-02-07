@@ -92,7 +92,9 @@ export class ProfilePage {
         console.log(error);
       })
     }
+
   loadMap(position: Geoposition){
+    var that = this;
       if(this.currentUser.direccion == null){
         let latitude = position.coords.latitude;
         let longitude = position.coords.longitude;
@@ -117,10 +119,10 @@ export class ProfilePage {
           });
           marker.addListener('dragend', () => {
             var latlng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
-            this.geocoder.geocode({'location': latlng},(results, status)=> {
+            that.geocoder.geocode({'location': latlng},(results, status)=> {
             if (status === 'OK') {
                console.log(results[0].address_components);
-               this.currentUser.direccion = (results[0].formatted_address);
+               that.currentUser.direccion = (results[0].formatted_address);
             }
             })  
           });
@@ -145,10 +147,10 @@ export class ProfilePage {
                 });
                 marker.addListener('dragend', () => {
                   let latlng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
-                  this.geocoder.geocode({'location': latlng},(results, status)=> {
+                  that.geocoder.geocode({'location': latlng},(results, status)=> {
                   if (status === 'OK') {
                      console.log(results[0].address_components);
-                     this.currentUser.direccion = (results[0].formatted_address);
+                     that.currentUser.direccion = (results[0].formatted_address);
                   }
                   })  
                 });
