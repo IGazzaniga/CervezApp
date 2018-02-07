@@ -92,39 +92,71 @@ export class ProfilePage {
         console.log(error);
       })
     }
-    loadMap(position: Geoposition){
-      let latitude = position.coords.latitude;
-      let longitude = position.coords.longitude;
-      console.log(latitude, longitude);
-      
-      // create LatLng object
-      let myLatLng = {lat: latitude, lng: longitude};
-    
-      // create map
-      this.map = new google.maps.Map(document.getElementById('map'), {
-        center: myLatLng,
-        zoom: 15,
-        zoomControl: true,
-      });
-      console.log(document.getElementById('map'));
-      google.maps.event.addListenerOnce(this.map, 'idle', () => {
-        let marker = new google.maps.Marker({
-          position: myLatLng,
-          map: this.map,
-          draggable: true,
-          title: 'Arrastra el marcador hasta la dirección de tu negocio'
+  loadMap(position: Geoposition){
+      if(this.currentUser.direccion == null){
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        console.log(latitude, longitude);
+        
+        // create LatLng object
+        let myLatLng = {lat: latitude, lng: longitude};
+        
+        // create map
+        this.map = new google.maps.Map(document.getElementById('map'), {
+          center: myLatLng,
+          zoom: 15,
+          zoomControl: true,
         });
-        marker.addListener('dragend', () => {
-          var latlng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
-          this.geocoder.geocode({'location': latlng},(results, status)=> {
-          if (status === 'OK') {
-             console.log(results[0].address_components);
-             this.currentUser.direccion = (results[0].formatted_address);
-          }
-          })  
+        console.log(document.getElementById('map'));
+        google.maps.event.addListenerOnce(this.map, 'idle', () => {
+          let marker = new google.maps.Marker({
+            position: myLatLng,
+            map: this.map,
+            draggable: true,
+            title: 'Arrastra el marcador hasta la dirección de tu negocio'
+          });
+          marker.addListener('dragend', () => {
+            var latlng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
+            this.geocoder.geocode({'location': latlng},(results, status)=> {
+            if (status === 'OK') {
+               console.log(results[0].address_components);
+               this.currentUser.direccion = (results[0].formatted_address);
+            }
+            })  
+          });
         });
-      });
-    }
+      }
+      else{
+          var address = this.currentUser.direccion;
+          this.geocoder.geocode({'address': address}, function(results, status) {
+            if (status === 'OK') {
+              // create map
+              this.map = new google.maps.Map(document.getElementById('map'), {
+                center: results[0].geometry.location,
+                zoom: 15,
+                zoomControl: true,
+              });
+              google.maps.event.addListenerOnce(this.map, 'idle', () => {
+                let marker = new google.maps.Marker({
+                  map: this.map,
+                  position: results[0].geometry.location,
+                  draggable: true,
+                  title: 'Arrastra el marcador hasta la dirección de tu negocio'
+                });
+                marker.addListener('dragend', () => {
+                  let latlng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
+                  this.geocoder.geocode({'location': latlng},(results, status)=> {
+                  if (status === 'OK') {
+                     console.log(results[0].address_components);
+                     this.currentUser.direccion = (results[0].formatted_address);
+                  }
+                  })  
+                });
+              });
+            }
+          });
+      }
+  }
   getAddress(place:Object) {       
       this.place = place;
       this.currentUser.localidad = place['formatted_address'];
