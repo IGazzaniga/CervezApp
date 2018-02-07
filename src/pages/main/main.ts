@@ -56,6 +56,10 @@ export class MainPage {
     this.navCtrl.push('NegocioMainPage', {'nombre': neg.username, 'negocio': neg});
   }
 
+  public goToLogin () {
+    this.navCtrl.push('LoginPage');
+  }
+
   public selectSegment(select) {
     if (select == 'search') {
       this.navCtrl.setRoot('SearchPage');

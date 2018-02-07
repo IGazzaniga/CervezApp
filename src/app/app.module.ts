@@ -50,7 +50,7 @@ firebase.initializeApp(envprod.firebase);
         deps: [HttpClient]
       }
     }),
-    IonicModule.forRoot(MyApp),// { locationStrategy: 'path' }),
+    IonicModule.forRoot(MyApp, { locationStrategy: 'path' }),
     CategoriaCardComponentModule,
     IonicStorageModule.forRoot(),
   ],
