@@ -20,7 +20,7 @@ export class User {
         this.nombre = userLogin.displayName || userLogin.nombre || null;
         this.foto = userLogin.photoURL || userLogin.foto || null;
         this.uid = userLogin.uid;
-        this.ult_loc_valida = userLogin.ult_dir_valida || null;
+        this.ult_loc_valida = userLogin.ult_loc_valida || null;
         this.direccion = userLogin.direccion || null;
         this.horaApertura = userLogin.horaApertura || null;
         this.horaCierre = userLogin.horaCierre || null;
