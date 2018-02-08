@@ -177,14 +177,18 @@ export class ProfilePage {
       if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/jpeg" && this.fileFoto.type != "image/png") {
         alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
         return false;
-      }
-      else if(this.fileFoto.size > 2097152){
+      } else if(this.fileFoto.size > 2097152){
         alert("Debe incluir una foto de perfil que no sea mayor a 2MB");
         return false;
       }
-    } else if (!currentUser.foto.includes('firebase')) {
+    } else if (!currentUser.foto) {
         alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
         return false;
+    } else {
+      if (!currentUser.foto.includes('firebase')) {
+        alert("Debe incluir una foto de perfil válida, con extensión jpg o png");
+        return false;
+      }
     }
     if(!currentUser.email || currentUser.email.trim()===""){
       alert("Falta completar el mail");
@@ -213,7 +217,7 @@ export class ProfilePage {
     return true;
   }
 
-  guardar () {
+  guardar (event) {
     if(this.validacion(this.currentUser)){
       this.loadingService.show();
       if (this.fileFoto) {
