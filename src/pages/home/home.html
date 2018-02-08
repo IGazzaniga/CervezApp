@@ -23,15 +23,12 @@
       Categorias
     </ion-list-header>
     <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
-    <ion-item *ngFor="let cat of categorias">
+    <ion-item (click)="goToCategoria(cat)" class="item-cat" *ngFor="let cat of categorias">
       <ion-thumbnail item-start>
         <img [src]="cat.imagen">
       </ion-thumbnail>
       <ion-icon [name]="cat.icono"></ion-icon>
       <h2>{{cat.nombre}}</h2>
-      <button (click)="goToCategoria(cat)" ion-button clear item-end>Ver</button>
-      <button (click)="editCategory(cat)" ion-button clear item-end>Editar</button>
-      <button (click)="deleteCategory(cat)" ion-button clear item-end>Borrar</button>
     </ion-item>
     <p text-center *ngIf="categorias?.length == 0 && !spinner">No tiene categorias creadas aun</p>
   </ion-list>

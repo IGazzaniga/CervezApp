@@ -5,11 +5,17 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>{{categoria?.nombre}}</ion-title>
+    <ion-buttons right>
+      <button class="icon" (click)="editCategory()" color="primary" ion-button>
+        <ion-icon name="create"></ion-icon>
+      </button>
+      <button class="icon" (click)="deleteCategory()" color="primary" ion-button>
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -19,11 +25,13 @@
       Productos
     </ion-list-header>
     <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
-    <ion-item *ngFor="let it of items">{{it.nombre}}
-    <button (click)="goToItem(it)" ion-button clear item-end>Ver</button>
-    <button (click)="editItem(it)" ion-button clear item-end>Editar</button>    
-    <button (click)="deleteItem(it)" ion-button clear item-end>Borrar</button>
+    <ion-item *ngFor="let it of items">
+      {{it.nombre}}
+      <button (click)="goToItem(it)" ion-button clear item-end>Ver</button>
+      <button (click)="editItem(it)" ion-button clear item-end>Editar</button>    
+      <button (click)="deleteItem(it)" ion-button clear item-end>Borrar</button>
     </ion-item>
+    <p text-center *ngIf="items?.length == 0 && !spinner">No tiene productos creados para esta categoria. Agregue algunos!</p>
   </ion-list> 
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="addItem()"><ion-icon name="add"></ion-icon></button>

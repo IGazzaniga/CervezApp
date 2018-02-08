@@ -4,6 +4,7 @@ import { Categoria } from '../../models/Categoria';
 import { Item } from '../../models/Item';
 import { ItemsService } from '../../providers/items/items-service';
 import { LoadingProvider } from "../../providers/loading/loading";
+import { CategoriasService } from "../../providers/categorias/categorias-service";
 
 /**
  * Generated class for the CategoriaDetailPage page.
@@ -26,7 +27,8 @@ export class CategoriaDetailPage {
   spinner: Boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-  public itemService: ItemsService,  public alertCtrl: AlertController, public loading:LoadingProvider) {
+  public itemService: ItemsService,  public alertCtrl: AlertController, public loading:LoadingProvider,
+  public categoriasService: CategoriasService) {
     this.categoria = this.navParams.get('categoria');
     this.nombreNegocio = this.navParams.get('nombre-neg');
   }
@@ -77,6 +79,36 @@ export class CategoriaDetailPage {
 
   public goToItem(it: Item) {
     this.navCtrl.push('ItemDetailPage', {'nombre-neg': this.nombreNegocio, 'nombre-cat': this.categoria.nombre, 'nombre-item': it.nombre, 'item': it});
+  }
+
+  public deleteCategory () {
+    let prompt = this.alertCtrl.create({
+      title: '',
+      message: '¿Desea eliminar la categoría? <br> Se eliminaran todos los productos asociados a esta categoria.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.loading.show();
+            this.categoriasService.delete(this.categoria.id).then(()=> {
+              this.navCtrl.pop();
+              this.loading.dissmis();
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  public editCategory (){
+    var copy = Object.assign({}, this.categoria);
+    this.navCtrl.push('EditCategoryPage', {'currentCategory': copy});
   }
 
 }

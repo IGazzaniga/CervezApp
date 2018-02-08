@@ -61,35 +61,6 @@ export class HomePage {
   public addCategory () {
     this.navCtrl.push('NewCategoryPage');
   }
-
-  public deleteCategory (cat: Categoria) {
-    let prompt = this.alertCtrl.create({
-      title: '',
-      message: '¿Desea eliminar la categoría? <br> Se eliminaran todos los productos asociados a esta categoria.',
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: () => {
-          }
-        },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            this.loadingService.show();
-            this.categoriasService.delete(cat.id).then(()=> {
-              this.loadingService.dissmis();
-            });
-          }
-        }
-      ]
-    });
-    prompt.present();
-  }
-
-  public editCategory (cat: Categoria){
-    var copy = Object.assign({}, cat)
-    this.navCtrl.push('EditCategoryPage', {'currentCategory': copy});
-  }
   
   public goToCategoria (cat: Categoria) {
     this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.username, 'nombre-cat': cat.nombre, 'categoria': cat});
