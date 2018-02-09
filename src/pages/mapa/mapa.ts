@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { UserService } from "../../providers/user/user-service";
+import { User } from "../../models/User";
 
 declare var google;
 
@@ -17,10 +19,12 @@ declare var google;
   templateUrl: 'mapa.html',
 })
 export class MapaPage {
+  geocoder = new google.maps.Geocoder;
   segment = 'mapa';
   map: any;
+  public negocios : User[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public userService: UserService, public navParams: NavParams, public geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {
@@ -48,11 +52,29 @@ export class MapaPage {
     // create LatLng object
     let myLatLng = {lat: latitude, lng: longitude};
   
+    
     // create map
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
       zoom: 15
     });
+    this.userService.getAlls().subscribe ((users)=> {
+      this.negocios = users;
+      for (var i=0; i < this.negocios.length; i++){
+        var address = this.negocios[i].direccion;
+        this.geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            google.maps.event.addListenerOnce(this.map, 'idle', () => {
+                let marker = new google.maps.Marker({
+                map: this.map,
+                position: results[0].geometry.location,
+              });
+            });
+          }
+        });
+      }
+    })
+    
     console.log(document.getElementById('map'));
     google.maps.event.addListenerOnce(this.map, 'idle', () => {
       let marker = new google.maps.Marker({
@@ -70,9 +92,7 @@ export class MapaPage {
     google.maps.event.addDomListener(window, 'resize', ()=> {
       this.map.setCenter(myLatLng);
   });
-
-  };
-  
+}
       
   
   
