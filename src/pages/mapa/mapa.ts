@@ -47,51 +47,56 @@ export class MapaPage {
   loadMap(position: Geoposition){
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-    console.log(latitude, longitude);
-        
     // create LatLng object
-    let myLatLng = {lat: latitude, lng: longitude};
+    let myLatLng = new google.maps.LatLng(latitude, longitude);
   
     
     // create map
-    this.map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
-      zoom: 15
+      zoom: 14,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+    var that = this;
     this.userService.getAlls().subscribe ((users)=> {
       this.negocios = users;
-      for (var i=0; i < this.negocios.length; i++){
+      var marker1, i;
+      for (i=0; i < this.negocios.length; i++){
         var address = this.negocios[i].direccion;
         this.geocoder.geocode({'address': address}, function(results, status) {
+          if (i == that.negocios.length) {
+            i = 0;
+          } else {
+            i++;
+          }
           if (status === 'OK') {
-            google.maps.event.addListenerOnce(this.map, 'idle', () => {
-                let marker = new google.maps.Marker({
-                map: this.map,
-                position: results[0].geometry.location,
-              });
+            let latlong = results[0].geometry.location;
+            marker1 = new google.maps.Marker({
+              position: latlong,
+              map: map,
+              animation: google.maps.Animation.DROP,
+              title: that.negocios[i].nombre,
+              icon: '../assets/icon/marker.png'
             });
           }
         });
       }
     })
-    
-    console.log(document.getElementById('map'));
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+    google.maps.event.addListenerOnce(map, 'idle', () => {
       let marker = new google.maps.Marker({
         position: myLatLng,
-        map: this.map,
-        title: 'Hello World!',
+        map: map,
+        animation: google.maps.Animation.BOUNCE,
         infowindow
       });
-      infowindow.open(this.map,marker);
-     
+      infowindow.open(map, marker);
     });
     var infowindow = new google.maps.InfoWindow({
       content: "Usted se encuentra aquí"
     });
     google.maps.event.addDomListener(window, 'resize', ()=> {
-      this.map.setCenter(myLatLng);
-  });
+      map.setCenter(myLatLng);
+    });
 }
       
   
