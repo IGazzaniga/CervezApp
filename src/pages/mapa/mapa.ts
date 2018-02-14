@@ -76,10 +76,20 @@ export class MapaPage {
               map: map,
               animation: google.maps.Animation.DROP,
               title: that.negocios[i].nombre,
-              icon: '../assets/icon/marker.png'
+              icon: '../assets/icon/marker.png',
+              infowindow
+            });
+            marker1.addListener('click', function() {
+              infowindow.open(map, this);
+              console.log(marker1.title)
             });
           }
+          var link= '<a href=http://localhost:8100/#/home/' +that.negocios[i].username + '>Ir a la carta</a>'
+          var infowindow = new google.maps.InfoWindow({
+            content: that.negocios[i].nombre+"<br />"+that.negocios[i].direccion+"<br />"+link
+          });
         });
+        
       }
     })
     google.maps.event.addListenerOnce(map, 'idle', () => {
@@ -89,17 +99,22 @@ export class MapaPage {
         animation: google.maps.Animation.BOUNCE,
         infowindow
       });
-      infowindow.open(map, marker);
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
     });
     var infowindow = new google.maps.InfoWindow({
       content: "Usted se encuentra aquí"
     });
+    
     google.maps.event.addDomListener(window, 'resize', ()=> {
       map.setCenter(myLatLng);
     });
 }
       
-  
+  public goToNegocio (neg: User) {
+    this.navCtrl.push('NegocioMainPage', {'nombre': neg.username, 'negocio': neg});
+  }
   
   public selectSegment(select) {
     if (select == 'home') {
