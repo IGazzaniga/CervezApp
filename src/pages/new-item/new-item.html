@@ -14,116 +14,124 @@
 
 
 <ion-content padding>
-  <form (submit)="guardar()">
-    <ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2></ion-col>
+      <ion-col col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8>
+        <form (submit)="guardar()">
+          <ion-list>
 
-      <ion-item>
-        <ion-label stacked>Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="newItemForm.nombre" name="name"></ion-input>
-      </ion-item>
+            <ion-item>
+              <ion-label stacked>Nombre</ion-label>
+              <ion-input type="text" [(ngModel)]="newItemForm.nombre" name="name"></ion-input>
+            </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Descripción</ion-label>
-        <ion-input type="text" [(ngModel)]="newItemForm.descripcion" name="description"></ion-input>
-      </ion-item>
+            <ion-item>
+              <ion-label stacked>Descripción</ion-label>
+              <ion-input type="text" [(ngModel)]="newItemForm.descripcion" name="description"></ion-input>
+            </ion-item>
 
-      <ion-item>
-        <ion-label>Es Cerveza?</ion-label>
-        <ion-toggle [(ngModel)]="newItemForm.esCerveza" name="esCerveza"></ion-toggle>
-      </ion-item>
+            <ion-item>
+              <ion-label>Es Cerveza?</ion-label>
+              <ion-toggle [(ngModel)]="newItemForm.esCerveza" name="esCerveza"></ion-toggle>
+            </ion-item>
 
-      <ion-item-group *ngIf="newItemForm.esCerveza">
-        <ion-item-divider color="light">Atributos para Cerveza</ion-item-divider>
-        <ion-item>
-          <ion-label stacked>Tipo de cerveza</ion-label>
-          <ion-input type="text" [(ngModel)]="newItemForm.tipo" name="tipo"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label stacked>Graduación alcohólica</ion-label>
-          <ion-input type="number" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
-        </ion-item>
+            <ion-item-group *ngIf="newItemForm.esCerveza">
+              <ion-item-divider color="light">Atributos para Cerveza</ion-item-divider>
+              <ion-item>
+                <ion-label stacked>Tipo de cerveza</ion-label>
+                <ion-input type="text" [(ngModel)]="newItemForm.tipo" name="tipo"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>Graduación alcohólica</ion-label>
+                <ion-input type="number" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
+              </ion-item>
 
-        <ion-item>
-          <ion-label stacked>IBU</ion-label>
-          <ion-input type="number" [(ngModel)]="newItemForm.ibu" name="IBU"></ion-input>
-        </ion-item>
+              <ion-item>
+                <ion-label stacked>IBU</ion-label>
+                <ion-input type="number" [(ngModel)]="newItemForm.ibu" name="IBU"></ion-input>
+              </ion-item>
 
-        <ion-item>
-          <ion-label stacked>Proveedor</ion-label>
-          <ion-input type="text" [(ngModel)]="newItemForm.proveedor" name="proveedor"></ion-input>
-        </ion-item>
-      </ion-item-group>
+              <ion-item>
+                <ion-label stacked>Proveedor</ion-label>
+                <ion-input type="text" [(ngModel)]="newItemForm.proveedor" name="proveedor"></ion-input>
+              </ion-item>
+            </ion-item-group>
 
-      <ion-item>
-        <ion-label>Stock</ion-label>
-        <ion-toggle [(ngModel)]="newItemForm.stock" name="stock"></ion-toggle>
-      </ion-item>
-     
-      <ion-list-header>Raciones: </ion-list-header>
-      <ion-item-group *ngFor="let racion of newItemForm.raciones; let i = index">
-        <ion-item-divider color="light">Racion {{i + 1}} <span (click)="removeRacion(i);" style="float: right;">X</span></ion-item-divider>
-        <ion-item>
-          <ion-label stacked>Tamaño</ion-label>
-          <ion-select [(ngModel)]="racion.nombre" name="tamaño">
-            <ion-option *ngFor="let racion of racionesOptions" [value]="racion">{{racion}}</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item *ngIf="racion.nombre == 'Otro'">
-          <ion-label stacked>Otro</ion-label>
-          <ion-input type="text" [(ngModel)]="racion.otro" [ngModelOptions]="{standalone: true}"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label stacked>Medida</ion-label>
-          <ion-input type="number" [(ngModel)]="racion.medida" [ngModelOptions]="{standalone: true}"></ion-input>
-        </ion-item>
-        <select name="unidad" [(ngModel)]="racion.unidad">
-          <option value="kg">Kg</option>
-          <option value="g">g</option>
-          <option value="cm3">cm3</option>
-          <option value="litro">Litro</option>
-          <option value="unidad">Unidad</option>
-        </select>
-        <ion-item>
-          <ion-label stacked>Precio</ion-label>
-          <ion-input type="number" [(ngModel)]="racion.precio" [ngModelOptions]="{standalone: true}"></ion-input>
-        </ion-item>
-      </ion-item-group>
+            <ion-item>
+              <ion-label>Stock</ion-label>
+              <ion-toggle [(ngModel)]="newItemForm.stock" name="stock"></ion-toggle>
+            </ion-item>
+          
+            <ion-list-header>Raciones: </ion-list-header>
+            <ion-item-group *ngFor="let racion of newItemForm.raciones; let i = index">
+              <ion-item-divider color="light">Racion {{i + 1}} <span (click)="removeRacion(i);" style="float: right; cursor: pointer">X</span></ion-item-divider>
+              <ion-item>
+                <ion-label stacked>Tamaño</ion-label>
+                <ion-select [(ngModel)]="racion.nombre" name="tamaño">
+                  <ion-option *ngFor="let racion of racionesOptions" [value]="racion">{{racion}}</ion-option>
+                </ion-select>
+              </ion-item>
+              <ion-item *ngIf="racion.nombre == 'Otro'">
+                <ion-label stacked>Otro</ion-label>
+                <ion-input type="text" [(ngModel)]="racion.otro" [ngModelOptions]="{standalone: true}"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>Medida</ion-label>
+                <ion-input type="number" [(ngModel)]="racion.medida" [ngModelOptions]="{standalone: true}"></ion-input>
+              </ion-item>
+              <select name="unidad" [(ngModel)]="racion.unidad">
+                <option value="kg">Kg</option>
+                <option value="g">g</option>
+                <option value="cm3">cm3</option>
+                <option value="litro">Litro</option>
+                <option value="unidad">Unidad</option>
+              </select>
+              <ion-item>
+                <ion-label stacked>Precio</ion-label>
+                <ion-input type="number" [(ngModel)]="racion.precio" [ngModelOptions]="{standalone: true}"></ion-input>
+              </ion-item>
+            </ion-item-group>
 
-      <button ion-button (click)="addRacion($event);" color="secondary">Agregar Racion</button>
+            <button ion-button (click)="addRacion($event);" color="secondary">Agregar Racion</button>
 
-      <ion-list-header>Imagenes: </ion-list-header>
+            <ion-list-header>Imagenes: </ion-list-header>
 
-      <ion-item>
-        <button ion-button color="primary" (click)="getPicture($event, 0)">Imagen 1</button>
-        <input type="file" accept="image/*" #file0 style="visibility: hidden; height: 0px" name="img1" (change)="processWebImage($event, 0)" />
-      </ion-item>
-      <button type="button" *ngIf="fotos[0]" ion-button icon-only clear color="light" class="remove-image" (click)="removeImage($event, 0)">
-        <ion-icon name="close"></ion-icon>
-      </button>
-      <img style="width: 100%" *ngIf="fotos[0]" [src]="fotos[0]" alt="">
+            <ion-item>
+              <button ion-button color="primary" (click)="getPicture($event, 0)">Imagen 1</button>
+              <input type="file" accept="image/*" #file0 style="visibility: hidden; height: 0px" name="img1" (change)="processWebImage($event, 0)" />
+            </ion-item>
+            <button type="button" *ngIf="fotos[0]" ion-button icon-only clear color="light" class="remove-image" (click)="removeImage($event, 0)">
+              <ion-icon name="close"></ion-icon>
+            </button>
+            <img style="width: 100%" *ngIf="fotos[0]" [src]="fotos[0]" alt="">
 
-      <ion-item>
-        <button ion-button color="primary" (click)="getPicture($event, 1)">Imagen 2</button>
-        <input type="file" accept="image/*" #file1 style="visibility: hidden; height: 0px" name="img2" (change)="processWebImage($event, 1)" />
-      </ion-item>
-      <button type="button" *ngIf="fotos[1]" ion-button icon-only clear color="light" class="remove-image" (click)="removeImage($event, 1)">
-        <ion-icon name="close"></ion-icon>
-      </button>
-      <img style="width: 100%" *ngIf="fotos[1]" [src]="fotos[1]" alt="">
+            <ion-item>
+              <button ion-button color="primary" (click)="getPicture($event, 1)">Imagen 2</button>
+              <input type="file" accept="image/*" #file1 style="visibility: hidden; height: 0px" name="img2" (change)="processWebImage($event, 1)" />
+            </ion-item>
+            <button type="button" *ngIf="fotos[1]" ion-button icon-only clear color="light" class="remove-image" (click)="removeImage($event, 1)">
+              <ion-icon name="close"></ion-icon>
+            </button>
+            <img style="width: 100%" *ngIf="fotos[1]" [src]="fotos[1]" alt="">
 
-      <ion-item>
-        <button ion-button color="primary" (click)="getPicture($event, 2)">Imagen 3</button>
-        <input type="file" accept="image/*" #file2 style="visibility: hidden; height: 0px" name="img3" (change)="processWebImage($event, 2)" />
-      </ion-item>
-      <button type="button" *ngIf="fotos[2]" ion-button icon-only clear color="light" class="remove-image" (click)="removeImage($event, 2)">
-        <ion-icon name="close"></ion-icon>
-      </button>
-      <img style="width: 100%" *ngIf="fotos[2]" [src]="fotos[2]" alt="">
+            <ion-item>
+              <button ion-button color="primary" (click)="getPicture($event, 2)">Imagen 3</button>
+              <input type="file" accept="image/*" #file2 style="visibility: hidden; height: 0px" name="img3" (change)="processWebImage($event, 2)" />
+            </ion-item>
+            <button type="button" *ngIf="fotos[2]" ion-button icon-only clear color="light" class="remove-image" (click)="removeImage($event, 2)">
+              <ion-icon name="close"></ion-icon>
+            </button>
+            <img style="width: 100%" *ngIf="fotos[2]" [src]="fotos[2]" alt="">
 
-      <div padding>
-        <button ion-button color="primary" block>Guardar</button>
-      </div>
+            <div padding>
+              <button ion-button color="primary" block>Guardar</button>
+            </div>
 
-    </ion-list>
-  </form>
+          </ion-list>
+        </form>
+      </ion-col>
+      <ion-col col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
