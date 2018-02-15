@@ -1,12 +1,13 @@
 import {UserService} from '../../providers/user/user-service';
 import {Categoria} from '../../models/Categoria';
 import { Component } from '@angular/core';
-import { ModalController, ActionSheetController, MenuController, IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { ModalController, ActionSheetController, MenuController, IonicPage, NavController, NavParams, AlertController, PopoverController } from 'ionic-angular';
 import { CategoriasService } from "../../providers/categorias/categorias-service";
 import { User } from '../../models/User';
 import { Item } from '../../models/Item';
 import { ItemsService } from '../../providers/items/items-service';
 import { LoadingProvider } from "../../providers/loading/loading";
+import { PopoverCategoryPage } from "./popover-category";
 
 /**
  * Generated class for the HomePage page.
@@ -31,7 +32,7 @@ export class HomePage {
   constructor(public navCtrl: NavController, public userService: UserService, 
   public categoriasService: CategoriasService, public itemsService: ItemsService, 
   public navParams: NavParams, public actionSheetCtrl: ActionSheetController, 
-  public menuCtrl: MenuController, public alertCtrl: AlertController, public loadingService: LoadingProvider) {
+  public menuCtrl: MenuController, public alertCtrl: AlertController, public loadingService: LoadingProvider, public popoverCtrl: PopoverController) {
       
   }
 
@@ -64,6 +65,13 @@ export class HomePage {
   
   public goToCategoria (cat: Categoria) {
     this.navCtrl.push('CategoriaDetailPage', {'nombre-neg': this.negocio.username, 'nombre-cat': cat.nombre, 'categoria': cat});
+  }
+
+  presentPopover(myEvent, cat) {
+    let popover = this.popoverCtrl.create(PopoverCategoryPage, {cat: cat}, {cssClass: 'custom-popover'});
+    popover.present({
+      ev: myEvent
+    });
   }
 
 }

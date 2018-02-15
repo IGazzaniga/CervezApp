@@ -23,14 +23,25 @@
       Categorias
     </ion-list-header>
     <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
-    <ion-item (click)="goToCategoria(cat)" class="item-cat" *ngFor="let cat of categorias">
-      <ion-thumbnail item-start>
-        <img [src]="cat.imagen">
-      </ion-thumbnail>
-      <ion-icon [name]="cat.icono"></ion-icon>
-      <h2>{{cat.nombre}}</h2>
-    </ion-item>
     <p text-center *ngIf="categorias?.length == 0 && !spinner">No tiene categorias creadas aun</p>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let cat of categorias" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
+          <ion-item class="item-cat">
+            <ion-thumbnail (click)="goToCategoria(cat)" class="pointer" item-start>
+              <img [src]="cat.imagen">
+            </ion-thumbnail>
+            <ion-icon [name]="cat.icono"></ion-icon>
+            <h2 (click)="goToCategoria(cat)" class="pointer">{{cat.nombre}}</h2>
+            <ion-buttons right>
+              <button ion-button clear color="dark" (click)="presentPopover($event, cat)">
+                <ion-icon name="more"></ion-icon>
+              </button>
+            </ion-buttons>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-list>
   
   <ion-fab right bottom>

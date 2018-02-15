@@ -25,6 +25,7 @@ import { CategoriaCardComponentModule } from "../components/categoria-card/categ
 import { LoadingProvider } from '../providers/loading/loading';
 import { GeoProvider } from '../providers/geo/geo-service';
 import { NotificationsProvider } from '../providers/notifications/notifications';
+import { PopoverCategoryPage } from "../pages/home/popover-category";
 
 
 // The translate loader needs to know where to load i18n files
@@ -37,7 +38,8 @@ firebase.initializeApp(envprod.firebase);
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    PopoverCategoryPage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ firebase.initializeApp(envprod.firebase);
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    PopoverCategoryPage
   ],
   providers: [
     Api,
