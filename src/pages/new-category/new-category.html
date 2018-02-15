@@ -14,40 +14,47 @@
 
 
 <ion-content padding>
-  <form (submit)="guardar()">
-    <ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2></ion-col>
+      <ion-col col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8>
+        <form (submit)="guardar()">
+          <ion-list>
+            <ion-item>
+              <ion-label floating>Titulo</ion-label>
+              <ion-input type="text" [(ngModel)]="newCategoryForm.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
+            </ion-item>
 
-      <ion-item>
-        <ion-label floating>Titulo</ion-label>
-        <ion-input type="text" [(ngModel)]="newCategoryForm.nombre" [ngModelOptions]="{standalone: true}"></ion-input>
-      </ion-item>
+            <ion-item>
+              <button ion-button color="primary" (click)="getPicture($event)">Subir imagen</button>
+              <button type="button" *ngIf="newCategoryForm.imagen" ion-button icon-only clear color="blanco" class="remove-image" (click)="removeImage($event)">
+                <ion-icon name="close"></ion-icon>
+              </button>
+              <ion-thumbnail *ngIf="newCategoryForm.imagen">
+                <img style="width: 100%" *ngIf="newCategoryForm.imagen" [src]="newCategoryForm.imagen" alt="">
+              </ion-thumbnail>
+              <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+            </ion-item>
 
-      <ion-item>
-        <button ion-button color="primary" (click)="getPicture($event)">Subir imagen</button>
-        <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
-      </ion-item>
-
-      <button type="button" *ngIf="newCategoryForm.imagen" ion-button icon-only clear color="light" class="remove-image" (click)="removeImage($event)">
-        <ion-icon name="close"></ion-icon>
-      </button>
-      <img style="width: 100%" *ngIf="newCategoryForm.imagen" [src]="newCategoryForm.imagen" alt="">
-      
-      <ion-item>
-        <ion-label>Icono</ion-label>
-        <ion-select cancelText="Cancelar" okText="Aceptar" [ngModelOptions]="{standalone: true}" [(ngModel)]="newCategoryForm.icono">
-          <ion-option value="cafe"><ion-icon name="cafe"></ion-icon> Cafe</ion-option>
-          <ion-option value="wine"><ion-icon name="wine"></ion-icon> Copa</ion-option>
-          <ion-option value="ice-cream"><ion-icon name="ice-cream"> Helado</ion-icon></ion-option>
-          <ion-option value="pizza"><ion-icon name="pizza"> Pizza</ion-icon></ion-option>
-          <ion-option value="restaurant"><ion-icon name="restaurant"> Cubiertos</ion-icon></ion-option>
-          <ion-option value="beer"><ion-icon name="beer"> Cerveza</ion-icon></ion-option>
-        </ion-select>
-      </ion-item>
-      
-      <div padding>
-        <button ion-button color="primary" block>Guardar</button>
-      </div>
-
-    </ion-list>
-  </form>
+            <ion-item>
+              <ion-label>Icono</ion-label>
+              <ion-select cancelText="Cancelar" okText="Aceptar" [ngModelOptions]="{standalone: true}" [(ngModel)]="newCategoryForm.icono">
+                <ion-option value="cafe"><ion-icon name="cafe"></ion-icon> Cafe</ion-option>
+                <ion-option value="wine"><ion-icon name="wine"></ion-icon> Copa</ion-option>
+                <ion-option value="ice-cream"><ion-icon name="ice-cream"> Helado</ion-icon></ion-option>
+                <ion-option value="pizza"><ion-icon name="pizza"> Pizza</ion-icon></ion-option>
+                <ion-option value="restaurant"><ion-icon name="restaurant"> Cubiertos</ion-icon></ion-option>
+                <ion-option value="beer"><ion-icon name="beer"> Cerveza</ion-icon></ion-option>
+              </ion-select>
+            </ion-item>
+            
+            <div padding>
+              <button ion-button color="primary" block>Guardar</button>
+            </div>
+          </ion-list>
+        </form>
+      </ion-col>
+      <ion-col col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
