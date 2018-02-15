@@ -1,4 +1,12 @@
 page-negocio-main {
-
-    
+    #map {
+        width: 1300px;
+        height: 300px;
+        transition: opacity 150ms ease-in;
+        display: none;
+        &.show-map{
+          opacity: 1;
+          display: block;
+        }
+    }
 }

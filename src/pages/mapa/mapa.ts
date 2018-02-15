@@ -71,6 +71,7 @@ export class MapaPage {
           }
           if (status === 'OK') {
             let latlong = results[0].geometry.location;
+            console.log(latlong)
             marker1 = new google.maps.Marker({
               position: latlong,
               map: map,
