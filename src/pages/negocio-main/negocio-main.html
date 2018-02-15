@@ -25,7 +25,13 @@
   <div *ngIf="options == 'carta'">
     <ion-title margin-top margin-bottom text-center>Carta</ion-title>
     <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
-    <categoria-card (click)="goToCategoria(cat)" *ngFor="let cat of categorias" [categoria]="cat"></categoria-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let cat of categorias" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
+          <categoria-card (click)="goToCategoria(cat)" [categoria]="cat"></categoria-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
   <div *ngIf="options == 'info'">
     <ion-title margin-top margin-bottom text-center>Info</ion-title>

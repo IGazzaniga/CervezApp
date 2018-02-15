@@ -13,10 +13,10 @@
 <ion-content padding>
   <ion-title margin-top margin-bottom text-center>Selecciona un lugar</ion-title>
   <p *ngIf="location">Usted se encuentra en: {{location}}</p>
+  <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
   <ion-grid>
     <ion-row>
-      <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>    
-      <ion-col *ngFor="let neg of negocios"  col-12 col-lg>
+      <ion-col *ngFor="let neg of negocios" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
         <negocio-card (click)="goToNegocio(neg)" [negocio]="neg"></negocio-card>
       </ion-col>
     </ion-row>
