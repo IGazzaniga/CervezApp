@@ -64,7 +64,6 @@ export class NegocioMainPage {
   loadMap(negocio){
     let latlong;
     var address = this.negocio.direccion;
-    console.log(address)
     this.geocoder.geocode({'address': address}, function(results, status) {
       if (status === 'OK') {
         latlong = results[0].geometry.location;
@@ -75,7 +74,6 @@ export class NegocioMainPage {
       zoom: 14,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     });
-    console.log(map)
     var that = this;
     var marker1;            
     marker1 = new google.maps.Marker({
@@ -87,9 +85,7 @@ export class NegocioMainPage {
       infowindow,
     });
     document.getElementById('map').classList.add('show-map');
-    console.log(document.getElementById('map'));
-    alert(marker1.position+" "+marker1.title)
-      marker1.addListener('click', function() {
+    marker1.addListener('click', function() {
         infowindow.open(map, this);
         console.log(marker1.title);
       });
