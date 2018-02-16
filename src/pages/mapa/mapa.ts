@@ -72,18 +72,20 @@ export class MapaPage {
           if (status === 'OK') {
             let latlong = results[0].geometry.location;
             console.log(latlong)
-            marker1 = new google.maps.Marker({
-              position: latlong,
-              map: map,
-              animation: google.maps.Animation.DROP,
-              title: that.negocios[i].nombre,
-              icon: '../assets/icon/marker.png',
-              infowindow
-            });
-            marker1.addListener('click', function() {
-              infowindow.open(map, this);
-              console.log(marker1.title)
-            });
+            if (that.negocios[i].direccion){
+              marker1 = new google.maps.Marker({
+                position: latlong,
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: that.negocios[i].nombre,
+                icon: '../assets/icon/marker.png',
+                infowindow
+              });
+              marker1.addListener('click', function() {
+                infowindow.open(map, this);
+                console.log(marker1.title)
+              });
+            }
           }
           var link= '<a href=http://localhost:8100/#/home/' +that.negocios[i].username + '>Ir a la carta</a>'
           var infowindow = new google.maps.InfoWindow({
