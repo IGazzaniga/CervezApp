@@ -44,7 +44,7 @@ export class SearchPage {
       this.negocios = [];
     } else {
       this.spinner = true;
-      this.userService.getByName(val).subscribe((users) => {
+      this.userService.getByName(val.trim().toLowerCase().replace(/\s/g,"")).subscribe((users) => {
         this.negocios = users;
         this.spinner = false;
       })

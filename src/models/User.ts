@@ -2,6 +2,7 @@ export class User {
     email: string;
     username: string;
     nombre: string;
+    nombre_busqueda: string;
     foto: string;
     uid: string;
     ult_loc_valida: string;
@@ -18,6 +19,7 @@ export class User {
         this.email = userLogin.email;
         this.username = userLogin.username || null;
         this.nombre = userLogin.displayName || userLogin.nombre || null;
+        this.nombre_busqueda = this.nombre.toLowerCase().replace(/\s/g,"") || null;
         this.foto = userLogin.photoURL || userLogin.foto || null;
         this.uid = userLogin.uid;
         this.ult_loc_valida = userLogin.ult_loc_valida || null;

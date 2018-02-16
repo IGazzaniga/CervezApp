@@ -46,7 +46,7 @@ app.use(cors);
 
 app.get('/user/search', (req, res) => {
     const val = req.query.val;
-    usersRef.orderByChild('username').startAt(val).endAt(`${val}\uf8ff`).once('value', (snap) => {
+    usersRef.orderByChild('nombre_busqueda').startAt(val).endAt(`${val}\uf8ff`).once('value', (snap) => {
       if (snap.val() !== null) {
         var returnArr = [];
         for (var key in snap.val()) {
