@@ -7,30 +7,24 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Search</ion-title>
+    <ion-buttons color="blanco" radio-group [(ngModel)]="radio" right>
+      <button class="button-radio" color="blanco">
+        Nombre
+        <ion-radio checked value="nombre"></ion-radio>
+      </button>
+      <button class="button-radio" color="blanco">
+        Ciudad
+        <ion-radio value="ciudad"></ion-radio>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   
   <ion-toolbar *ngIf="radio == 'nombre'">
     <ion-searchbar placeholder="Buscar por nombre" (input)="getNegociosByName($event)"></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar *ngIf="radio == 'ciudad'">
-    <ion-searchbar placeholder="Buscar por localidad" (setAddress)="getAddress($event)" id="autocomplete" googleplace></ion-searchbar>
+    <ion-searchbar placeholder="Buscar por ciudad" (setAddress)="getAddress($event)" id="autocomplete" googleplace></ion-searchbar>
   </ion-toolbar>
-  
-  <ion-list radio-group [(ngModel)]="radio">
-    <ion-list-header>
-      Buscar por:
-    </ion-list-header>
-  
-    <ion-item>
-      <ion-label>Nombre</ion-label>
-      <ion-radio checked value="nombre"></ion-radio>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>Ciudad</ion-label>
-      <ion-radio value="ciudad" ></ion-radio>
-    </ion-item>
-  </ion-list>
 </ion-header>
 
 
