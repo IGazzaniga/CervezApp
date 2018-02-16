@@ -35,8 +35,9 @@
   </div>
   <div *ngIf="options == 'info'">
     <ion-title margin-top margin-bottom text-center>Info</ion-title>
-    <p text-center (click)="loadMap(negocio)"><!-- <a target="_blank" [href]="negocio?.urlmap">Ver en mapa</a> -->Ver en mapa</p>
-    <div id="map"></div>
+    <p id="ver" text-center (click)="loadMap(negocio)">Ver mapa</p>
+    <p id="ocultar" text-center (click)="hideMap()">Ocultar mapa</p>
+    <div padding id="map"></div>
     <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
     <ion-list>
       <ion-item>Nombre: {{negocio?.nombre}}</ion-item>

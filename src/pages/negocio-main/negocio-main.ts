@@ -60,6 +60,12 @@ export class NegocioMainPage {
   public goToCategoria (cat: Categoria) {
     this.navCtrl.push('CategoriaDetailClientePage', {'nombre-neg': this.negocio.username, 'nombre-cat': cat.nombre, 'categoria': cat});
   }
+  hideMap(){
+    var map = document.getElementById('map')
+    document.getElementById('map').classList.remove('show-map');
+    document.getElementById('ver').classList.remove('hide-text');
+    document.getElementById('ocultar').classList.remove('show-text');
+  }
 
   loadMap(negocio){
     let latlong;
@@ -85,6 +91,8 @@ export class NegocioMainPage {
       infowindow,
     });
     document.getElementById('map').classList.add('show-map');
+    document.getElementById('ver').classList.add('hide-text');
+    document.getElementById('ocultar').classList.add('show-text');
     marker1.addListener('click', function() {
         infowindow.open(map, this);
         console.log(marker1.title);
