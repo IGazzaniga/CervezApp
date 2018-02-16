@@ -12,7 +12,7 @@ export class User {
     patrocinado: boolean;
     urlmap: string;
     place_id: string;
-    marker: string;
+    marker: string[];
 
     constructor(userLogin: any) {
         this.email = userLogin.email;

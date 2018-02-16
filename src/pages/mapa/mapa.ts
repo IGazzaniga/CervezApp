@@ -49,50 +49,37 @@ export class MapaPage {
     let longitude = position.coords.longitude;
     // create LatLng object
     let myLatLng = new google.maps.LatLng(latitude, longitude);
-  
-    
     // create map
     var map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
       zoom: 14,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-    var that = this;
     this.userService.getAlls().subscribe ((users)=> {
       this.negocios = users;
+      var infowindow = new google.maps.InfoWindow();
       var marker1, i;
       for (i=0; i < this.negocios.length; i++){
-        var address = this.negocios[i].direccion;
-        this.geocoder.geocode({'address': address}, function(results, status) {
-          if (i == that.negocios.length) {
-            i = 0;
-          } else {
-            i++;
-          }
-          if (status === 'OK') {
-            let latlong = results[0].geometry.location;
-            console.log(latlong)
-            if (that.negocios[i].direccion){
-              marker1 = new google.maps.Marker({
-                position: latlong,
-                map: map,
-                animation: google.maps.Animation.DROP,
-                title: that.negocios[i].nombre,
-                icon: '../assets/icon/marker.png',
-                infowindow
-              });
-              marker1.addListener('click', function() {
-                infowindow.open(map, this);
-                console.log(marker1.title)
-              });
-            }
-          }
-          var link= '<a href=http://localhost:8100/#/home/' +that.negocios[i].username + '>Ir a la carta</a>'
-          var infowindow = new google.maps.InfoWindow({
-            content: that.negocios[i].nombre+"<br />"+that.negocios[i].direccion+"<br />"+link
+        if (this.negocios[i].direccion && this.negocios[i].marker){
+          let latlong = new google.maps.LatLng(this.negocios[i].marker[0], this.negocios[i].marker[1]);
+          let nombre = this.negocios[i].nombre;
+          let username = this.negocios[i].username;
+          let direccion = this.negocios[i].direccion;
+          marker1 = new google.maps.Marker({
+            position: latlong,
+            map: map,
+            animation: google.maps.Animation.DROP,
+            title: nombre,
+            icon: '../assets/icon/marker.png'
           });
-        });
-        
+          var link= '<a href=http://localhost:8100/#/home/' + username + '>Ir a la carta</a>';
+          google.maps.event.addListener(marker1, 'click', (function(marker, i) {
+            return function() {
+              infowindow.setContent(nombre + "<br />" + direccion + "<br />" + link);
+              infowindow.open(map, marker);
+            }
+          })(marker1, i));
+        }
       }
     })
     google.maps.event.addListenerOnce(map, 'idle', () => {

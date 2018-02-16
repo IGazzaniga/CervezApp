@@ -221,8 +221,34 @@ export class ProfilePage {
     if(this.validacion(this.currentUser)){
       this.loadingService.show();
       if (this.fileFoto) {
-        this.userService.saveImageProfile(this.fileFoto).then((snap) => {
-          this.currentUser.foto = snap.downloadURL;
+        this.geocoder.geocode({'address': this.currentUser.direccion}, (results, status) => {
+          if (status === 'OK') {
+            this.currentUser.marker = [];
+            this.currentUser.marker[0] = results[0].geometry.location.lat();
+            this.currentUser.marker[1] = results[0].geometry.location.lng();
+          }
+          this.userService.saveImageProfile(this.fileFoto).then((snap) => {
+            this.currentUser.foto = snap.downloadURL;
+            this.userService.updateProfile(this.currentUser).then(() => {
+              this.userService.setCurrentUser(this.currentUser).then(() => {
+                this.loadingService.dissmis();
+                let toast = this.toastCtrl.create({
+                  message: 'El perfil se actualizo correctamente',
+                  duration: 3000,
+                  position: 'bottom'
+                });
+                toast.present();
+              })
+            })
+          });
+        })
+      } else {
+        this.geocoder.geocode({'address': this.currentUser.direccion}, (results, status) => {
+          if (status === 'OK') {
+            this.currentUser.marker = [];
+            this.currentUser.marker[0] = results[0].geometry.location.lat();
+            this.currentUser.marker[1] = results[0].geometry.location.lng();
+          }
           this.userService.updateProfile(this.currentUser).then(() => {
             this.userService.setCurrentUser(this.currentUser).then(() => {
               this.loadingService.dissmis();
@@ -233,18 +259,6 @@ export class ProfilePage {
               });
               toast.present();
             })
-          })
-        });
-      } else {
-        this.userService.updateProfile(this.currentUser).then(() => {
-          this.userService.setCurrentUser(this.currentUser).then(() => {
-            this.loadingService.dissmis();
-            let toast = this.toastCtrl.create({
-              message: 'El perfil se actualizo correctamente',
-              duration: 3000,
-              position: 'bottom'
-            });
-            toast.present();
           })
         })
       }
