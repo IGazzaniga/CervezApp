@@ -194,6 +194,14 @@ export class ProfilePage {
       alert("Falta completar el mail");
       return false;
     }
+    if(!currentUser.username || currentUser.username.trim()===""){
+      alert("Falta completar el nombre de usuario");
+      return false;
+    }
+    if(currentUser.username != currentUser.username.toLowerCase()){
+      alert("El campo username no puede contener mayúsculas, espacios o caracteres especiales");
+      return false;
+    }
     if(!currentUser.direccion || currentUser.direccion.trim()===""){
       alert("Falta completar la calle");
       return false;

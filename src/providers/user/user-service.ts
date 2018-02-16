@@ -97,6 +97,7 @@ export class UserService {
       return this.usersDB.child(user.uid).update({
         nombre: user.nombre || null,
         foto: user.foto || null,
+        username: user.username || null,
         nombre_busqueda: user.nombre_busqueda || null,
         ult_loc_valida : user.ult_loc_valida || null,
         direccion: user.direccion || null,

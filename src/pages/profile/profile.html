@@ -37,6 +37,11 @@
       </ion-item>
 
       <ion-item>
+        <ion-label fixed>Nombre de usuario</ion-label>
+        <ion-input type="text"  name="username" [(ngModel)]="currentUser.username" pattern="^\S+$"></ion-input>
+      </ion-item>
+
+      <ion-item>
           <ion-label fixed>Localidad</ion-label>
           <ion-input type="text" id="autocomplete" name="localidad" [(ngModel)]="currentUser.localidad" (setAddress)="getAddress($event)" googleplace></ion-input>
       </ion-item>
