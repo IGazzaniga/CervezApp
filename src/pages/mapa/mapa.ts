@@ -74,7 +74,7 @@ export class MapaPage {
           });
           google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
             return function() {
-              infowindow.setContent(nombre + "<br />" + direccion + "<br />" + '<a href=http://localhost:8100/#/home/' + username + '>Ir a la carta</a>');
+              infowindow.setContent(nombre + "<br />" + direccion + "<br />" + '<a href=/home/' + username + '>Ir a la carta</a>');
               infowindow.open(map, marker1);
             }
           })(marker1, i));
