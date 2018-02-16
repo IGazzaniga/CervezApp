@@ -1,6 +1,9 @@
 page-negocio-main {
     #ocultar{
         display:none;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: underline;
         &.show-text{
           opacity: 1;
           display: block;
@@ -8,6 +11,9 @@ page-negocio-main {
     }
     #ver{
         display:block;
+        cursor: pointer;
+        text-decoration: underline;
+        font-weight: bold;
         &.hide-text{
             display:none;
         }
