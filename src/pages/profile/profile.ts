@@ -167,6 +167,19 @@ export class ProfilePage {
       this.currentUser.place_id = place['place_id'];
       console.log("Address Object", place);
   }
+  
+
+  validacionUsername(username: string):boolean{
+    if(!username || username.trim()===""){
+      alert("Falta completar el nombre de usuario");
+      return false;
+    }
+    if(username != username.toLowerCase() || /[^a-z0-9-._]/.test(username)){
+      alert("El campo username no puede contener mayúsculas, espacios o caracteres especiales (salvo puntos, guiones y guiones bajos)");
+      return false;
+    }
+    return true;
+  }
 
   validacion(currentUser:User):boolean{
     if(!currentUser.nombre || currentUser.nombre.trim()===""){
@@ -194,8 +207,7 @@ export class ProfilePage {
       alert("Falta completar el mail");
       return false;
     }
-    if(!currentUser.username || currentUser.username.trim()===""){
-      alert("Falta completar el nombre de usuario");
+    if(!this.validacionUsername(currentUser.username)){
       return false;
     }
     if(currentUser.username != currentUser.username.toLowerCase()){
