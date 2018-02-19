@@ -169,7 +169,7 @@ export class ProfilePage {
   }
   
 
-  validacionUsername(username: string):boolean{
+  validacionUsername(username: string):Boolean{
     if(!username || username.trim()===""){
       alert("Falta completar el nombre de usuario");
       return false;
@@ -239,49 +239,55 @@ export class ProfilePage {
 
   guardar (event) {
     if(this.validacion(this.currentUser)){
-      this.loadingService.show();
-      if (this.fileFoto) {
-        this.geocoder.geocode({'address': this.currentUser.direccion}, (results, status) => {
-          if (status === 'OK') {
-            this.currentUser.marker = [];
-            this.currentUser.marker[0] = results[0].geometry.location.lat();
-            this.currentUser.marker[1] = results[0].geometry.location.lng();
-          }
-          this.userService.saveImageProfile(this.fileFoto).then((snap) => {
-            this.currentUser.foto = snap.downloadURL;
-            this.userService.updateProfile(this.currentUser).then(() => {
-              this.userService.setCurrentUser(this.currentUser).then(() => {
-                this.loadingService.dissmis();
-                let toast = this.toastCtrl.create({
-                  message: 'El perfil se actualizo correctamente',
-                  duration: 3000,
-                  position: 'bottom'
-                });
-                toast.present();
+      this.userService.validUsername(this.currentUser.username, this.currentUser.uid).subscribe((data) => {
+        if (data.val) {
+          this.loadingService.show();
+          if (this.fileFoto) {
+            this.geocoder.geocode({'address': this.currentUser.direccion}, (results, status) => {
+              if (status === 'OK') {
+                this.currentUser.marker = [];
+                this.currentUser.marker[0] = results[0].geometry.location.lat();
+                this.currentUser.marker[1] = results[0].geometry.location.lng();
+              }
+              this.userService.saveImageProfile(this.fileFoto).then((snap) => {
+                this.currentUser.foto = snap.downloadURL;
+                this.userService.updateProfile(this.currentUser).then(() => {
+                  this.userService.setCurrentUser(this.currentUser).then(() => {
+                    this.loadingService.dissmis();
+                    let toast = this.toastCtrl.create({
+                      message: 'El perfil se actualizo correctamente',
+                      duration: 3000,
+                      position: 'bottom'
+                    });
+                    toast.present();
+                  })
+                })
+              });
+            })
+          } else {
+            this.geocoder.geocode({'address': this.currentUser.direccion}, (results, status) => {
+              if (status === 'OK') {
+                this.currentUser.marker = [];
+                this.currentUser.marker[0] = results[0].geometry.location.lat();
+                this.currentUser.marker[1] = results[0].geometry.location.lng();
+              }
+              this.userService.updateProfile(this.currentUser).then(() => {
+                this.userService.setCurrentUser(this.currentUser).then(() => {
+                  this.loadingService.dissmis();
+                  let toast = this.toastCtrl.create({
+                    message: 'El perfil se actualizo correctamente',
+                    duration: 3000,
+                    position: 'bottom'
+                  });
+                  toast.present();
+                })
               })
             })
-          });
-        })
-      } else {
-        this.geocoder.geocode({'address': this.currentUser.direccion}, (results, status) => {
-          if (status === 'OK') {
-            this.currentUser.marker = [];
-            this.currentUser.marker[0] = results[0].geometry.location.lat();
-            this.currentUser.marker[1] = results[0].geometry.location.lng();
           }
-          this.userService.updateProfile(this.currentUser).then(() => {
-            this.userService.setCurrentUser(this.currentUser).then(() => {
-              this.loadingService.dissmis();
-              let toast = this.toastCtrl.create({
-                message: 'El perfil se actualizo correctamente',
-                duration: 3000,
-                position: 'bottom'
-              });
-              toast.present();
-            })
-          })
-        })
-      }
+        } else {
+          alert ("El nombre de usuario ingresado ya existe");
+        }
+      });
     }
   }
 }
