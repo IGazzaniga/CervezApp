@@ -87,10 +87,11 @@ app.get('/user/search-by-location', (req, res) => {
 app.get('/user/username', (req, res) => {
     const username = req.query.val;
     const userId = req.query.id;
-    console.log('user id ' + userId);
     usersRef.orderByChild('username').equalTo(username).once('value', (snap) => {
-        console.log(snap.val()[userId]);
-        if (snap.val() == null || snap.val()[userId]) {
+        if (snap.val() == null) {
+            res.status(200).json({ val: true });
+        }
+        else if (snap.val()[userId]) {
             res.status(200).json({ val: true });
         }
         else {
