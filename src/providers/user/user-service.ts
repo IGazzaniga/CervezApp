@@ -94,20 +94,7 @@ export class UserService {
       displayName: user.nombre,
       photoURL: user.foto
     }).then(() => {
-      return this.usersDB.child(user.uid).update({
-        nombre: user.nombre || null,
-        foto: user.foto || null,
-        username: user.username || null,
-        nombre_busqueda: user.nombre_busqueda || null,
-        ult_loc_valida : user.ult_loc_valida || null,
-        direccion: user.direccion || null,
-        horaApertura: user.horaApertura || null,
-        horaCierre: user.horaCierre || null,
-        urlmap: user.urlmap || null,
-        place_id: user.place_id || null,
-        localidad: user.localidad || null,
-        marker: user.marker || null,
-      });
+      return this.usersDB.child(user.uid).update(user);
     }).catch(function(error) {
       console.log("error en la actualizacion del perfil: ", error);
     });

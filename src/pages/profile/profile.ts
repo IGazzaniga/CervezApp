@@ -249,9 +249,9 @@ export class ProfilePage {
 
   guardar (event) {
     if(this.validacion(this.currentUser)){
+      this.loadingService.show();
       this.userService.validUsername(this.currentUser.username, this.currentUser.uid).subscribe((data) => {
         if (data.val) {
-          this.loadingService.show();
           if (this.fileFoto) {
             this.geocoder.geocode({'address': this.currentUser.direccion}, (results, status) => {
               if (status === 'OK') {
@@ -259,10 +259,11 @@ export class ProfilePage {
                 this.currentUser.marker[0] = results[0].geometry.location.lat();
                 this.currentUser.marker[1] = results[0].geometry.location.lng();
               }
+              var userUpdate = new User(this.currentUser);
               this.userService.saveImageProfile(this.fileFoto).then((snap) => {
-                this.currentUser.foto = snap.downloadURL;
-                this.userService.updateProfile(this.currentUser).then(() => {
-                  this.userService.setCurrentUser(this.currentUser).then(() => {
+                userUpdate.foto = snap.downloadURL;
+                this.userService.updateProfile(userUpdate).then(() => {
+                  this.userService.setCurrentUser(userUpdate).then(() => {
                     this.loadingService.dissmis();
                     let toast = this.toastCtrl.create({
                       message: 'El perfil se actualizo correctamente',
@@ -281,8 +282,9 @@ export class ProfilePage {
                 this.currentUser.marker[0] = results[0].geometry.location.lat();
                 this.currentUser.marker[1] = results[0].geometry.location.lng();
               }
-              this.userService.updateProfile(this.currentUser).then(() => {
-                this.userService.setCurrentUser(this.currentUser).then(() => {
+              var userUpdate = new User(this.currentUser);
+              this.userService.updateProfile(userUpdate).then(() => {
+                this.userService.setCurrentUser(userUpdate).then(() => {
                   this.loadingService.dissmis();
                   let toast = this.toastCtrl.create({
                     message: 'El perfil se actualizo correctamente',
@@ -295,6 +297,7 @@ export class ProfilePage {
             })
           }
         } else {
+          this.loadingService.dissmis();
           alert ("El nombre de usuario ingresado ya existe");
         }
       });
