@@ -40,16 +40,20 @@ export class HomePage {
     this.menuCtrl.enable(true);
     this.spinner = true;
     this.userService.getCurrentUser().then((user) => {
-      this.negocio = user;
-      this.categoriasService.getAll(user.uid).subscribe((categorias) => {
-        this.categorias = categorias;
-        this.spinner = false;
-      })
+      if (this.userService.isCompleteInfo(user)) {
+        this.negocio = user;
+        this.categoriasService.getAll(user.uid).subscribe((categorias) => {
+          this.categorias = categorias;
+          this.spinner = false;
+        })
+      } else {
+        this.navCtrl.setRoot('ProfilePage')
+      }
     })
   }
 
   ionViewCanEnter(): boolean{
-    //solo se puede entrar al login cuando no hay un usuario logueado
+    //solo se puede entrar al home cuando hay un usuario logueado
     if(this.userService.isUserAuth()){
         return true;
       } else {

@@ -8,22 +8,6 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  <ion-title margin-top margin-bottom text-center>Selecciona un lugar</ion-title>
-  <p *ngIf="location">Usted se encuentra en: {{location}}</p>
-  <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
-  <ion-grid>
-    <ion-row>
-      <ion-col *ngFor="let neg of negocios" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
-        <negocio-card (click)="goToNegocio(neg)" [negocio]="neg"></negocio-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
-
-<ion-footer>
   <ion-segment [(ngModel)]="segment" color="primary">
     <ion-segment-button (ionSelect)="selectSegment('home')" color="primary" value="home">
       <ion-icon name="home"></ion-icon>
@@ -38,4 +22,17 @@
       <p>Mapa</p>
     </ion-segment-button>
   </ion-segment>
-</ion-footer>
+</ion-header>
+
+<ion-content padding>
+  <ion-title margin-top margin-bottom text-center>Selecciona un lugar</ion-title>
+  <p *ngIf="location">Usted se encuentra en: {{location}}</p>
+  <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let neg of negocios" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
+        <negocio-card (click)="goToNegocio(neg)" [negocio]="neg"></negocio-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

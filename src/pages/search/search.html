@@ -7,40 +7,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Buscar</ion-title>
-    <ion-buttons color="blanco" radio-group [(ngModel)]="radio" right>
-      <button class="button-radio" color="blanco">
-        Nombre
-        <ion-radio checked value="nombre"></ion-radio>
-      </button>
-      <button class="button-radio" color="blanco">
-        Ciudad
-        <ion-radio value="ciudad"></ion-radio>
-      </button>
-    </ion-buttons>
   </ion-navbar>
-  
-  <ion-toolbar *ngIf="radio == 'nombre'">
-    <ion-searchbar placeholder="Buscar por nombre" (input)="getNegociosByName($event)"></ion-searchbar>
-  </ion-toolbar>
-  <ion-toolbar *ngIf="radio == 'ciudad'">
-    <ion-searchbar placeholder="Buscar por ciudad" (setAddress)="getAddress($event)" id="autocomplete" googleplace></ion-searchbar>
-  </ion-toolbar>
-</ion-header>
-
-
-<ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>    
-      <ion-col *ngFor="let neg of negocios" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
-        <negocio-card (click)="goToNegocio(neg)" [negocio]="neg"></negocio-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <p text-center *ngIf="negocios?.length == 0 && !spinner">No hay resultados que coincidan con la busqueda</p>
-</ion-content>
-
-<ion-footer>
   <ion-segment [(ngModel)]="segment" color="primary">
     <ion-segment-button (ionSelect)="selectSegment('home')" color="primary" value="home">
       <ion-icon name="home"></ion-icon>
@@ -55,4 +22,33 @@
       <p>Mapa</p>
     </ion-segment-button>
   </ion-segment>
-</ion-footer>
+  <ion-toolbar *ngIf="radio == 'nombre'">
+    <ion-searchbar placeholder="Buscar por nombre" (input)="getNegociosByName($event)"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="radio == 'ciudad'">
+    <ion-searchbar placeholder="Buscar por ciudad" (setAddress)="getAddress($event)" id="autocomplete" googleplace></ion-searchbar>
+  </ion-toolbar>
+  <ion-buttons color="blanco" radio-group [(ngModel)]="radio" right>
+    <button class="button-radio" color="blanco">
+      Nombre
+      <ion-radio checked value="nombre"></ion-radio>
+    </button>
+    <button class="button-radio" color="blanco">
+      Ciudad
+      <ion-radio value="ciudad"></ion-radio>
+    </button>
+  </ion-buttons>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>    
+      <ion-col *ngFor="let neg of negocios" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
+        <negocio-card (click)="goToNegocio(neg)" [negocio]="neg"></negocio-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p text-center *ngIf="negocios?.length == 0 && !spinner">No hay resultados que coincidan con la busqueda</p>
+</ion-content>

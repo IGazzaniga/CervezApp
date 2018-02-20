@@ -19,7 +19,11 @@ export class User {
         this.email = userLogin.email;
         this.username = userLogin.username || null;
         this.nombre = userLogin.displayName || userLogin.nombre || null;
-        this.nombre_busqueda = this.nombre.toLowerCase().replace(/\s/g,"") || null;
+        if (this.nombre) {
+            this.nombre_busqueda = this.nombre.toLowerCase().replace(/\s/g,"");
+        } else {
+            this.nombre_busqueda = null;
+        }
         this.foto = userLogin.photoURL || userLogin.foto || null;
         this.uid = userLogin.uid;
         this.ult_loc_valida = userLogin.ult_loc_valida || null;
@@ -27,7 +31,7 @@ export class User {
         this.horaApertura = userLogin.horaApertura || null;
         this.horaCierre = userLogin.horaCierre || null;
         this.localidad = userLogin.localidad || null;
-        this.patrocinado = userLogin.patrocinado || null;
+        this.patrocinado = userLogin.patrocinado || false;
         this.urlmap = userLogin.urlmap || null;
         this.place_id = userLogin.place_id || null;
         this.marker = userLogin.marker || null;

@@ -159,6 +159,15 @@ export class UserService {
   public searchNegocio(nombre: string): Promise<any> {
     return this.usersDB.orderByChild('nombre').equalTo(nombre).once("value");
   }
+
+  public isCompleteInfo(user) {
+    for (let key in user) {
+      if (user[key] == null || user[key] == undefined) {
+        return false; 
+      }
+    }
+    return true;
+  }
 }
 
 

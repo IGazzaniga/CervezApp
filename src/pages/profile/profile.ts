@@ -35,7 +35,17 @@ export class ProfilePage {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
     })
-    
+  }
+
+  ionViewCanLeave () {
+    return this.userService.getCurrentUser().then((user) => {
+      if (this.userService.isCompleteInfo(user)) {
+        return true;
+      } else {
+        alert('Debe completar todos los datos del perfil y guardarlos para poder usar la aplicacion');
+        return false;
+      }
+    })
   }
   
   ionViewWillEnter(){

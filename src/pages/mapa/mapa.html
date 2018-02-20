@@ -9,15 +9,6 @@
   <ion-navbar>
     <ion-title>Mapa</ion-title>
   </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-  <div id="map"></div>
-</ion-content>
-
-<ion-footer>
   <ion-segment [(ngModel)]="segment" color="primary">
     <ion-segment-button (ionSelect)="selectSegment('home')" color="primary" value="home">
       <ion-icon name="home"></ion-icon>
@@ -32,4 +23,9 @@
       <p>Mapa</p>
     </ion-segment-button>
   </ion-segment>
-</ion-footer>
+</ion-header>
+
+
+<ion-content padding>
+  <div id="map"></div>
+</ion-content>
