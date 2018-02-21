@@ -39,7 +39,6 @@ export class LoginPage {
       return true;
     } else {
       this.navCtrl.setRoot('HomePage');
-      return false;
     }
   }
 

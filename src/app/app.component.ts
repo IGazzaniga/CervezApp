@@ -52,7 +52,13 @@ export class MyApp {
     this.userService.auth.onAuthStateChanged((userResp) => {
       if (userResp) {
         this.userService._loggedIn(userResp).then(()=> {
-          this.rootPage = 'HomePage';
+          if (window.location.hash.includes('profile')) {
+            this.rootPage = 'ProfilePage';
+          } else if (window.location.hash.includes('notificaciones')) {
+            this.rootPage = 'NotificacionesPage';
+          } else {
+            this.rootPage = 'HomePage';
+          }
         });
       } else {
         this.rootPage = 'MainPage';

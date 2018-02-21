@@ -37,6 +37,16 @@ export class ProfilePage {
     })
   }
 
+  ionViewCanEnter(): boolean{
+    //solo se puede entrar al home cuando hay un usuario logueado
+    if(this.userService.isUserAuth()){
+      return true;
+    } else {
+      this.navCtrl.setRoot('MainPage');
+      return false;
+    }
+  }
+
   ionViewCanLeave () {
     return this.userService.getCurrentUser().then((user) => {
       if (this.userService.isCompleteInfo(user)) {

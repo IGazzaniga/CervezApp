@@ -24,7 +24,6 @@ export class MainPage {
   public negocios: User[];
   spinner: Boolean;
   location: string;
-  segment = 'home';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public menuCtrl:MenuController, public userService: UserService, 

@@ -16,7 +16,7 @@ declare var google;
 
 @IonicPage({
   defaultHistory: ['MainPage'],
-  segment: 'home/:nombre'
+  segment: ':nombre'
 })
 @Component({
   selector: 'page-negocio-main',
