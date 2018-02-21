@@ -28,7 +28,7 @@
   <ion-toolbar *ngIf="radio == 'ciudad'">
     <ion-searchbar placeholder="Buscar por ciudad" (setAddress)="getAddress($event)" id="autocomplete" googleplace></ion-searchbar>
   </ion-toolbar>
-  <ion-buttons color="blanco" radio-group [(ngModel)]="radio" right>
+  <ion-buttons color="blanco" radio-group [(ngModel)]="radio" left>
     <button class="button-radio" color="blanco">
       Nombre
       <ion-radio checked value="nombre"></ion-radio>
