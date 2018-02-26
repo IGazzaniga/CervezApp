@@ -100,6 +100,10 @@ export class UserService {
     });
   }
 
+  public getHappyHours (): Observable<string[]> {
+    return this.db.list<string>('happyHours').valueChanges();
+  }
+
   public getAll (place_id:string): Observable<User[]> {
     return this.db.list<User>(this.usersDB, ref => ref.orderByChild('place_id').equalTo(place_id)).valueChanges();
   }

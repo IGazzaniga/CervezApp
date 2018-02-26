@@ -1,3 +1,5 @@
+import { HappyHour } from "./HappyHour";
+
 export class User {
     email: string;
     username: string;
@@ -9,6 +11,7 @@ export class User {
     direccion: string;
     horaApertura: Date;
     horaCierre: Date;
+    happyHours: HappyHour[];
     localidad: string;
     patrocinado: boolean;
     urlmap: string;
@@ -30,6 +33,11 @@ export class User {
         this.direccion = userLogin.direccion || null;
         this.horaApertura = userLogin.horaApertura || null;
         this.horaCierre = userLogin.horaCierre || null;
+        if (userLogin.happyHours) {
+            this.happyHours = userLogin.happyHours
+          } else {
+            this.happyHours = null;
+          }
         this.localidad = userLogin.localidad || null;
         this.patrocinado = userLogin.patrocinado || false;
         this.urlmap = userLogin.urlmap || null;

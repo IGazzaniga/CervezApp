@@ -4,6 +4,7 @@ import { User } from "../../models/User";
 import { UserService } from "../../providers/user/user-service";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { Geolocation, Geoposition} from '@ionic-native/geolocation';
+import {HappyHour} from "../../models/HappyHour";
 
 declare var google;
 
@@ -26,6 +27,8 @@ export class ProfilePage {
   public place: Object;
   geocoder = new google.maps.Geocoder;
   map: any;
+  public happyHoursOptions: string[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public toastCtrl: ToastController, public userService: UserService, 
   public loadingService: LoadingProvider, public geolocation: Geolocation, public actionSheetCtrl: ActionSheetController) {
@@ -34,6 +37,11 @@ export class ProfilePage {
   ionViewDidLoad() {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
+      let happyHourInit = new HappyHour({dia: '', horaApertura: null, horaCierre:null});
+      this.currentUser.happyHours = [happyHourInit];
+      this.userService.getHappyHours().subscribe((happyhours) => {
+      this.happyHoursOptions = happyhours;
+    })
     })
   }
 
@@ -179,6 +187,7 @@ export class ProfilePage {
           });
       }
   }
+
   getAddress(place:Object) {       
       this.place = place;
       this.currentUser.localidad = place['formatted_address'];
@@ -187,6 +196,17 @@ export class ProfilePage {
       this.currentUser.place_id = place['place_id'];
       console.log("Address Object", place);
   }
+
+
+  public addHappyHour (event) {
+    event.preventDefault();
+    this.currentUser.happyHours.push({dia: '', horaApertura: null, horaCierre: null});
+  }
+
+  public removeHappyHour (index) {
+      this.currentUser.happyHours.splice(index, 1);
+  }
+  
   
 
   validacionUsername(username: string):Boolean{

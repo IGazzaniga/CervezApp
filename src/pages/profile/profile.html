@@ -60,6 +60,35 @@
         <ion-label>Hora de Cierre</ion-label>
         <ion-datetime name="horacierre" [ngModelOptions]="{standalone: true}" displayFormat="HH:mm" [(ngModel)]="currentUser.horaCierre"></ion-datetime>
       </ion-item>
+      
+      <ion-list-header>Happy Hours: </ion-list-header>
+            <ion-item-group *ngFor="let hh of currentUser.happyHours; let i = index">
+              <ion-item-divider color="light">Happy Hour {{i + 1}} <span (click)="removeHappyHour(i);" style="float: right; cursor: pointer">X</span></ion-item-divider>
+              <ion-item>
+                <ion-label>Día</ion-label>
+                <ion-select cancelText="Cancelar" okText="Aceptar" [ngModelOptions]="{standalone: true}" [(ngModel)]="hh.dia">
+                  <ion-option value="1">Lunes</ion-option>
+                  <ion-option value="2">Martes</ion-option>
+                  <ion-option value="3">Miércoles</ion-option>
+                  <ion-option value="4">Jueves</ion-option>
+                  <ion-option value="5">Viernes</ion-option>
+                  <ion-option value="6">Sábado</ion-option>
+                  <ion-option value="7">Domingo</ion-option>
+                </ion-select>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label>Hora de comienzo</ion-label>
+                <ion-datetime name="horacomienzo" [ngModelOptions]="{standalone: true}" displayFormat="HH:mm" [(ngModel)]="hh.horaApertura"></ion-datetime>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label>Hora de finalización</ion-label>
+                <ion-datetime name="horafin" [ngModelOptions]="{standalone: true}" displayFormat="HH:mm" [(ngModel)]="hh.horaCierre"></ion-datetime>
+              </ion-item>
+              
+            </ion-item-group>
+            <button ion-button (click)="addHappyHour($event);" color="secondary">Agregar Happy Hour</button>
 
       
 
