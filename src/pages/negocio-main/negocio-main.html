@@ -46,6 +46,18 @@
       <ion-item>Ciudad: {{negocio?.localidad}}</ion-item>
       <ion-item>Hora de apertura: {{negocio?.horaApertura}}</ion-item>
       <ion-item>Hora de cierre: {{negocio?.horaCierre}}</ion-item>
+      <ion-list *ngIf="negocio?.happyHours">
+        <ion-list-header>Happy Hours</ion-list-header>
+        <ion-item *ngFor="let hh of negocio?.happyHours">
+          <span *ngIf="hh.dia == 1">Lunes</span>
+          <span *ngIf="hh.dia == 2">Martes</span>
+          <span *ngIf="hh.dia == 3">Miercoles</span>
+          <span *ngIf="hh.dia == 4">Jueves</span>
+          <span *ngIf="hh.dia == 5">Viernes</span>
+          <span *ngIf="hh.dia == 6">Sabado</span>
+          <span *ngIf="hh.dia == 7">Domingo</span> 
+          de {{hh.horaApertura}} a {{hh.horaCierre}}</ion-item>
+      </ion-list>
     </ion-list>
   </div>
 </ion-content>

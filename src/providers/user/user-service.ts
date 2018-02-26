@@ -153,8 +153,10 @@ export class UserService {
 
   public isCompleteInfo(user) {
     for (let key in user) {
-      if (user[key] == null || user[key] == undefined) {
-        return false; 
+      if (key !== 'happyHours') {
+        if (user[key] == null || user[key] == undefined) {
+          return false; 
+        }
       }
     }
     return true;

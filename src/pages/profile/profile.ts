@@ -37,11 +37,13 @@ export class ProfilePage {
   ionViewDidLoad() {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
-      let happyHourInit = new HappyHour({dia: '', horaApertura: null, horaCierre:null});
-      this.currentUser.happyHours = [happyHourInit];
+      if (this.currentUser.happyHours == null) {
+        let happyHourInit = new HappyHour({dia: '', horaApertura: null, horaCierre:null});
+        this.currentUser.happyHours = [happyHourInit];
+      }
       this.userService.getHappyHours().subscribe((happyhours) => {
-      this.happyHoursOptions = happyhours;
-    })
+        this.happyHoursOptions = happyhours;
+      })
     })
   }
 
