@@ -34,10 +34,14 @@ export class User {
         this.horaApertura = userLogin.horaApertura || null;
         this.horaCierre = userLogin.horaCierre || null;
         if (userLogin.happyHours) {
-            this.happyHours = userLogin.happyHours
-          } else {
+            if (userLogin.happyHours.dia !== '') { 
+                this.happyHours = userLogin.happyHours
+            } else {
+                this.happyHours = null;
+            }
+        } else {
             this.happyHours = null;
-          }
+        }
         this.localidad = userLogin.localidad || null;
         this.patrocinado = userLogin.patrocinado || false;
         this.urlmap = userLogin.urlmap || null;

@@ -27,7 +27,6 @@ export class ProfilePage {
   public place: Object;
   geocoder = new google.maps.Geocoder;
   map: any;
-  public happyHoursOptions: string[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public toastCtrl: ToastController, public userService: UserService, 
@@ -38,12 +37,8 @@ export class ProfilePage {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
       if (this.currentUser.happyHours == null) {
-        let happyHourInit = new HappyHour({dia: '', horaApertura: null, horaCierre:null});
-        this.currentUser.happyHours = [happyHourInit];
+        this.currentUser.happyHours = [];
       }
-      this.userService.getHappyHours().subscribe((happyhours) => {
-        this.happyHoursOptions = happyhours;
-      })
     })
   }
 
