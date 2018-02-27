@@ -1,7 +1,7 @@
 export class HappyHour {
     dia: string;
-    horaApertura: Date;
-    horaCierre: Date;
+    horaApertura: string;
+    horaCierre: string;
     
     constructor(happyhour: any) {
         this.dia= happyhour.dia;

@@ -23,6 +23,9 @@ export class MapaPage {
   segment = 'mapa';
   map: any;
   public negocios : User[];
+  horaActual: number;
+  minutosActual: number;
+  diaActual: number;
 
   constructor(public navCtrl: NavController, public userService: UserService, public navParams: NavParams, public geolocation: Geolocation) {
   }
@@ -32,6 +35,10 @@ export class MapaPage {
   }
 
   ionViewWillEnter(){
+    let actualDate = new Date();
+    this.diaActual = actualDate.getDay();
+    this.horaActual = actualDate.getHours();
+    this.minutosActual = actualDate.getMinutes();
     this.getPosition();
   }
 
@@ -65,19 +72,53 @@ export class MapaPage {
           let nombre = this.negocios[i].nombre;
           let username = this.negocios[i].username;
           let direccion = this.negocios[i].direccion;
-          marker1 = new google.maps.Marker({
-            position: latlong,
-            map: map,
-            animation: google.maps.Animation.DROP,
-            title: nombre,
-            icon: '../assets/icon/marker.png'
-          });
-          google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
-            return function() {
-              infowindow.setContent(nombre + "<br />" + direccion + "<br />" + '<a href=/' + username + '>Ir a la carta</a>');
-              infowindow.open(map, marker1);
-            }
-          })(marker1, i));
+          let hhHasta: string;
+          let hhvalid = false
+          if (this.negocios[i].happyHours) {
+            this.negocios[i].happyHours.forEach(hh => {
+              if (parseFloat(hh.dia) == this.diaActual) {
+                var ha = hh.horaApertura.split(':'); 
+                var secondsHA = (parseFloat(ha[0]) * 3600) + (parseFloat(ha[1]) * 60);
+                hhHasta = hh.horaCierre;
+                var hc = hh.horaCierre.split(':'); 
+                var secondsHC = (parseFloat(hc[0]) * 3600) + (parseFloat(hc[1]) * 60);
+                var secondsHAC = (this.horaActual*3600) + (this.minutosActual*60); 
+                if (secondsHA < secondsHAC && secondsHAC < secondsHC) {
+                  hhvalid = true;
+                }
+              }
+            });
+          }
+          if (hhvalid) {
+            marker1 = new google.maps.Marker({
+              position: latlong,
+              map: map,
+              animation: google.maps.Animation.BOUNCE,
+              title: nombre,
+              icon: '../assets/icon/marker-HH.png',
+              infowindow
+            });
+            google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
+              return function() {
+                infowindow.setContent('HappyHours Hasta las ' + hhHasta + "<br />" + nombre + "<br />" + direccion + "<br />" + '<a href=/' + username + '>Ir a la carta</a>');
+                infowindow.open(map, marker1);
+              }
+            })(marker1, i));
+          } else {
+            marker1 = new google.maps.Marker({
+              position: latlong,
+              map: map,
+              animation: google.maps.Animation.DROP,
+              title: nombre,
+              icon: '../assets/icon/marker.png'
+            });
+            google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
+              return function() {
+                infowindow.setContent(nombre + "<br />" + direccion + "<br />" + '<a href=/' + username + '>Ir a la carta</a>');
+                infowindow.open(map, marker1);
+              }
+            })(marker1, i));
+          }
         }
       }
     })
@@ -85,7 +126,6 @@ export class MapaPage {
       let marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        animation: google.maps.Animation.BOUNCE,
         infowindow
       });
       marker.addListener('click', function() {
