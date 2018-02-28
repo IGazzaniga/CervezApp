@@ -25,6 +25,7 @@
   <div *ngIf="options == 'carta'">
     <ion-title margin-top margin-bottom text-center>Carta</ion-title>
     <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
+    <p text-center *ngIf="categorias?.length == 0 && !spinner">Aun no hay categorias</p>
     <ion-grid>
       <ion-row>
         <ion-col *ngFor="let cat of categorias" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
