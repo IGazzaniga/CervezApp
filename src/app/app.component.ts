@@ -1,3 +1,4 @@
+import {NetworkService} from '../providers/network/network-service';
 
 import {UserService} from '../providers/user/user-service';
 import { Component, ViewChild } from '@angular/core';
@@ -40,7 +41,9 @@ export class MyApp {
   ]
 
   constructor(private translate: TranslateService, platform: Platform,
-              private config: Config, private userService: UserService) {
+              private config: Config, private userService: UserService, public networkService: NetworkService) {
+    this.networkService.onDisconect();
+    this.networkService.onConnect();
     this.checkAuthUser();
   }
 

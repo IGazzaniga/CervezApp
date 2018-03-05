@@ -1,3 +1,4 @@
+import {NetworkService} from '../providers/network/network-service';
 import {UserService} from '../providers/user/user-service';
 import {ItemsService} from '../providers/items/items-service';
 import {Api} from '../providers/api/api';
@@ -26,6 +27,7 @@ import { LoadingProvider } from '../providers/loading/loading';
 import { GeoProvider } from '../providers/geo/geo-service';
 import { NotificationsProvider } from '../providers/notifications/notifications';
 import { PopoverCategoryPage } from "../pages/home/popover-category";
+import { AlertsService } from "../providers/alerts/alerts-service";
 
 
 // The translate loader needs to know where to load i18n files
@@ -52,7 +54,7 @@ firebase.initializeApp(envprod.firebase);
         deps: [HttpClient]
       }
     }),
-    IonicModule.forRoot(MyApp),//, { locationStrategy: 'path' }),
+    IonicModule.forRoot(MyApp, { locationStrategy: 'path' }),
     CategoriaCardComponentModule,
     IonicStorageModule.forRoot(),
   ],
@@ -72,7 +74,9 @@ firebase.initializeApp(envprod.firebase);
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LoadingProvider,
     GeoProvider,
-    NotificationsProvider
+    NotificationsProvider,
+    NetworkService,
+    AlertsService
   ]
 })
 export class AppModule { }

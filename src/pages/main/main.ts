@@ -4,6 +4,7 @@ import { UserService } from "../../providers/user/user-service";
 import { User } from "../../models/User";
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeoProvider } from "../../providers/geo/geo-service";
+import { AlertsService } from "../../providers/alerts/alerts-service";
 
 
 /**
@@ -27,7 +28,7 @@ export class MainPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public menuCtrl:MenuController, public userService: UserService, 
-  private geolocation: Geolocation, public geoService: GeoProvider) {
+  private geolocation: Geolocation, public geoService: GeoProvider, public alertsService:AlertsService) {
     this.menuCtrl.enable(false);  
   }
 
@@ -45,7 +46,7 @@ export class MainPage {
         }
       });
     }).catch((err) => {
-      console.log(err);
+      this.alertsService.basicAlert('Atencion!', 'La ubicacion del dispositivo se encuentra desactivada, active la ubicacion para el correcto funcionamiento de la aplicacion.', ['Aceptar']);
       this.negocios = [];
       this.spinner = false;
     });

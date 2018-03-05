@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { UserService } from "../../providers/user/user-service";
 import { User } from "../../models/User";
+import { AlertsService } from "../../providers/alerts/alerts-service";
 
 declare var google;
 
@@ -27,7 +28,7 @@ export class MapaPage {
   minutosActual: number;
   diaActual: number;
 
-  constructor(public navCtrl: NavController, public userService: UserService, public navParams: NavParams, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public alertsService: AlertsService, public userService: UserService, public navParams: NavParams, public geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {
@@ -47,6 +48,7 @@ export class MapaPage {
       this.loadMap(response);
     })
     .catch(error =>{
+      this.alertsService.basicAlert('Atencion!', 'La ubicacion del dispositivo se encuentra desactivada, active la ubicacion para el correcto funcionamiento de la aplicacion.', ['Aceptar']);
       console.log(error);
     })
   }
