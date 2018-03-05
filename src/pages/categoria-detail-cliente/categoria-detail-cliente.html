@@ -30,6 +30,8 @@
         </ion-col>
       </ion-row>
     </ion-item>
+    <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
+    <p text-center *ngIf="items?.length == 0 && !spinner">Aun no hay productos</p>
   </ion-list> 
 </ion-content>
     
