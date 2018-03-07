@@ -25,6 +25,8 @@ export class MainPage {
   public negocios: User[];
   spinner: Boolean;
   location: string;
+  desactivedUbication: boolean = false;
+  segment = 'home';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public menuCtrl:MenuController, public userService: UserService, 
@@ -47,6 +49,7 @@ export class MainPage {
       });
     }).catch((err) => {
       this.alertsService.basicAlert('Atencion!', 'La ubicacion del dispositivo se encuentra desactivada, active la ubicacion para el correcto funcionamiento de la aplicacion.', ['Aceptar']);
+      this.desactivedUbication = true;
       this.negocios = [];
       this.spinner = false;
     });

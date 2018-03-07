@@ -5,7 +5,6 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Mapa</ion-title>
   </ion-navbar>
@@ -27,5 +26,6 @@
 
 
 <ion-content padding>
+  <p text-center *ngIf="desactivedUbication">Activa la ubicacion para ver el mapa con los lugares que hay cerca de ti.</p>
   <div id="map"></div>
 </ion-content>

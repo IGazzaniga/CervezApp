@@ -16,7 +16,7 @@ declare var google;
 
 @IonicPage({
   defaultHistory: ['MainPage'],
-  segment: ':nombre'
+  segment: 'n/:nombre'
 })
 @Component({
   selector: 'page-negocio-main',
@@ -33,7 +33,6 @@ export class NegocioMainPage {
   constructor(public navCtrl: NavController, public userService: UserService, public navParams: NavParams, public categoriaService: CategoriasService, public geolocation: Geolocation) {
     this.negocio = this.navParams.get('negocio');
   }
-
 
   ionViewDidLoad() {
     this.spinner = true;
@@ -52,7 +51,7 @@ export class NegocioMainPage {
             this.spinner = false;
           })
         } else {
-          this.navCtrl.setRoot('MainPage');
+          this.navCtrl.pop();
         }
       })
     }

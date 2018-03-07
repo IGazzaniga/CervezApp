@@ -27,6 +27,7 @@ export class MapaPage {
   horaActual: number;
   minutosActual: number;
   diaActual: number;
+  desactivedUbication: boolean = false;
 
   constructor(public navCtrl: NavController, public alertsService: AlertsService, public userService: UserService, public navParams: NavParams, public geolocation: Geolocation) {
   }
@@ -49,6 +50,7 @@ export class MapaPage {
     })
     .catch(error =>{
       this.alertsService.basicAlert('Atencion!', 'La ubicacion del dispositivo se encuentra desactivada, active la ubicacion para el correcto funcionamiento de la aplicacion.', ['Aceptar']);
+      this.desactivedUbication = true;
       console.log(error);
     })
   }

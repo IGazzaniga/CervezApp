@@ -25,9 +25,11 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-title margin-top margin-bottom text-center>Selecciona un lugar</ion-title>
-  <p *ngIf="location">Usted se encuentra en: {{location}}</p>
+  <ion-title *ngIf="!desactivedUbication" margin-top margin-bottom text-center>Selecciona un lugar</ion-title>
+  <p *ngIf="location" text-center>Usted se encuentra en: {{location}}</p>
   <ion-spinner text-center margin-top style="width: 100%" *ngIf="spinner"></ion-spinner>
+  <p text-center *ngIf="negocios?.length == 0 && !desactivedUbication">No hay negocios registrados en tu ciudad. Dirigite a la seccion BUSCAR.</p>
+  <p text-center *ngIf="negocios?.length == 0 && desactivedUbication">Activa la ubicacion de tu dispositivo para que podamos mostrarte los negocios de tu ciudad.</p>
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let neg of negocios" col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4>
