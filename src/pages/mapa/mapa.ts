@@ -104,7 +104,7 @@ export class MapaPage {
             });
             google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
               return function() {
-                infowindow.setContent('HappyHours Hasta las ' + hhHasta + "<br />" + nombre + "<br />" + direccion + "<br />" + '<a href=/' + username + '>Ir a la carta</a>');
+                infowindow.setContent('HappyHours Hasta las ' + hhHasta + "<br />" + nombre + "<br />" + direccion + "<br />" + '<a href=/n/' + username + '>Ir a la carta</a>');
                 infowindow.open(map, marker1);
               }
             })(marker1, i));
@@ -118,7 +118,7 @@ export class MapaPage {
             });
             google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
               return function() {
-                infowindow.setContent(nombre + "<br />" + direccion + "<br />" + '<a href=/' + username + '>Ir a la carta</a>');
+                infowindow.setContent(nombre + "<br />" + direccion + "<br />" + '<a href=/n/' + username + '>Ir a la carta</a>');
                 infowindow.open(map, marker1);
               }
             })(marker1, i));
