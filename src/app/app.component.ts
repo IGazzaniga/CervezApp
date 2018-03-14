@@ -37,7 +37,8 @@ export class MyApp {
   pages: any[] = [
     { title: 'Home', component: 'HomePage' },
     { title: 'Notificaciones', component: 'NotificacionesPage'},
-    { title: 'Perfil', component: 'ProfilePage'}
+    { title: 'Perfil', component: 'ProfilePage'},
+    { title: 'Pagos', component: 'PagoPage'}
   ]
 
   constructor(private translate: TranslateService, platform: Platform,

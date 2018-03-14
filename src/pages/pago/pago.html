@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button menuToggle ion-button>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Pago</ion-title>
   </ion-navbar>
 
@@ -14,6 +17,32 @@
 
 
 <ion-content padding>
-  <button (click)="basico()">Basico</button>
-  <button (click)="intermedio()">intermedio</button>
+  <ion-row>
+    <ion-col col-6>
+      <ion-card (click)="basico()">
+        <ion-card-content>
+          <ion-card-title>
+            Abono Basico
+            </ion-card-title>
+          <p>
+            Abono mensual por utilizar la plataforma, se permite enviar una (1) notificacion por semana.
+          </p>
+          <h2 text-center>$299</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col col-6>
+      <ion-card (click)="intermedio()">
+        <ion-card-content>
+          <ion-card-title>
+            Abono Intermedio
+            </ion-card-title>
+          <p>
+            Abono mensual por utilizar la plataforma, se permite enviar tres (3) notificaciones por semana.
+          </p>
+          <h2 text-center>$599</h2>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 </ion-content>

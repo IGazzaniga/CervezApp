@@ -64,7 +64,7 @@ export class PagoPage {
     let reqOpts = {};
     reqOpts['params'] = {"access_token": this.access_token};
     this.apimp.post('checkout/preferences', preference, reqOpts).subscribe((data:any) => {
-      window.open(data.sandbox_init_point);
+      window.open(data.init_point);
     })
   }
 
@@ -74,7 +74,7 @@ export class PagoPage {
       title: 'Abono Intermedio QuePinta',
       quantity: 1,
       currency_id: 'ARS',
-      unit_price: 600
+      unit_price: 1
     }
     var preference = {
       items: [
@@ -84,7 +84,7 @@ export class PagoPage {
     let reqOpts = {};
     reqOpts['params'] = {"access_token": this.access_token};
     this.apimp.post('checkout/preferences', preference, reqOpts).subscribe((data:any) => {
-      window.open(data.sandbox_init_point);
+      window.open(data.init_point);
     })
   }
 };
