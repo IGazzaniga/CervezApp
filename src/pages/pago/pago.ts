@@ -47,7 +47,7 @@ export class PagoPage {
     var param = {"abonoId": "0", "email": this.currentUser.email, "uid": this.currentUser.uid};
     this.apiauth.get('pay-abono', param).subscribe((data:any) => {
       this.loadingService.dissmis();
-      window.open(data.init_point);
+      location.replace(data.init_point);
     })
   }
 
@@ -56,7 +56,7 @@ export class PagoPage {
     var param = {"abonoId": "1", "email": this.currentUser.email, "uid": this.currentUser.uid};
     this.apiauth.get('pay-abono', param).subscribe((data:any) => {
       this.loadingService.dissmis();
-      window.open(data.init_point);
+      location.replace(data.init_point);
     })
   }
 };

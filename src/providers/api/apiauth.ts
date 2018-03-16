@@ -12,9 +12,11 @@ export class ApiAuth {
   token: string;
 
   constructor(public http: HttpClient) {
-      firebase.auth().currentUser.getIdToken().then((token) => {
-          this.token = token;
-      });
+      if (firebase.auth().currentUser) {
+        firebase.auth().currentUser.getIdToken().then((token) => {
+            this.token = token;
+        });
+      }
   }
 
   get(endpoint: string, params?: any) {

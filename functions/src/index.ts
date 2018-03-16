@@ -88,7 +88,7 @@ app.get('/user/username', (req, res) => {
     });
 });
 
-app.use(authenticate).post('/notifications-mp', (req, res) => {
+app.post('/notifications-mp', (req, res) => {
     mercadopago.payment.get(req.query.id).then(function (response) {
       console.log(response.body.status);
       if (response.body.status == 'approved') {
@@ -96,7 +96,7 @@ app.use(authenticate).post('/notifications-mp', (req, res) => {
       } else {
         usersRef.child(response.body.external_reference).child("pagado").set(false);
       }
-    }).then(function (error) {
+    }).catch(function (error) {
       console.log(error);
     });
     res.sendStatus(200);
@@ -113,7 +113,12 @@ app.use(authenticate).get('/pay-abono', (req, res) => {
           payer: {
             email: req.query.email
           },
-          external_reference: req.query.uid
+          external_reference: req.query.uid,
+          back_urls: {
+            success:'https://cervezapp-a5297.firebaseapp.com/pago',
+            pending:'https://cervezapp-a5297.firebaseapp.com/pago',
+            failure:'https://cervezapp-a5297.firebaseapp.com/pago',
+          }
         };
         mercadopago.preferences.create(preference).then(function (response) {
           console.log('el pago se crea correctamente');

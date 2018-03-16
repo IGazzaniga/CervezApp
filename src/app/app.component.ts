@@ -60,6 +60,8 @@ export class MyApp {
             this.rootPage = 'ProfilePage';
           } else if (window.location.hash.includes('notificaciones')) {
             this.rootPage = 'NotificacionesPage';
+          } else if (window.location.hash.includes('pago')) {
+            this.rootPage = 'PagoPage';
           } else {
             this.rootPage = 'HomePage';
           }
