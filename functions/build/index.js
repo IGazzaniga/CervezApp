@@ -5,15 +5,28 @@ const firebase = require("firebase-admin");
 const express = require("express");
 const mercadopago = require("mercadopago");
 mercadopago.configure({
-    client_id: '6892242983944155',
-    client_secret: 'TQ0RA4WdF8UrQ4C9mSKty9ftOmqJAMlC'
+    client_id: '5916380166339968',
+    client_secret: 'e3fqwoAFTMLI9iCcpjpmQlu5kY83QRvc'
 });
 const cors = require('cors')({ origin: true });
 const app = express();
 firebase.initializeApp(functions.config().firebase);
 const usersRef = firebase.database().ref('/users');
+const abonosRef = firebase.database().ref('/abonos');
+const authenticate = (req, res, next) => {
+    if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
+        res.status(403).send('Unauthorized');
+        return;
+    }
+    const idToken = req.headers.authorization.split('Bearer ')[1];
+    firebase.auth().verifyIdToken(idToken).then((decodedIdToken) => {
+        req.user = decodedIdToken;
+        return next();
+    }).catch(() => {
+        res.status(403).send('Unauthorized');
+    });
+};
 app.use(cors);
-//app.use(validateFirebaseIdToken);
 app.get('/user/search', (req, res) => {
     const val = req.query.val;
     usersRef.orderByChild('nombre_busqueda').startAt(val).endAt(`${val}\uf8ff`).once('value', (snap) => {
@@ -74,7 +87,7 @@ app.get('/user/username', (req, res) => {
         res.sendStatus(500);
     });
 });
-app.post('/notifications-mp', (req, res) => {
+app.use(authenticate).post('/notifications-mp', (req, res) => {
     mercadopago.payment.get(req.query.id).then(function (response) {
         console.log(response.body.status);
         if (response.body.status == 'approved') {
@@ -88,32 +101,28 @@ app.post('/notifications-mp', (req, res) => {
     });
     res.sendStatus(200);
 });
-app.get('/pay-basic', (req, res) => {
-    var preference = {
-        items: [
-            {
-                id: '1',
-                title: 'Abono Basico QuePinta',
-                quantity: 1,
-                currency_id: 'ARS',
-                unit_price: 1
-            }
-        ],
-        payer: {
-            email: req.query.email
-        },
-        external_reference: req.query.uid
-    };
-    mercadopago.preferences.create(preference).then(function (response) {
-        console.log('el pago se crea correctamente');
-        res.status(200).json(response.body);
-    }).catch(function (error) {
-        console.log('error al crear el pago: ' + error.message);
-        res.status(500).send(error);
+app.use(authenticate).get('/pay-abono', (req, res) => {
+    abonosRef.child(req.query.abonoId).once("value", (snap) => {
+        if (snap.val() != null) {
+            let abono = snap.val();
+            var preference = {
+                items: [
+                    abono
+                ],
+                payer: {
+                    email: req.query.email
+                },
+                external_reference: req.query.uid
+            };
+            mercadopago.preferences.create(preference).then(function (response) {
+                console.log('el pago se crea correctamente');
+                res.status(200).json(response.body);
+            }).catch(function (error) {
+                console.log('error al crear el pago: ' + error.message);
+                res.status(500).send(error);
+            });
+        }
     });
 });
-// This HTTPS endpoint can only be accessed by your Firebase Users.
-// Requests need to be authorized by providing an `Authorization` HTTP header
-// with value `Bearer <Firebase ID Token>`.
 exports.api = functions.https.onRequest(app);
 //# sourceMappingURL=index.js.map

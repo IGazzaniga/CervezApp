@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserService } from "../../providers/user/user-service";
 import { User } from "../../models/User";
-import { Api } from "../../providers/api/api";
 import { LoadingProvider } from "../../providers/loading/loading";
+import { ApiAuth } from "../../providers/api/apiauth";
 
 
 /**
@@ -24,7 +24,7 @@ export class PagoPage {
   currentUser: User;
   access_token: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService, public loadingService: LoadingProvider, public api: Api) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService, public loadingService: LoadingProvider, public apiauth: ApiAuth) {
   }
 
   ionViewDidLoad() {
@@ -33,33 +33,31 @@ export class PagoPage {
     })
   }
 
+  ionViewCanEnter(): boolean{
+    if(this.userService.isUserAuth()){
+      return true;
+    } else {
+      this.navCtrl.setRoot('MainPage');
+      return false;
+    }
+  }
+
   public basico () {
     this.loadingService.show();
-    var param = {"email": this.currentUser.email, "uid": this.currentUser.uid};
-    this.api.get('pay-basic', param).subscribe((data:any) => {
+    var param = {"abonoId": "0", "email": this.currentUser.email, "uid": this.currentUser.uid};
+    this.apiauth.get('pay-abono', param).subscribe((data:any) => {
       this.loadingService.dissmis();
       window.open(data.init_point);
     })
   }
 
   public intermedio () {
-/*    var item = {
-      id: '2',
-      title: 'Abono Intermedio QuePinta',
-      quantity: 1,
-      currency_id: 'ARS',
-      unit_price: 1
-    }
-    var preference = {
-      items: [
-        item
-      ]
-    };
-    let reqOpts = {};
-    reqOpts['params'] = {"access_token": this.access_token};
-    this.apimp.post('checkout/preferences', preference, reqOpts).subscribe((data:any) => {
+    this.loadingService.show();
+    var param = {"abonoId": "1", "email": this.currentUser.email, "uid": this.currentUser.uid};
+    this.apiauth.get('pay-abono', param).subscribe((data:any) => {
+      this.loadingService.dissmis();
       window.open(data.init_point);
-    })*/
+    })
   }
 };
 
