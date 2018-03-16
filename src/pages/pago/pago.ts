@@ -3,9 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserService } from "../../providers/user/user-service";
 import { User } from "../../models/User";
 import { Api } from "../../providers/api/api";
-import { ApiMP } from "../../providers/api/api-mp";
-declare var Mercadopago;
-declare function getBin();
+import { LoadingProvider } from "../../providers/loading/loading";
 
 
 /**
@@ -26,50 +24,26 @@ export class PagoPage {
   currentUser: User;
   access_token: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService, public apimp: ApiMP) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserService, public loadingService: LoadingProvider, public api: Api) {
   }
 
   ionViewDidLoad() {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
     })
-    var params = {
-      "grant_type": "client_credentials",
-      "client_id": "6892242983944155",
-      "client_secret": "TQ0RA4WdF8UrQ4C9mSKty9ftOmqJAMlC"
-    }
-    let reqOpts = {};
-    reqOpts['params'] = params;
-    reqOpts['headers'] = {			
-			"accept": "application/json",
-			"content-type": "application/x-www-form-urlencoded"
-		};
-    this.apimp.post('oauth/token', {}, reqOpts).subscribe((data:any) => {
-      this.access_token = data.access_token;
-    });
   }
 
   public basico () {
-    var preference = {
-      items: [
-        {
-          id: '1',
-          title: 'Abono Basico QuePinta',
-          quantity: 1,
-          currency_id: 'ARS',
-          unit_price: 300
-        }
-      ]
-    };
-    let reqOpts = {};
-    reqOpts['params'] = {"access_token": this.access_token};
-    this.apimp.post('checkout/preferences', preference, reqOpts).subscribe((data:any) => {
+    this.loadingService.show();
+    var param = {"email": this.currentUser.email, "uid": this.currentUser.uid};
+    this.api.get('pay-basic', param).subscribe((data:any) => {
+      this.loadingService.dissmis();
       window.open(data.init_point);
     })
   }
 
   public intermedio () {
-    var item = {
+/*    var item = {
       id: '2',
       title: 'Abono Intermedio QuePinta',
       quantity: 1,
@@ -85,7 +59,7 @@ export class PagoPage {
     reqOpts['params'] = {"access_token": this.access_token};
     this.apimp.post('checkout/preferences', preference, reqOpts).subscribe((data:any) => {
       window.open(data.init_point);
-    })
+    })*/
   }
 };
 

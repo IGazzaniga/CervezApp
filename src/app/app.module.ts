@@ -28,7 +28,6 @@ import { GeoProvider } from '../providers/geo/geo-service';
 import { NotificationsProvider } from '../providers/notifications/notifications';
 import { PopoverCategoryPage } from "../pages/home/popover-category";
 import { AlertsService } from "../providers/alerts/alerts-service";
-import { ApiMP } from "../providers/api/api-mp";
 
 
 // The translate loader needs to know where to load i18n files
@@ -66,7 +65,6 @@ firebase.initializeApp(envprod.firebase);
   ],
   providers: [
     Api,
-    ApiMP,
     ItemsService,
     UserService,
     CategoriasService,

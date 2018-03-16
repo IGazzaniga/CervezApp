@@ -14,7 +14,6 @@ export class Api {
   get(endpoint: string, params?: any) {
     let reqOpts = {};
     reqOpts['params'] = params;
-    
     return this.http.get(this.url + '/' + endpoint, reqOpts);
   }
 

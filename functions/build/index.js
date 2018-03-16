@@ -75,16 +75,42 @@ app.get('/user/username', (req, res) => {
     });
 });
 app.post('/notifications-mp', (req, res) => {
-    const topic = req.query.topic;
-    const id = req.query.id;
-    console.log('topic de ipn: ' + topic);
-    console.log('id de ipn: ' + id);
-    mercadopago.payment.get(id).then(function (response) {
-        console.log('pago obtenido: ', response);
+    mercadopago.payment.get(req.query.id).then(function (response) {
+        console.log(response.body.status);
+        if (response.body.status == 'approved') {
+            usersRef.child(response.body.external_reference).child("pagado").set(true);
+        }
+        else {
+            usersRef.child(response.body.external_reference).child("pagado").set(false);
+        }
     }).then(function (error) {
-        console.log('pago obtenido An error ocurred: ' + error.message);
+        console.log(error);
     });
     res.sendStatus(200);
+});
+app.get('/pay-basic', (req, res) => {
+    var preference = {
+        items: [
+            {
+                id: '1',
+                title: 'Abono Basico QuePinta',
+                quantity: 1,
+                currency_id: 'ARS',
+                unit_price: 1
+            }
+        ],
+        payer: {
+            email: req.query.email
+        },
+        external_reference: req.query.uid
+    };
+    mercadopago.preferences.create(preference).then(function (response) {
+        console.log('el pago se crea correctamente');
+        res.status(200).json(response.body);
+    }).catch(function (error) {
+        console.log('error al crear el pago: ' + error.message);
+        res.status(500).send(error);
+    });
 });
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
