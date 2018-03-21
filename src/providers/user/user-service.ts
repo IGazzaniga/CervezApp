@@ -45,21 +45,30 @@ export class UserService {
     }
   }
 
-  /**
-   * Comprueba si el usuario existe en la DB, si no es asi, lo agrega.
+    /**
+   * [refreshUser description]
+   * @return {[type]} [description]
    */
-  _loggedIn(resp): Promise<any> {
-    return this.isNewUser(resp).then((user) => {
-      if (!user.val()) {
-        this._user = new User(resp);
-        this.setCurrentUser(this._user).then(()=> {
-          this.addUser(this._user);
-        });
-      } else {
-        this._user = new User(user.val());
-        this.setCurrentUser(this._user);
-      }
-    })
+  public refreshUser(userResp): Observable<User> {
+    return Observable.create(observer => {
+      this.isNewUser(userResp).then((user) => {
+        if (!user.val()) {
+          this._user = new User(userResp);
+          this.setCurrentUser(this._user).then(()=> {
+            this.addUser(this._user).then(()=> {
+              observer.next(this._user);
+              observer.complete();
+            });
+          });
+        } else {
+          this._user = new User(user.val());
+          this.setCurrentUser(this._user).then(()=> {
+              observer.next(this._user);
+              observer.complete();
+          });
+        }
+      })
+    });
   }
 
   /**
@@ -74,7 +83,7 @@ export class UserService {
    * Agrega un usuario a la base de datos
    */
   public addUser(user: User) {
-    this.usersDB.child(user.uid).set(user);
+    return this.usersDB.child(user.uid).set(user);
   }
 
   public setCurrentUser (user: User): Promise<any> {

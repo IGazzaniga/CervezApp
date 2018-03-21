@@ -55,15 +55,15 @@ export class MyApp {
   checkAuthUser() {
     this.userService.auth.onAuthStateChanged((userResp) => {
       if (userResp) {
-        this.userService._loggedIn(userResp).then(()=> {
+        this.userService.refreshUser(userResp).subscribe((user)=> {
           if (window.location.hash.includes('profile')) {
-            this.rootPage = 'ProfilePage';
+            this.nav.setRoot('ProfilePage');
           } else if (window.location.hash.includes('notificaciones')) {
-            this.rootPage = 'NotificacionesPage';
+            this.nav.setRoot('NotificacionesPage');
           } else if (window.location.hash.includes('pago')) {
-            this.rootPage = 'PagoPage';
+            this.nav.setRoot('PagoPage');
           } else {
-            this.rootPage = 'HomePage';
+            this.nav.setRoot('HomePage');
           }
         });
       } else {
