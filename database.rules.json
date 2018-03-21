@@ -1,6 +1,15 @@
 {
   "rules": {
     ".read": true,
-    ".write": "auth != null"
+    ".write": "auth != null",
+    "categorias": {
+      ".indexOn": "idNegocio"
+    },
+    "items": {
+      ".indexOn": "idCategoria"
+    },
+    "users": {
+      ".indexOn": ["place_id", "username"]
+    }
   }
 }
