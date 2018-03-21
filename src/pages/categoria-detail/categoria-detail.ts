@@ -37,8 +37,8 @@ export class CategoriaDetailPage {
     this.spinner = true;
     if (this.categoria) {
       this.itemService.getAll(this.categoria.id).subscribe((items) => {
-        this.items = items;
         this.spinner = false;
+        this.items = items;
       });
     } else {
       this.navCtrl.setRoot('HomePage');

@@ -38,7 +38,7 @@ export class LoginPage {
     if(!this.userService.isUserAuth()){
       return true;
     } else {
-      this.navCtrl.setRoot('HomePage');
+      return false;
     }
   }
 
