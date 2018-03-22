@@ -18,9 +18,11 @@ import { User } from "../models/User";
     <ion-content>
       <ion-list>
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon name="{{p.icon}}" item-left></ion-icon>
           {{p.title}}
         </button>
-        <button menuClose ion-item (click)="logout()">
+        <button class="log-out" menuClose ion-item (click)="logout()">
+          <ion-icon name="log-out" item-left></ion-icon>
           Cerrar Sesion
         </button>
       </ion-list>
@@ -35,10 +37,10 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
-    { title: 'Home', component: 'HomePage' },
-    { title: 'Notificaciones', component: 'NotificacionesPage'},
-    { title: 'Perfil', component: 'ProfilePage'},
-    { title: 'Pagos', component: 'PagoPage'}
+    { title: 'Home', component: 'HomePage', icon: 'home' },
+    { title: 'Notificaciones', component: 'NotificacionesPage', icon: 'notifications'},
+    { title: 'Perfil', component: 'ProfilePage', icon: 'person'},
+    { title: 'Pagos', component: 'PagoPage', icon: 'card'}
   ]
 
   constructor(private translate: TranslateService, platform: Platform,
