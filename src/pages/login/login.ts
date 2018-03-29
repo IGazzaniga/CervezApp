@@ -9,7 +9,7 @@ import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [UserService]
+  providers: [UserService] 
 })
 export class LoginPage {
   // The account fields for the login form.
@@ -66,63 +66,58 @@ export class LoginPage {
     });
   }
 
-
+//Funcion de olvido de contraseña
   showForgotPassword(){
-       //Funcion de olvido de contraseña
-       let prompt = this.alertCtrl.create({
-         title:'Ingrese su Email',
-         message: "Se te enviara el mail de Correspondiente",
-         inputs: [
-            {
-              name : 'recoverEmail',
-              placeholder: 'tuEmail@Example.com'
-            }, 
-          ],
-        buttons:[
+      let prompt = this.alertCtrl.create({
+        title:'Ingrese su Email',
+        message: "A su Email se enviara un link para el cambio de contraseña",
+        inputs: [
           {
-            text: 'Cancel',
-            handler: data =>{
-              console.log('cancel click');
-          }
-          },
-          {
-            text:'Submit',
-            handler: data => {
-              //add Preload
-              let loading = this.loadingCtr.create({
-                  dismissOnPageChange:true,
-                  content:'Reseting your password..'
-              });
-              //call user services
-              this.userService.forgotPasswordUser(data.recoverEmail).then(() =>{
-                  loading.dismiss().then(() => {
-                    //show pop up
-
-                    let alert = this.alertCtrl.create({
-                      title: 'Verifique su Email',
-                      subTitle: 'Su sontraseña fue reseteada',
-                      buttons:['OK']
-                    });
-                  
-                    alert.present();
-
-                  })
-              }, error => {
-                //show pop up
-                let alert = this.alertCtrl.create({
-                    title: 'Error en resetear la contraseña',
-                    subTitle: error.message,
+            name : 'recoverEmail',
+            placeholder: 'TuEmail@Example.com'
+          }, 
+        ],
+      buttons:[
+        {
+          text: 'Cancelar',
+          handler: data =>{
+            console.log('cancel click');
+        }
+        },
+        {
+          text:'Enviar',
+          handler: data => {
+            //Antes de cargarse
+            let loading = this.loadingCtr.create({
+                dismissOnPageChange:true,
+                content:'Se esta reseando su contaseña...'
+            });
+            //Se llama a los servicios de usuario
+            this.userService.forgotPasswordUser(data.recoverEmail).then(() =>{
+                loading.dismiss().then(() => {
+                  //Muentra un msj que definiendo que el proceso fue exitoso
+                  let alert = this.alertCtrl.create({
+                    title: 'Verifique su Email',
+                    subTitle: 'Su sontraseña fue reseteada',
                     buttons:['OK']
+                  });
+                  alert.present();
+                })
+            }, error => {
+              loading.dismiss().then(() => {
+                //Muentra mensaje de error, puede ser que el mail ingresado no este cargado
+                  let alert = this.alertCtrl.create({
+                      title: 'Error en resetear la contraseña',
+                      subTitle: error.message,
+                      buttons:['OK']
                 });
-                
                 alert.present();
-
-              } );
-            }
+            })
+            } );
           }
-        ]
-
-       });
-       prompt.present();
+        }
+      ]
+      });
+      prompt.present();
   }
 }

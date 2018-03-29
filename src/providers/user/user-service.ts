@@ -167,9 +167,8 @@ export class UserService {
     return true;
   }
 
-
+/* Funcion para el reseteo de contraseña */
 forgotPasswordUser(email: any){
-  /* return this.fireAuth.sendPasswordResetEmail(email) */
   return this.auth.sendPasswordResetEmail(email)
 }
 }
