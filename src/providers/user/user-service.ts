@@ -166,6 +166,12 @@ export class UserService {
     }
     return true;
   }
+
+
+forgotPasswordUser(email: any){
+  /* return this.fireAuth.sendPasswordResetEmail(email) */
+  return this.auth.sendPasswordResetEmail(email)
+}
 }
 
 

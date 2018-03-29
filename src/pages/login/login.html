@@ -23,8 +23,22 @@
 
       <div padding>
         <button ion-button color="primary" block>Entrar</button>
-      </div>
+      </div>  
 
     </ion-list>
   </form>
+
+<!--   <ion-list>
+    <button ion-button color="danger" full>
+      <a ion-item (click)="openModal({charNum: 0})">
+        Olvidaste tu contraseña?
+      </a>
+    </button>
+  </ion-list> -->
+
+
+  <div padding (click)="showForgotPassword()">
+    <button ion-button full clear>¿Olvidaste la contraseña?</button>
+  </div>
+
 </ion-content>
