@@ -90,7 +90,7 @@ export class LoginPage {
             //Antes de cargarse
             let loading = this.loadingCtr.create({
                 dismissOnPageChange:true,
-                content:'Se esta reseando su contaseña...'
+                content:'Se esta reseteando su contaseña...'
             });
             //Se llama a los servicios de usuario
             this.userService.forgotPasswordUser(data.recoverEmail).then(() =>{
@@ -98,7 +98,7 @@ export class LoginPage {
                   //Muentra un msj que definiendo que el proceso fue exitoso
                   let alert = this.alertCtrl.create({
                     title: 'Verifique su Email',
-                    subTitle: 'Su sontraseña fue reseteada',
+                    subTitle: 'Su contraseña fue reseteada correctamente',
                     buttons:['OK']
                   });
                   alert.present();
