@@ -27,6 +27,14 @@ const authenticate = (req, res, next) => {
   });
 };
 
+const negocioActivo = (negocio) => {
+  if (negocio.prueba || negocio.pago) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 app.use(cors);
 
 app.get('/user/search', (req, res) => {
@@ -37,7 +45,9 @@ app.get('/user/search', (req, res) => {
         for (var key in snap.val()) {
           if (snap.val().hasOwnProperty(key)) {
             var user = snap.val()[key];
-            returnArr.push(user);
+            if (negocioActivo(user)) {
+              returnArr.push(user);
+            }
           }
         }
         res.status(200).json(returnArr);
@@ -58,7 +68,9 @@ app.get('/user/search-by-location', (req, res) => {
         for (var key in snap.val()) {
           if (snap.val().hasOwnProperty(key)) {
             var user = snap.val()[key];
-            returnArr.push(user);
+            if (negocioActivo(user)) {
+              returnArr.push(user);
+            }
           }
         }
         res.status(200).json(returnArr);

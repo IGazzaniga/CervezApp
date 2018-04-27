@@ -14,6 +14,8 @@ export class User {
     happyHours: HappyHour[];
     localidad: string;
     patrocinado: boolean;
+    prueba: boolean;
+    pago: boolean;
     urlmap: string;
     place_id: string;
     marker: string[];
@@ -44,6 +46,8 @@ export class User {
         }
         this.localidad = userLogin.localidad || null;
         this.patrocinado = userLogin.patrocinado || false;
+        this.prueba = userLogin.prueba || true;
+        this.pago = userLogin.pago || false;
         this.urlmap = userLogin.urlmap || null;
         this.place_id = userLogin.place_id || null;
         this.marker = userLogin.marker || null;

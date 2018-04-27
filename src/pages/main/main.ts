@@ -41,7 +41,7 @@ export class MainPage {
         if (data.results) {
           this.location = data.results[1].formatted_address;
           let place_id = data.results[1].place_id;
-          this.userService.getAll(place_id).subscribe((negocios) => {
+          this.userService.getByLocation(place_id).subscribe((negocios) => {
             this.negocios = negocios;
             this.spinner = false;
           })

@@ -109,10 +109,6 @@ export class UserService {
     });
   }
 
-  public getAll (place_id:string): Observable<User[]> {
-    return this.db.list<User>(this.usersDB, ref => ref.orderByChild('place_id').equalTo(place_id)).valueChanges();
-  }
-
   public getAlls (): Observable<User[]> {
     return this.db.list<User>(this.usersDB).valueChanges();
   }
@@ -167,10 +163,10 @@ export class UserService {
     return true;
   }
 
-/* Funcion para el reseteo de contraseña */
-forgotPasswordUser(email: any){
-  return this.auth.sendPasswordResetEmail(email)
-}
+  /* Funcion para el reseteo de contraseña */
+  forgotPasswordUser(email: any){
+    return this.auth.sendPasswordResetEmail(email)
+  }
 }
 
 
