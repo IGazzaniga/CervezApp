@@ -15,14 +15,14 @@
   <!-- cordova.js required for cordova apps -->
   <script src="cordova.js"></script>
 
-  <!-- un-comment this code to enable service worker
+  <!-- un-comment this code to enable service worker-->
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('OneSignalSDKWorker.js')
         .then(() => console.log('service worker installed'))
         .catch(err => console.error('Error', err));
     }
-  </script>-->
+  </script>
 
   <link href="build/main.css" rel="stylesheet">
 
@@ -32,16 +32,9 @@
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
 
-  <!-- The polyfills js is generated during the build process -->
-  <script src="build/polyfills.js"></script>
-  <script src="build/vendor.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPbnlhnWFRIBKbPx8iLFcUD0PDoGc4KCY"></script>
-  <!--Google Place API-->
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDoJ4u5XtctqSC3HVhsT-yUJWwf36YVHas"></script>
-  <!-- The bundle js is generated during the build process -->
-  <script src="build/main.js"></script>
   <!--OneSignal para notificaciones push-->
-  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>  
+  <!-- The polyfills js is generated during the build process -->
   <script>
     var OneSignal = window.OneSignal || [];
     OneSignal.push(["init", {
@@ -51,20 +44,16 @@
         "title": "QuePinta?",
         "message": "A partir de ahora podrás recibir notificaciones con descuentos, promociones, HappyHours y más!",
         // "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
-      },
-      promptOptions: {
-        /* actionMessage limited to 90 characters */
-        actionMessage: "Desea recibir notificaciones con descuentos, promociones, HappyHours y muchas cosas mas?",
-        /* acceptButtonText limited to 15 characters */
-        acceptButtonText: "Permitir",
-        /* cancelButtonText limited to 15 characters */
-        cancelButtonText: "No, Gracias"
       }
     }]);
-    OneSignal.push(function() {
-      OneSignal.showHttpPrompt();
-    });
   </script>
+  <script src="build/polyfills.js"></script>
+  <script src="build/vendor.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPbnlhnWFRIBKbPx8iLFcUD0PDoGc4KCY"></script>
+  <!--Google Place API-->
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDoJ4u5XtctqSC3HVhsT-yUJWwf36YVHas"></script>
+  <!-- The bundle js is generated during the build process -->
+  <script src="build/main.js"></script>
 
 </body>
 </html>
