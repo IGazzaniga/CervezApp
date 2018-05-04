@@ -42,13 +42,13 @@ export class HomePage {
     this.userService.getCurrentUser().then((user) => {
       if (this.userService.isCompleteInfo(user)) {
         this.negocio = user;
-        if ((this.negocio.prueba == false) && (this.negocio.pago == false)){
-          alert("Su período de prueba/pago expiró y ya no está apareciendo en nuestra plataforma. Para más información, enviar un mail a info@quepinta.com")
-        }
         this.categoriasService.getAll(user.uid).subscribe((categorias) => {
           this.categorias = categorias;
           this.spinner = false;
         })
+        if (this.negocio.prueba == false && this.negocio.pago == false) {
+          alert("Su período de prueba/pago expiró y ya no está apareciendo en nuestra plataforma. Para más información, enviar un mail a info@quepinta.com")
+        }
       } else {
         this.navCtrl.setRoot('ProfilePage')
       }

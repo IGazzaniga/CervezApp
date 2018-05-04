@@ -46,8 +46,16 @@ export class User {
         }
         this.localidad = userLogin.localidad || null;
         this.patrocinado = userLogin.patrocinado || false;
-        this.prueba = userLogin.prueba || true;
-        this.pago = userLogin.pago || false;
+        if (userLogin.prueba == null || userLogin.prueba == undefined) {
+            this.prueba = true;
+        } else {
+            this.prueba = userLogin.prueba
+        }
+        if (userLogin.pago == null || userLogin.pago == undefined) {
+            this.pago = false;
+        } else {
+            this.pago = userLogin.pago
+        }
         this.urlmap = userLogin.urlmap || null;
         this.place_id = userLogin.place_id || null;
         this.marker = userLogin.marker || null;
