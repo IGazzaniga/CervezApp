@@ -8,6 +8,11 @@ mercadopago.configure({
 });
 const cors = require('cors')({origin: true});
 const app = express();
+const cron = require('node-cron');
+
+cron.schedule('* * * * *', function(){
+  console.log('running a task every minute');
+});
 
 firebase.initializeApp(functions.config().firebase);
 const usersRef = firebase.database().ref('/users');
