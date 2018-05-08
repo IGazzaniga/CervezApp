@@ -43,6 +43,14 @@ export class NotificacionesPage {
     this.notificacionsService.sentNotification(this.currentUser, this.descripcion).subscribe((data) => {
       console.log(data);
       this.descripcion = '';
+      this.currentUser.notificacionesRestantes = (this.currentUser.notificacionesRestantes-1);
+      var userUpdate = new User(this.currentUser);
+      this.userService.updateProfile(userUpdate).then(() => {
+        this.userService.setCurrentUser(userUpdate).then(() => {
+          alert("Le quedan " + this.currentUser.notificacionesRestantes + " disponibles");
+        })
+      })
+      
       let toast = this.toastCtrl.create({
         message: 'La notificaciones se envio correctamente a todo los usuarios de la aplicacion',
         duration: 3000,

@@ -19,6 +19,7 @@ export class User {
     urlmap: string;
     place_id: string;
     marker: string[];
+    notificacionesRestantes: number;
 
     constructor(userLogin: any) {
         this.email = userLogin.email;
@@ -59,6 +60,7 @@ export class User {
         this.urlmap = userLogin.urlmap || null;
         this.place_id = userLogin.place_id || null;
         this.marker = userLogin.marker || null;
+        this.notificacionesRestantes= userLogin.notificacionesRestantes;
     }
 
 }
