@@ -60,7 +60,7 @@ export class User {
         this.urlmap = userLogin.urlmap || null;
         this.place_id = userLogin.place_id || null;
         this.marker = userLogin.marker || null;
-        this.notificacionesRestantes= userLogin.notificacionesRestantes;
+        this.notificacionesRestantes = userLogin.notificacionesRestantes || 0;
     }
 
 }
