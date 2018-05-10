@@ -121,6 +121,16 @@ export class UserService {
     return this.api.get('user/search', {val: val}).map((users: any) => this.mapUsers(users));
   }
 
+  public getUserByUsername(username: string): Observable<User> {
+    return this.api.get('user/search-by-username', {username: username}).map((user:any) => { 
+      if (user) {
+        return this.mapUser(user);
+      } else {
+        return null;
+      }
+    });
+  }
+
   public getByLocation (place_id: string): Observable<User[]> {
     return this.api.get('user/search-by-location', {placeId: place_id}).map((users: any) => this.mapUsers(users));
   }
@@ -141,19 +151,14 @@ export class UserService {
     return result;
   }
 
+  private mapUser(user: any): User {
+    return new User(user); 
+  }
+
   public saveImageProfile (foto: File) {
     return this.getCurrentUser().then((user) => {
       return this.storageRef.child(`profile-images/${user.uid}.jpg`).put(foto);
     })
-  }
-  
-
-  public getUserByUsername(username: string): Promise<any> {
-    return this.usersDB.orderByChild('username').equalTo(username).once("value");
-  }
-  
-  public searchNegocio(nombre: string): Promise<any> {
-    return this.usersDB.orderByChild('nombre').equalTo(nombre).once("value");
   }
 
   public isCompleteInfo(user) {

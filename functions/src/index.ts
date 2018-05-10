@@ -60,6 +60,27 @@ app.get('/user/search', (req, res) => {
     });
 });
 
+app.get('/user/search-by-username', (req, res) => {
+  const username = req.query.username;
+  usersRef.orderByChild('username').equalTo(username).once('value', (snap) => {
+    if (snap.val() !== null) {
+      for (var key in snap.val()) {
+        if (snap.val().hasOwnProperty(key)) {
+          var user = snap.val()[key];
+          if (negocioActivo(user)) {
+            res.status(200).json(user);
+          }
+        }
+      }
+    } else {
+      res.status(200).send(null);
+    }
+  }).catch(error => {
+      console.log('Error getting user details', username, error.message);
+      res.sendStatus(500);
+  });
+});
+
 app.get('/user/search-by-location', (req, res) => {
     const placeId = req.query.placeId;
     usersRef.orderByChild('place_id').equalTo(placeId).once('value', (snap) => {

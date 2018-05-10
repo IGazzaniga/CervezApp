@@ -43,14 +43,15 @@ export class NegocioMainPage {
       });
     } else {
       let username = this.navParams.get('nombre');
-      this.userService.getUserByUsername(username).then((data) => {
-        if (data.val()) {
-          this.negocio = this.returnNegocio(data, username);
+      this.userService.getUserByUsername(username).subscribe((user) => {
+        if (user) {
+          this.negocio = this.returnNegocio(user, username);
           this.categoriaService.getAll(this.negocio.uid).subscribe((categorias) => {
             this.categorias = categorias;
             this.spinner = false;
           })
         } else {
+          alert("Este negocio esta temporalmente inactivo");
           this.navCtrl.pop();
         }
       })
