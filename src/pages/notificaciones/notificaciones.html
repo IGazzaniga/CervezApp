@@ -17,7 +17,7 @@
 <ion-content padding>
   <ion-title id="aviso" *ngIf="currentUser?.notificacionesRestantes <= 0"> No tiene más notificaciones disponibles </ion-title>
   <div *ngIf="currentUser?.notificacionesRestantes > 0">
-  <ion-title>Enviar notificacion a todos</ion-title>
+    <ion-title>Enviar notificacion a todos</ion-title>
     <form (submit)="enviar()">
       <ion-list>
         <ion-item>

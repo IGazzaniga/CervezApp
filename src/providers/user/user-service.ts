@@ -45,6 +45,10 @@ export class UserService {
     }
   }
 
+  public getRefUsersDB () {
+    return this.usersDB;
+  }
+
     /**
    * [refreshUser description]
    * @return {[type]} [description]

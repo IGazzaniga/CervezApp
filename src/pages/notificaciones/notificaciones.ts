@@ -28,6 +28,9 @@ export class NotificacionesPage {
   ionViewDidLoad() {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
+      this.userService.getRefUsersDB().child(this.currentUser.uid).child('notificacionesRestantes').on("value", (data) => {
+        this.update(data.val()); 
+      });
     })
   }
 
@@ -38,6 +41,10 @@ export class NotificacionesPage {
       this.navCtrl.setRoot('MainPage');
       return false;
     }
+  }
+
+  private update (notifUpd) {
+    this.currentUser.notificacionesRestantes = notifUpd;
   }
 
   public enviar () {
