@@ -71,7 +71,7 @@ export class MyApp {
           }
         });
       } else {
-        this.rootPage = 'MainPage';
+        this.nav.setRoot('MainPage');
         this.userService.setCurrentUser(null);
         this.notifyMe();
       }
