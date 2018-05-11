@@ -70,12 +70,12 @@ app.get('/user/search-by-username', (req, res) => {
           if (negocioActivo(user)) {
             res.status(200).json(user);
           } else {
-            res.status(200).send(null);
+            res.status(200).json(null);
           }
         }
       }
     } else {
-      res.status(200).send(null);
+      res.status(200).json(null);
     }
   }).catch(error => {
       console.log('Error getting user details', username, error.message);

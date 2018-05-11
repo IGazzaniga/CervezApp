@@ -9,7 +9,7 @@
       ".indexOn": "idCategoria"
     },
     "users": {
-      ".indexOn": ["place_id", "username"]
+      ".indexOn": ["place_id", "username", "nombre_busqueda"]
     }
   }
 }
