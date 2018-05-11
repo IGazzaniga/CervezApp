@@ -114,7 +114,7 @@ export class UserService {
   }
 
   public getAlls (): Observable<User[]> {
-    return this.db.list<User>(this.usersDB).valueChanges();
+    return this.api.get('user/all').map((users: any) => this.mapUsers(users));
   }
 
   public getByName (val: string): Observable<User[]> {

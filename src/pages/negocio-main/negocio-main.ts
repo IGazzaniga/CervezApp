@@ -52,14 +52,16 @@ export class NegocioMainPage {
           })
         } else {
           alert("Este negocio esta temporalmente inactivo");
-          this.navCtrl.pop();
+          this.navCtrl.setRoot("MainPage");
         }
       })
     }
   }
+
   public goToCategoria (cat: Categoria) {
     this.navCtrl.push('CategoriaDetailClientePage', {'nombre-neg': this.negocio.username, 'nombre-cat': cat.nombre, 'categoria': cat});
   }
+
   hideMap(){
     var map = document.getElementById('map')
     document.getElementById('map').classList.remove('show-map');
@@ -75,35 +77,34 @@ export class NegocioMainPage {
         latlong = results[0].geometry.location;
       }
       // create map
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: latlong,
-      zoom: 14,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    });
-    var that = this;
-    var marker1;            
-    marker1 = new google.maps.Marker({
-      position: latlong,
-      map: map,
-      animation: google.maps.Animation.DROP,
-      title: negocio.nombre,
-      icon: '../assets/icon/marker.png',
-      infowindow,
-    });
-    document.getElementById('map').classList.add('show-map');
-    document.getElementById('ver').classList.add('hide-text');
-    document.getElementById('ocultar').classList.add('show-text');
-    marker1.addListener('click', function() {
-        infowindow.open(map, this);
-        console.log(marker1.title);
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: latlong,
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
-    
-    var link= '<a href=http://localhost:8100/#/home/' +negocio.username + '>Ir a la carta</a>'
-    var infowindow = new google.maps.InfoWindow({
-      content: negocio.nombre+"<br />"+negocio.direccion+"<br />"+link
+      var that = this;
+      var marker1;            
+      marker1 = new google.maps.Marker({
+        position: latlong,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: negocio.nombre,
+        icon: '../assets/icon/marker.png',
+        infowindow,
+      });
+      document.getElementById('map').classList.add('show-map');
+      document.getElementById('ver').classList.add('hide-text');
+      document.getElementById('ocultar').classList.add('show-text');
+      marker1.addListener('click', function() {
+          infowindow.open(map, this);
+          console.log(marker1.title);
+        });
+      
+      var link= '<a href=http://localhost:8100/#/home/' +negocio.username + '>Ir a la carta</a>'
+      var infowindow = new google.maps.InfoWindow({
+        content: negocio.nombre+"<br />"+negocio.direccion+"<br />"+link
+      });
     });
-    });
-    
    }
 
 }

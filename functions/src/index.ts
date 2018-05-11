@@ -37,6 +37,28 @@ const negocioActivo = (negocio) => {
 
 app.use(cors);
 
+app.get('/user/all', (req, res) => {
+  usersRef.once('value', (snap) => {
+    if (snap.val() !== null) {
+      var returnArr = [];
+      for (var key in snap.val()) {
+        if (snap.val().hasOwnProperty(key)) {
+          var user = snap.val()[key];
+          if (negocioActivo(user)) {
+            returnArr.push(user);
+          }
+        }
+      }
+      res.status(200).json(returnArr);
+    } else {
+      res.status(200).json([]);
+    }
+  }).catch(error => {
+      console.log('Error getting alll Users', error.message);
+      res.sendStatus(500);
+  });
+});
+
 app.get('/user/search', (req, res) => {
     const val = req.query.val;
     usersRef.orderByChild('nombre_busqueda').startAt(val).endAt(`${val}\uf8ff`).once('value', (snap) => {
