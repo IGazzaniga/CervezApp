@@ -45,7 +45,7 @@ export class NegocioMainPage {
       let username = this.navParams.get('nombre');
       this.userService.getUserByUsername(username).subscribe((user) => {
         if (user) {
-          this.negocio = this.returnNegocio(user, username);
+          this.negocio = user;
           this.categoriaService.getAll(this.negocio.uid).subscribe((categorias) => {
             this.categorias = categorias;
             this.spinner = false;
@@ -105,18 +105,5 @@ export class NegocioMainPage {
     });
     
    }
-
-  private returnNegocio (data: any, username: string): User {
-    for (var key in data.val()) {
-      if (data.val().hasOwnProperty(key)) {
-        var element = data.val()[key];
-      }
-    }
-    if (element) {
-      return new User(element);
-    } else {
-      null;
-    }
-  }
 
 }

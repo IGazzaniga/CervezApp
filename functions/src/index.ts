@@ -69,6 +69,8 @@ app.get('/user/search-by-username', (req, res) => {
           var user = snap.val()[key];
           if (negocioActivo(user)) {
             res.status(200).json(user);
+          } else {
+            res.status(200).send(null);
           }
         }
       }
