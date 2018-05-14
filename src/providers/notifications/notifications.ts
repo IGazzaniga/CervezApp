@@ -21,7 +21,7 @@ export class NotificationsProvider {
       included_segments: ["All"],
       headings: { 'en': negocio.nombre},
       contents: { 'en': descripcion },
-      url: '/home/'+negocio.username,
+      url: '/n/'+negocio.username,
       chrome_web_icon: negocio.foto
     }
     let headers = { 'Authorization': 'Basic ' + 'NWJlNDI4ZDQtZDg3Mi00ZjViLWI2MWUtMmI1MzQwZDI1MGNj' }

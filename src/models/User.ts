@@ -14,9 +14,12 @@ export class User {
     happyHours: HappyHour[];
     localidad: string;
     patrocinado: boolean;
+    prueba: boolean;
+    pago: boolean;
     urlmap: string;
     place_id: string;
     marker: string[];
+    notificacionesRestantes: number;
 
     constructor(userLogin: any) {
         this.email = userLogin.email;
@@ -44,9 +47,20 @@ export class User {
         }
         this.localidad = userLogin.localidad || null;
         this.patrocinado = userLogin.patrocinado || false;
+        if (userLogin.prueba == null || userLogin.prueba == undefined) {
+            this.prueba = true;
+        } else {
+            this.prueba = userLogin.prueba
+        }
+        if (userLogin.pago == null || userLogin.pago == undefined) {
+            this.pago = false;
+        } else {
+            this.pago = userLogin.pago
+        }
         this.urlmap = userLogin.urlmap || null;
         this.place_id = userLogin.place_id || null;
         this.marker = userLogin.marker || null;
+        this.notificacionesRestantes = userLogin.notificacionesRestantes || 0;
     }
 
 }

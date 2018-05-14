@@ -27,7 +27,37 @@ const authenticate = (req, res, next) => {
   });
 };
 
+const negocioActivo = (negocio) => {
+  if (negocio.prueba || negocio.pago) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 app.use(cors);
+
+app.get('/user/all', (req, res) => {
+  usersRef.once('value', (snap) => {
+    if (snap.val() !== null) {
+      var returnArr = [];
+      for (var key in snap.val()) {
+        if (snap.val().hasOwnProperty(key)) {
+          var user = snap.val()[key];
+          if (negocioActivo(user)) {
+            returnArr.push(user);
+          }
+        }
+      }
+      res.status(200).json(returnArr);
+    } else {
+      res.status(200).json([]);
+    }
+  }).catch(error => {
+      console.log('Error getting alll Users', error.message);
+      res.sendStatus(500);
+  });
+});
 
 app.get('/user/search', (req, res) => {
     const val = req.query.val;
@@ -37,7 +67,9 @@ app.get('/user/search', (req, res) => {
         for (var key in snap.val()) {
           if (snap.val().hasOwnProperty(key)) {
             var user = snap.val()[key];
-            returnArr.push(user);
+            if (negocioActivo(user)) {
+              returnArr.push(user);
+            }
           }
         }
         res.status(200).json(returnArr);
@@ -50,6 +82,29 @@ app.get('/user/search', (req, res) => {
     });
 });
 
+app.get('/user/search-by-username', (req, res) => {
+  const username = req.query.username;
+  usersRef.orderByChild('username').equalTo(username).once('value', (snap) => {
+    if (snap.val() !== null) {
+      for (var key in snap.val()) {
+        if (snap.val().hasOwnProperty(key)) {
+          var user = snap.val()[key];
+          if (negocioActivo(user)) {
+            res.status(200).json(user);
+          } else {
+            res.status(200).json(null);
+          }
+        }
+      }
+    } else {
+      res.status(200).json(null);
+    }
+  }).catch(error => {
+      console.log('Error getting user details', username, error.message);
+      res.sendStatus(500);
+  });
+});
+
 app.get('/user/search-by-location', (req, res) => {
     const placeId = req.query.placeId;
     usersRef.orderByChild('place_id').equalTo(placeId).once('value', (snap) => {
@@ -58,7 +113,9 @@ app.get('/user/search-by-location', (req, res) => {
         for (var key in snap.val()) {
           if (snap.val().hasOwnProperty(key)) {
             var user = snap.val()[key];
-            returnArr.push(user);
+            if (negocioActivo(user)) {
+              returnArr.push(user);
+            }
           }
         }
         res.status(200).json(returnArr);

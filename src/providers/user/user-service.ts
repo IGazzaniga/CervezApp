@@ -45,6 +45,10 @@ export class UserService {
     }
   }
 
+  public getRefUsersDB () {
+    return this.usersDB;
+  }
+
     /**
    * [refreshUser description]
    * @return {[type]} [description]
@@ -109,16 +113,22 @@ export class UserService {
     });
   }
 
-  public getAll (place_id:string): Observable<User[]> {
-    return this.db.list<User>(this.usersDB, ref => ref.orderByChild('place_id').equalTo(place_id)).valueChanges();
-  }
-
   public getAlls (): Observable<User[]> {
-    return this.db.list<User>(this.usersDB).valueChanges();
+    return this.api.get('user/all').map((users: any) => this.mapUsers(users));
   }
 
   public getByName (val: string): Observable<User[]> {
     return this.api.get('user/search', {val: val}).map((users: any) => this.mapUsers(users));
+  }
+
+  public getUserByUsername(username: string): Observable<User> {
+    return this.api.get('user/search-by-username', {username: username}).map((user:any) => { 
+      if (user) {
+        return this.mapUser(user);
+      } else {
+        return null;
+      }
+    });
   }
 
   public getByLocation (place_id: string): Observable<User[]> {
@@ -141,19 +151,14 @@ export class UserService {
     return result;
   }
 
+  private mapUser(user: any): User {
+    return new User(user); 
+  }
+
   public saveImageProfile (foto: File) {
     return this.getCurrentUser().then((user) => {
       return this.storageRef.child(`profile-images/${user.uid}.jpg`).put(foto);
     })
-  }
-  
-
-  public getUserByUsername(username: string): Promise<any> {
-    return this.usersDB.orderByChild('username').equalTo(username).once("value");
-  }
-  
-  public searchNegocio(nombre: string): Promise<any> {
-    return this.usersDB.orderByChild('nombre').equalTo(nombre).once("value");
   }
 
   public isCompleteInfo(user) {
@@ -167,10 +172,10 @@ export class UserService {
     return true;
   }
 
-/* Funcion para el reseteo de contraseña */
-forgotPasswordUser(email: any){
-  return this.auth.sendPasswordResetEmail(email)
-}
+  /* Funcion para el reseteo de contraseña */
+  forgotPasswordUser(email: any){
+    return this.auth.sendPasswordResetEmail(email)
+  }
 }
 
 

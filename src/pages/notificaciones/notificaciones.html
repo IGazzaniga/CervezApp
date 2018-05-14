@@ -15,7 +15,9 @@
 
 
 <ion-content padding>
-  <ion-title>Enviar notificacion a todos</ion-title>
+  <ion-title id="aviso" *ngIf="currentUser?.notificacionesRestantes <= 0"> No tiene más notificaciones disponibles </ion-title>
+  <div *ngIf="currentUser?.notificacionesRestantes > 0">
+    <ion-title>Enviar notificacion a todos</ion-title>
     <form (submit)="enviar()">
       <ion-list>
         <ion-item>
@@ -23,8 +25,9 @@
           <ion-input type="text" [(ngModel)]="descripcion" name="descripcion"></ion-input>
         </ion-item>
         <div padding>
-          <button ion-button color="primary" block>Enviar</button>
+          <button [disabled]="disabledButton" ion-button color="primary" block>Enviar</button>
         </div>
       </ion-list>
     </form>
+  </div>  
 </ion-content>

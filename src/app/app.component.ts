@@ -7,6 +7,8 @@ import { Config, Nav, Platform } from 'ionic-angular';
 
 import { User } from "../models/User";
 
+declare var OneSignal;
+
 @Component({
   template: `<ion-menu [content]="content">
     <ion-header>
@@ -39,8 +41,8 @@ export class MyApp {
   pages: any[] = [
     { title: 'Home', component: 'HomePage', icon: 'home' },
     { title: 'Notificaciones', component: 'NotificacionesPage', icon: 'notifications'},
-    { title: 'Perfil', component: 'ProfilePage', icon: 'person'},
-    { title: 'Pagos', component: 'PagoPage', icon: 'card'}
+    { title: 'Perfil', component: 'ProfilePage', icon: 'person'}
+    //{ title: 'Pagos', component: 'PagoPage', icon: 'card'}
   ]
 
   constructor(private translate: TranslateService, platform: Platform,
@@ -69,8 +71,9 @@ export class MyApp {
           }
         });
       } else {
-        this.rootPage = 'MainPage';
+        this.nav.setRoot('MainPage');
         this.userService.setCurrentUser(null);
+        this.notifyMe();
       }
     })
   }
@@ -81,5 +84,20 @@ export class MyApp {
 
   logout () {
     this.userService.logout();
+  }
+
+  notifyMe() {
+    // Comprobamos si el navegador soporta las notificaciones
+    var isPushSupported = OneSignal.isPushNotificationsSupported();
+    console.log(isPushSupported);
+    if (isPushSupported) {
+      // Comprobamos si los permisos han sido concedidos anteriormente
+      OneSignal.push(["getNotificationPermission", function(permission) {
+        console.log("Site Notification Permission:", permission);
+        // (Output) Site Notification Permission: default
+      }]);
+    } else {
+      console.log("Las notificaciones no son soportadas")
+    }
   }
 }
