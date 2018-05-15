@@ -4,9 +4,9 @@
   "start_url": "/",
   "display": "standalone",
   "icons": [{
-    "src": "/assets/icon/pp.jpg",
+    "src": "/assets/icon/pp.png",
     "sizes": "512x512",
-    "type": "image/jpg"
+    "type": "image/png"
   }],
   "background_color": "#fff",
   "theme_color": "#fff",
