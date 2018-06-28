@@ -3,11 +3,12 @@ import {NetworkService} from '../providers/network/network-service';
 import {UserService} from '../providers/user/user-service';
 import { Component, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform } from 'ionic-angular';
+import { Config, Nav, Platform, AlertController } from 'ionic-angular';
 
 import { User } from "../models/User";
 
 declare var OneSignal;
+declare var Notification;
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -46,7 +47,7 @@ export class MyApp {
   ]
 
   constructor(private translate: TranslateService, platform: Platform,
-              private config: Config, private userService: UserService, public networkService: NetworkService) {
+              private config: Config, private userService: UserService, public networkService: NetworkService, public alertCtrl: AlertController) {
     this.networkService.onDisconect();
     this.networkService.onConnect();
     this.checkAuthUser();
@@ -89,15 +90,40 @@ export class MyApp {
   notifyMe() {
     // Comprobamos si el navegador soporta las notificaciones
     var isPushSupported = OneSignal.isPushNotificationsSupported();
-    console.log(isPushSupported);
     if (isPushSupported) {
       // Comprobamos si los permisos han sido concedidos anteriormente
-      OneSignal.push(["getNotificationPermission", function(permission) {
-        console.log("Site Notification Permission:", permission);
-        // (Output) Site Notification Permission: default
-      }]);
+      if (Notification.permission == "default") {
+        this.showNotifPrompt();
+      }
     } else {
       console.log("Las notificaciones no son soportadas")
     }
   }
+
+  showNotifPrompt() {
+    const confirm = this.alertCtrl.create({
+      title: 'Recibir notificaciones',
+      message: 'Desea recibir notificaciones con las novedades de todos los lugares registrados en la app?',
+      buttons: [
+        {
+          text: 'Mas Tarde',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Si',
+          handler: () => {
+            Notification.requestPermission().then((per) => {
+              if (per == 'granted') {
+                console.log('notificaciones activadas')
+              }
+            });
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
 }
