@@ -116,6 +116,7 @@ export class MyApp {
           handler: () => {
             Notification.requestPermission().then((per) => {
               if (per == 'granted') {
+                OneSignal.registerForPushNotifications();
                 console.log('notificaciones activadas')
               }
             });

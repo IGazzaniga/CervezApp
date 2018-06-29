@@ -22,7 +22,8 @@ export class NotificationsProvider {
       headings: { 'en': negocio.nombre},
       contents: { 'en': descripcion },
       url: '/n/'+negocio.username,
-      chrome_web_icon: negocio.foto
+      chrome_web_icon: negocio.foto,
+      chrome_web_badge: '..\assets\icon\marker.png'
     }
     let headers = { 'Authorization': 'Basic ' + 'NWJlNDI4ZDQtZDg3Mi00ZjViLWI2MWUtMmI1MzQwZDI1MGNj' }
     let options = { headers: headers }
