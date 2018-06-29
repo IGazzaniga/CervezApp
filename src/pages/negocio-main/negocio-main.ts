@@ -82,28 +82,17 @@ export class NegocioMainPage {
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
-      var that = this;
       var marker1;            
       marker1 = new google.maps.Marker({
         position: latlong,
         map: map,
         animation: google.maps.Animation.DROP,
         title: negocio.nombre,
-        icon: '../assets/icon/marker.png',
-        infowindow,
+        icon: '../assets/icon/marker.png'
       });
       document.getElementById('map').classList.add('show-map');
       document.getElementById('ver').classList.add('hide-text');
       document.getElementById('ocultar').classList.add('show-text');
-      marker1.addListener('click', function() {
-          infowindow.open(map, this);
-          console.log(marker1.title);
-        });
-      
-      var link= '<a href=http://localhost:8100/#/home/' +negocio.username + '>Ir a la carta</a>'
-      var infowindow = new google.maps.InfoWindow({
-        content: negocio.nombre+"<br />"+negocio.direccion+"<br />"+link
-      });
     });
    }
 
