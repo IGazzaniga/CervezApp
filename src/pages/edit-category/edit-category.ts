@@ -86,8 +86,18 @@ export class EditCategoryPage {
       let imageData = (readerEvent.target as any).result;
       this.currentCategory.imagen = imageData;
     };
-    this.fileFoto = event.target.files[0];
-    reader.readAsDataURL(this.fileFoto);
+    if (event.target.files[0]) {
+      if (event.target.files[0].type == "image/jpg" || event.target.files[0].type == "image/jpeg" || event.target.files[0].type == "image/png") {
+        if (event.target.files[0].size < 2097152) {
+          this.fileFoto = event.target.files[0];
+          reader.readAsDataURL(this.fileFoto);
+        } else {
+          alert("La imagen debe tener un tamaño menor a 2MB");
+        }
+      } else {
+        alert("Debe incluir una imagen válida, con extensión jpg o png");
+      }
+    }
   }
  
   public validacion(currentCategory: Categoria):boolean{
