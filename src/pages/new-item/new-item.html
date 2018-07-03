@@ -44,12 +44,12 @@
               </ion-item>
               <ion-item>
                 <ion-label stacked>Graduación alcohólica</ion-label>
-                <ion-input type="number" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
+                <ion-input type="number" min="0" [(ngModel)]="newItemForm.graduacion" name="graduation"></ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label stacked>IBU</ion-label>
-                <ion-input type="number" [(ngModel)]="newItemForm.ibu" name="IBU"></ion-input>
+                <ion-input type="number" min="0" [(ngModel)]="newItemForm.ibu" name="IBU"></ion-input>
               </ion-item>
 
               <ion-item>
@@ -78,7 +78,7 @@
               </ion-item>
               <ion-item>
                 <ion-label stacked>Medida</ion-label>
-                <ion-input type="number" [(ngModel)]="racion.medida" [ngModelOptions]="{standalone: true}"></ion-input>
+                <ion-input type="number" min="0" [(ngModel)]="racion.medida" [ngModelOptions]="{standalone: true}"></ion-input>
               </ion-item>
               <select name="unidad" [(ngModel)]="racion.unidad">
                 <option value="kg">Kg</option>
@@ -89,7 +89,7 @@
               </select>
               <ion-item>
                 <ion-label stacked>Precio</ion-label>
-                <ion-input type="number" [(ngModel)]="racion.precio" [ngModelOptions]="{standalone: true}"></ion-input>
+                <ion-input type="number" min="0" [(ngModel)]="racion.precio" [ngModelOptions]="{standalone: true}"></ion-input>
               </ion-item>
             </ion-item-group>
 
