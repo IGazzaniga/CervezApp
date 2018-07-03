@@ -52,35 +52,47 @@ export class NewCategoryPage {
       let imageData = (readerEvent.target as any).result;
       this.newCategoryForm.imagen = imageData;
     };
-    if (event.target.files[0].size < 2097152) {
-      this.fileFoto = event.target.files[0];
-      reader.readAsDataURL(this.fileFoto);
-    } else {
-      alert("La imagen debe tener un tamaño menor a 2MB");
+    if (event.target.files[0]) {
+      if (event.target.files[0].type == "image/jpg" || event.target.files[0].type == "image/jpeg" || event.target.files[0].type == "image/png") {
+        if (event.target.files[0].size < 2097152) {
+          this.fileFoto = event.target.files[0];
+          reader.readAsDataURL(this.fileFoto);
+        } else {
+          alert("La imagen debe tener un tamaño menor a 2MB");
+        }
+      } else {
+        alert("Debe incluir una imagen válida, con extensión jpg o png");
+      }
     }
   }
 
   public validacion(newCategoria: NewCategoria):boolean{
-    if(!newCategoria.nombre || newCategoria.nombre.trim() === ""){
+    if (!newCategoria.nombre || newCategoria.nombre.trim() === "") {
       alert("Falta completar el nombre de la categoría");
       return false;
     }
-      else if(!newCategoria.imagen){
-        alert("Falta agregar una imagen a la categoría");
+    if (!newCategoria.imagen) {
+      alert("Falta agregar una imagen a la categoría");
+      return false;
+    }
+    if (this.fileFoto) {
+      if (this.fileFoto.type != "image/jpg" && this.fileFoto.type != "image/jpeg" && this.fileFoto.type != "image/png") {
+        alert("Debe incluir una imagen válida, con extensión jpg o png");
+        return false;
+      } 
+      if (this.fileFoto.size > 2097152) {
+        alert("Debe incluir una imagen que no sea mayor a 2MB");
         return false;
       }
-      else if(this.fileFoto.size > 2097152){
-        alert("Debe incluir una foto que no sea mayor a 2MB");
-        return false;
-      }
-      else if(!newCategoria.icono){
-        alert("Falta asignar un ícono a la categoría");
-        return false;
-      }
-      else{
-        return true;
-      }
-
+    } else {
+      alert("Debe incluir una imagen para la categoria");
+      return false;
+    }
+    if (!newCategoria.icono) {
+      alert("Falta asignar un ícono a la categoría");
+      return false;
+    }
+    return true;
   }
 
   public removeImage(event) {
